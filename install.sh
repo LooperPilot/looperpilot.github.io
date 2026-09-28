@@ -161,6 +161,16 @@ APP_SRC="$PKG/LooperDisplay.app"
 # an allen Dateien. Das Script hat der Nutzer selbst gestartet -- also entfernen,
 # damit die App ohne den Umweg ueber die Systemeinstellungen startet.
 xattr -dr com.apple.quarantine "$APP_SRC" 2>/dev/null || true
+# Eine laufende (aeltere) App zuerst beenden -- sonst holt "open" unten nur das
+# alte Fenster nach vorne und dessen Server laeuft mit der alten Version weiter.
+if [ -z "$LOOPER_NO_OPEN" ] && pgrep -xq LooperDisplay 2>/dev/null; then
+  echo "  quitting the running LooperDisplay ..."
+  osascript -e 'quit app "LooperDisplay"' >/dev/null 2>&1 || true
+  i=0
+  while pgrep -xq LooperDisplay 2>/dev/null && [ $i -lt 10 ]; do sleep 1; i=$((i + 1)); done
+  pkill -x LooperDisplay 2>/dev/null || true
+  sleep 1
+fi
 rm -rf "$APP_DEST"
 ditto "$APP_SRC" "$APP_DEST"
 echo "  -> $APP_DEST ($(/usr/libexec/PlistBuddy -c 'Print :CFBundleShortVersionString' "$APP_DEST/Contents/Info.plist"))"
@@ -184,7 +194,6 @@ install_template "$TEMPLATE" "$TEMPLATES_SRC/$TEMPLATE"
 [ "$CLIPS" = yes ] && install_template "$CLIPS_TEMPLATE" "$TEMPLATES_SRC/$CLIPS_TEMPLATE"
 
 # --- 4. Starten -----------------------------------------------------------
-# Laeuft noch eine aeltere Version, ersetzt die App sie selbst.
 say "Start"
 if [ -z "$LOOPER_NO_OPEN" ]; then
   open "$APP_DEST"
