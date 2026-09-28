@@ -55,9 +55,10 @@ latest_zip() {
 }
 
 # --- 0. Paket ---------------------------------------------------------------
-# PKG = der Ordner mit App, "Zum Kopieren" und Vorlagen: das entpackte Zip selbst
-# oder das frisch geladene neueste Release.
-if [ -d "$HERE/Zum Kopieren/Remote Scripts" ]; then
+# PKG = der Ordner mit App, Scripts, Vorlagen und Presets: das entpackte Zip selbst
+# oder das frisch geladene neueste Release. Aufbau ab 2.0.2: copy_to_RemoteScripts/,
+# AbletonTemplates/, Presets/ -- aeltere Zips hatten "Zum Kopieren/".
+if [ -d "$HERE/copy_to_RemoteScripts" ] || [ -d "$HERE/Zum Kopieren/Remote Scripts" ]; then
   PKG="$HERE"
 else
   say "Download"
@@ -67,8 +68,17 @@ else
   echo "  downloading $(basename "$URL") ..."
   curl -fL --progress-bar -o "$TMP/release.zip" "$URL"
   ditto -x -k "$TMP/release.zip" "$TMP"
-  PKG="$(dirname "$(find "$TMP" -maxdepth 2 -name 'Zum Kopieren' -type d | head -1)")"
-  [ -d "$PKG/Zum Kopieren/Remote Scripts" ] || { echo "Unexpected release contents."; exit 1; }
+  PKG="$(dirname "$(find "$TMP" -maxdepth 2 -name LooperDisplay.app -type d | head -1)")"
+  [ -d "$PKG/LooperDisplay.app" ] || { echo "Unexpected release contents."; exit 1; }
+fi
+if [ -d "$PKG/copy_to_RemoteScripts" ]; then
+  SCRIPTS_SRC="$PKG/copy_to_RemoteScripts"
+  TEMPLATES_SRC="$PKG/AbletonTemplates"
+  BANK_PKG="$PKG/Presets/Morningstar MC6 Pro"
+else
+  SCRIPTS_SRC="$PKG/Zum Kopieren/Remote Scripts"
+  TEMPLATES_SRC="$PKG"
+  BANK_PKG="$PKG/Zum Kopieren/Morningstar MC6 Pro Bank"
 fi
 
 # --- 1. Remote Scripts --------------------------------------------------
@@ -76,7 +86,7 @@ fi
 say "Remote Scripts"
 mkdir -p "$SCRIPTS_DEST"
 for s in LooperDisplay SPD_SX_Pro_Looper; do
-  src="$PKG/Zum Kopieren/Remote Scripts/$s"
+  src="$SCRIPTS_SRC/$s"
   [ -d "$src" ] || { echo "Missing: $src"; exit 1; }
   mkdir -p "$SCRIPTS_DEST/$s"
   cp -R "$src/." "$SCRIPTS_DEST/$s/"
@@ -98,8 +108,8 @@ if [ "$CLIPS" = ask ]; then
 fi
 if [ "$CLIPS" = yes ]; then
   say "MorningstarClips"
-  CLIPS_SRC="$PKG/Zum Kopieren/Remote Scripts/MorningstarClips"
-  BANK_SRC="$PKG/Zum Kopieren/Morningstar MC6 Pro Bank"
+  CLIPS_SRC="$SCRIPTS_SRC/MorningstarClips"
+  BANK_SRC="$BANK_PKG"
   if [ ! -d "$CLIPS_SRC" ]; then
     CLIPS_SRC=""
     URL="$(latest_zip "$CLIPS_REPO" || true)"
@@ -120,7 +130,7 @@ if [ "$CLIPS" = yes ]; then
     # Die Bank bleibt nur im entpackten Zip von selbst liegen -- sonst hierher kopieren
     BANK_DIR="$BANK_SRC"
     if [ "$PKG" != "$HERE" ] || [ -n "$CLIPS_TMP" ]; then
-      BANK_DIR="$HERE/Morningstar MC6 Pro Bank"
+      BANK_DIR="$HERE/Presets/Morningstar MC6 Pro"
       mkdir -p "$BANK_DIR"
       cp "$BANK_SRC"/*.json "$BANK_DIR/" 2>/dev/null || true
     fi
@@ -162,9 +172,9 @@ install_template() {      # $1 = Dateiname, $2 = Quelle
     echo "  -> $TEMPLATES_DEST/$1"
   fi
 }
-install_template "$TEMPLATE" "$PKG/$TEMPLATE"
+install_template "$TEMPLATE" "$TEMPLATES_SRC/$TEMPLATE"
 # Mit MorningstarClips: Vorlage mit Aufnahme-Bereich (> ... <) und Looper-Gruppe
-[ "$CLIPS" = yes ] && install_template "$CLIPS_TEMPLATE" "$PKG/$CLIPS_TEMPLATE"
+[ "$CLIPS" = yes ] && install_template "$CLIPS_TEMPLATE" "$TEMPLATES_SRC/$CLIPS_TEMPLATE"
 
 # --- 4. Starten -----------------------------------------------------------
 # Laeuft noch eine aeltere Version, ersetzt die App sie selbst.
