@@ -36,6 +36,13 @@ CLIPS_TEMPLATE="MorningStarTemplate.als"
 
 say() { printf '\n\033[1m%s\033[0m\n' "$1"; }
 
+# Live liest Remote Scripts nur beim Start: laeuft es gerade, gelten sonst die alten weiter
+live_hint() {
+  if pgrep -xq Live 2>/dev/null; then
+    printf '\n\033[1;33m%s\033[0m\n' "Ableton Live is running -- quit and restart it now, otherwise the OLD scripts stay active."
+  fi
+}
+
 if [ "$(uname -s)" != "Darwin" ]; then
   echo "LooperDisplay only runs on macOS."; exit 1
 fi
@@ -142,7 +149,7 @@ if [ "$CLIPS" = yes ]; then
   fi
 fi
 
-[ -n "$SCRIPTS_ONLY" ] && { say "Done (scripts only). Restart Live."; exit 0; }
+[ -n "$SCRIPTS_ONLY" ] && { say "Done (scripts only). Restart Live."; live_hint; exit 0; }
 
 # --- 2. App ---------------------------------------------------------------
 say "App"
@@ -197,3 +204,4 @@ echo
 echo "To start it again later, just open the 'LooperDisplay' app -- from Applications,"
 echo "Launchpad or Spotlight (Cmd+Space, 'LooperDisplay')."
 echo "You only need install.sh for installing and updating."
+live_hint
