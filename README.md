@@ -26,6 +26,15 @@ cd looper-display
 ./install.sh
 ```
 
+**Update:** Ist `looper-display` schon vom ersten Mal da („destination path
+'looper-display' already exists"), reicht:
+
+```
+cd looper-display
+git pull
+./install.sh
+```
+
 Lädt die neueste App, kopiert Remote Scripts und Vorlage an die richtigen
 Stellen und startet die App — ohne Sicherheitsabfrage von macOS. Danach Live
 neu starten und unter *Einstellungen → Link, Tempo & MIDI* `LooperDisplay`
