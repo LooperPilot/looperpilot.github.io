@@ -476,7 +476,8 @@ git pull
         <li><b>Transport-Leiste</b><span>oben wie auf der Looper-Seite: PLAY, STOP, REC, LOOP, Tempo, Takt und Metronom – dazu ◀ LOOPER zurück zur Looper-Seite (dort führt CLIPS ▶ neben SAVE ALL hierher)</span></li>
         <li><b>MC6 Pro im Browser</b><span>die sechs Schalter mit Spur, Szene und RECORD/PLAY, kurz und lang tippen wie am Gerät — auch ohne echtes MC6 Pro</span></li>
         <li><b>MC6 Pro ein- und ausklappen</b><span>der schmale Knopf ◀ rechts neben dem MC6 Pro, genau so hoch wie das Pedalboard; eingeklappt bleibt er mit ▶ stehen, und die Übersicht bekommt die ganze Breite — pro Gerät gemerkt</span></li>
-        <li><b>Übersicht</b><span>alle Spuren und Szenen mit Clip-Namen: laufende Clips grün, Aufnahmen rot, die letzte Aufnahme markiert; ein Tipp wählt einen Slot aus</span></li>
+        <li><b>Übersicht</b><span>alle Spuren und Szenen mit Clip-Namen: laufende Clips grün, Aufnahmen rot, die letzte Aufnahme markiert; ein Tipp auf einen Clip startet ihn (wie das Pad am Push), ein Tipp auf einen leeren Slot wählt ihn aus; lang halten stoppt den laufenden Clip dieser Spur</span></li>
+        <li><b>Looper unten</b><span>bis zu vier Looper wie auf der Looper-Seite, mit Ringen, Tasten und Fadern zum Bedienen; hat das Set mehr, blättern die Knöpfe ◀ ▶ links und rechts um je einen Looper weiter — und wechselt die Auswahl am nanoKONTROL, SPD-SX oder per Maus auf einen Looper außerhalb, rückt die Anzeige von selbst um einen nach. Ausblenden unter ⚙ Settings → „Show loopers“</span></li>
         <li><b>Einrichtung</b><span><code>./install.sh --with-clips</code> installiert das Script <code>MorningstarClips</code> gleich mit (liegt dem Download bei, die MC6-Pro-Bank ebenso); dann in Live als Bedienoberfläche wählen — LooperDisplay findet es von selbst</span></li>
       </ul>
       <p>Auf dem Tablet: die Adresse unter <b>📱 Tablet</b> öffnet direkt die Clips-Seite.</p>
@@ -619,7 +620,7 @@ git pull
     <div class="row"><div class="swatch" style="border-color: var(--stop); background: var(--stop);"></div>
       <div><b>Leer</b><br><span>nur dünne Konturen und „– –" — auch wenn der Looper formal auf Play steht; darunter die am Looper voreingestellte Aufnahmelänge, z. B. „[4 bars]" (Live 12)</span></div></div>
     <div class="row"><div class="swatch" style="border-color: var(--accent); background: transparent;"></div>
-      <div><b>SPD-Auswahl</b><br><span>gelber Rahmen und das Schild „SPD" (links oben) zeigen den am SPD-SX gewählten Looper</span></div></div>
+      <div><b>Auswahl</b><br><span>der gelbe Rahmen zeigt den gewählten Looper — den auf der in Live gewählten Spur; wählen per Marker ◀ ▶ am nanoKONTROL2, Looper −/+ am SPD-SX oder Klick auf die Spur in Live</span></div></div>
     <div class="row"><div class="swatch" style="border-color: transparent; border-left-color: #bf5af2; transform: rotate(-20deg); background: transparent;"></div>
       <div><b>Fader</b><br><span>der violette Bogen links außen am Ring zeigt die Lautstärke der Spur — unten leise, oben laut, mit weißer Kappe wie am Pult; genau so hoch wie der Fader in Live oder am nanoKONTROL2</span></div></div>
   </div>
@@ -703,7 +704,7 @@ git pull
       <ul class="keys">
         <li><b>▶ / ■ (Play/Stop)</b><span>steuern jeweils alle Looper gleichzeitig. ▶ startet alle gefüllten Looper gemeinsam am nächsten Quantisierungspunkt (Live 12; leere bleiben aus), ■ stoppt alle sofort — fürs Songende</span></li>
         <li><b>● (Rec) zweimal schnell</b><span>löscht <b>alle</b> Looper auf einmal (Live 12). Einmal drücken allein tut nichts — Schutz vor versehentlichem Löschen</span></li>
-        <li><b>Marker ◄ / ►</b><span>schaltet in der Ableton-GUI zwischen den Loopern hin und her, sodass der jeweilige Looper dort angezeigt und bei Bedarf geändert werden kann</span></li>
+        <li><b>Marker ◄ / ►</b><span>schaltet in der Ableton-GUI zwischen den Loopern hin und her, sodass der jeweilige Looper dort angezeigt und bei Bedarf geändert werden kann — und wählt ihn zugleich aus: gelber Rahmen in der Anzeige, dieselbe Auswahl wie für die Pads am SPD-SX</span></li>
         <li><b>SET</b><span>springt zurück zum zuletzt angesteuerten Looper — gilt nur bei Ansteuerung per nanoKONTROL2</span></li>
       </ul>
       <h4>Die LEDs am nanoKONTROL2</h4>
@@ -725,12 +726,12 @@ git pull
     <summary><span>Roland SPD-SX PRO</span><span class="tag">optional</span><span class="chev">▶</span></summary>
     <div class="hw-body">
       <h4>Pad-Übersicht</h4>
-      <p>Die drei linken Pads wirken immer auf den gerade am Gerät <b>gewählten</b>
-         Looper — welcher das ist, zeigt in dieser Anzeige der gelbe Rahmen mit
-         dem Schild „SPD":</p>
+      <p>Die drei linken Pads wirken immer auf den <b>gewählten</b> Looper — den mit dem
+         gelben Rahmen in der Anzeige. Gewählt wird er mit „Looper −/+“, mit den Marker-Tasten
+         am nanoKONTROL2 oder per Klick auf seine Spur in Live; die Spur wird dabei in Live fokussiert:</p>
       <div class="spd-example">
-        <div class="spd-ring-demo"><div class="spd-badge">SPD</div></div>
-        <span class="caption">Ein gelber Rahmen um den Ring, mit diesem Schild links oben —
+        <div class="spd-ring-demo"></div>
+        <span class="caption">Ein gelber Rahmen um den Ring —
           genau wie in der Anzeige selbst.</span>
       </div>
       <div class="pad-grid">
@@ -1027,7 +1028,8 @@ git pull
         <li><b>Transport bar</b><span>at the top, like on the looper page: PLAY, STOP, REC, LOOP, tempo, bar and metronome – plus ◀ LOOPER back to the looper page (there, CLIPS ▶ next to SAVE ALL leads here)</span></li>
         <li><b>MC6 Pro in the browser</b><span>the six switches with track, scene and RECORD/PLAY; short and long taps like on the device — even without a real MC6 Pro</span></li>
         <li><b>Collapse and expand the MC6 Pro</b><span>the narrow ◀ button right next to the MC6 Pro, exactly as tall as the pedalboard; collapsed it stays there with ▶ and the overview gets the full width — remembered per device</span></li>
-        <li><b>Overview</b><span>all tracks and scenes with clip names: playing clips green, recordings red, the last take marked; tapping a slot selects it</span></li>
+        <li><b>Overview</b><span>all tracks and scenes with clip names: playing clips green, recordings red, the last take marked; tapping a clip launches it (like a pad on the Push), tapping an empty slot selects it; hold one to stop the playing clip of that track</span></li>
+        <li><b>Loopers below</b><span>up to four loopers just like on the looper page, with rings, buttons and faders to play them; if the set has more, the ◀ ▶ buttons on the left and right scroll by one looper — and when the selection on the nanoKONTROL, SPD-SX or by mouse moves to a looper outside, the view follows by one. Hide them under ⚙ Settings → "Show loopers"</span></li>
         <li><b>Setup</b><span><code>./install.sh --with-clips</code> installs the <code>MorningstarClips</code> script along (it comes with the download, as does the MC6 Pro bank); then pick it as a control surface in Live — LooperDisplay finds it by itself</span></li>
       </ul>
       <p>On a tablet: the address under <b>📱 Tablet</b> opens the Clips page directly.</p>
@@ -1170,7 +1172,7 @@ git pull
     <div class="row"><div class="swatch" style="border-color: var(--stop); background: var(--stop);"></div>
       <div><b>Empty</b><br><span>only thin outlines and "– –" — even if the looper is formally in Play; below it the record length preset on the looper, e.g. "[4 bars]" (Live 12)</span></div></div>
     <div class="row"><div class="swatch" style="border-color: var(--accent); background: transparent;"></div>
-      <div><b>SPD selection</b><br><span>a yellow ring and the "SPD" badge (top left) show the looper currently selected on the SPD-SX</span></div></div>
+      <div><b>Selection</b><br><span>the yellow ring shows the selected looper — the one on the track selected in Live; select it with Marker ◀ ▶ on the nanoKONTROL2, Looper −/+ on the SPD-SX or by clicking the track in Live</span></div></div>
     <div class="row"><div class="swatch" style="border-color: transparent; border-left-color: #bf5af2; transform: rotate(-20deg); background: transparent;"></div>
       <div><b>Fader</b><br><span>the violet arc on the outside left of the ring shows the track volume — bottom is quiet, top is loud, with a white cap like on a mixer; exactly as high as the fader in Live or on the nanoKONTROL2</span></div></div>
   </div>
@@ -1255,7 +1257,7 @@ git pull
       <ul class="keys">
         <li><b>▶ / ■ (Play/Stop)</b><span>each control all loopers at once. ▶ starts all filled loopers together at the next quantization point (Live 12; empty ones stay off), ■ stops all immediately — for the end of a song</span></li>
         <li><b>● (Rec) twice quickly</b><span>clears <b>all</b> loopers at once (Live 12). A single press does nothing — protection against clearing by accident</span></li>
-        <li><b>Marker ◄ / ►</b><span>switches back and forth between the loopers in Ableton's GUI, so the respective looper is shown there and can be changed if needed</span></li>
+        <li><b>Marker ◄ / ►</b><span>switches back and forth between the loopers in Ableton's GUI, so the respective looper is shown there and can be changed if needed — and selects it at the same time: yellow ring in the display, the same selection the SPD-SX pads use</span></li>
         <li><b>SET</b><span>jumps back to the looper you last addressed — only applies when controlling via the nanoKONTROL2</span></li>
       </ul>
       <h4>The LEDs on the nanoKONTROL2</h4>
@@ -1277,12 +1279,12 @@ git pull
     <summary><span>Roland SPD-SX PRO</span><span class="tag">optional</span><span class="chev">▶</span></summary>
     <div class="hw-body">
       <h4>Pad overview</h4>
-      <p>The three left pads always act on the looper currently
-         <b>selected</b> on the device — which one that is shows in this
-         display as a yellow ring with the "SPD" badge:</p>
+      <p>The three left pads always act on the <b>selected</b> looper — the one with
+         the yellow ring in the display. Select it with "Looper −/+", with the Marker buttons on the
+         nanoKONTROL2 or by clicking its track in Live; the track gets focused in Live as well:</p>
       <div class="spd-example">
-        <div class="spd-ring-demo"><div class="spd-badge">SPD</div></div>
-        <span class="caption">A yellow ring with this badge at the top left —
+        <div class="spd-ring-demo"></div>
+        <span class="caption">A yellow ring around the ring —
           exactly as in the display itself.</span>
       </div>
       <div class="pad-grid">
