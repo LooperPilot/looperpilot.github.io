@@ -45,7 +45,7 @@ Mit dem Morningstar MC6 Pro: `./install.sh --with-clips` installiert das Script
 [MorningstarClips](https://github.com/hennydrums/morningstar-live-clips) gleich mit
 (ohne Angabe fragt `install.sh` danach). Die MC6-Pro-Bank liegt dem Download bei.
 
-Ab 2.0 zeigt die App die Anzeige in ihrem **eigenen Fenster** (Menü *Ansicht*: Looper ⌘1, Clips ⌘2, Tablet-Adresse mit QR-Code ⌘T); Fenster schließen lässt den Server für Tablets weiterlaufen, *Server beenden* (⌥⌘Q) stoppt ihn.
+Ab 2.0 zeigt die App die Anzeige in ihrem **eigenen Fenster** (Menü *Ansicht*: Clips ⌘1, Looper ⌘2, Tablet-Adresse mit QR-Code ⌘T); Fenster schließen lässt den Server für Tablets weiterlaufen, *Server beenden* (⌥⌘Q) stoppt ihn.
 
 Später wieder starten: einfach die App **LooperDisplay** öffnen — aus
 „Programme“, dem Launchpad oder per Spotlight. `install.sh` brauchst du nur
@@ -53,8 +53,8 @@ für die Installation und für Updates.
 
 ## Clips-Seite für das Morningstar MC6 Pro (ab 1.8)
 
-Neben der Looper-Anzeige gibt es die Seite **🎛 Clips** (`http://localhost:8080/clips`,
-auf dem Tablet die Adresse unter „📱 Tablet“ plus `/clips`): das Morningstar MC6 Pro
+Die Seite **🎛 Clips** ist die Startseite (`http://localhost:8080`, auf dem Tablet die
+Adresse unter „📱 Tablet“; die Looper-Anzeige liegt unter `/looper`): das Morningstar MC6 Pro
 im Browser und darunter eine Übersicht aller Spuren und Szenen mit Clip-Namen. Dafür
 das Remote Script [Morningstar Live Clips](https://hennydrums.github.io/morningstar-live-clips/)
 (ab 1.1) installieren – am einfachsten mit `./install.sh --with-clips` – und in Live als
