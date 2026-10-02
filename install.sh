@@ -6,9 +6,10 @@
 #   4. App starten
 # Alles kommt aus dem Release-Zip: liegt install.sh im entpackten Zip, aus diesem
 # Ordner, sonst laedt es das neueste Release aus dem privaten Repo LooperPilot/looper-pilot
-# (nur fuer eingeladene Testleute, braucht die GitHub CLI: brew install gh, gh auth login).
+# (nur fuer eingeladene Testleute). Dafuer braucht es die GitHub CLI: fehlt sie, laedt das Script
+# die offizielle (github.com/cli/cli) nur fuer diesen Lauf; ohne Anmeldung startet es gh auth login.
 #
-# Per Terminal ohne Download (Testleute, einmal: brew install gh && gh auth login):
+# Per Terminal ohne Download (Testleute; beim ersten Mal Anmeldung bei GitHub im Browser):
 #          curl -fsSL https://looperpilot.github.io/install.sh | sh
 #          curl -fsSL https://looperpilot.github.io/install.sh | sh -s -- --with-clips
 #
@@ -58,8 +59,39 @@ fi
 
 TMP=""
 CLIPS_TMP=""
-cleanup() { [ -n "$TMP" ] && rm -rf "$TMP"; [ -n "$CLIPS_TMP" ] && rm -rf "$CLIPS_TMP"; true; }
+GH_TMP=""
+cleanup() { [ -n "$TMP" ] && rm -rf "$TMP"; [ -n "$CLIPS_TMP" ] && rm -rf "$CLIPS_TMP"; [ -n "$GH_TMP" ] && rm -rf "$GH_TMP"; true; }
 trap cleanup EXIT
+
+# Terminal fuer Rueckfragen: auch bei "curl ... | sh" (dann ist stdin die Pipe)
+has_tty() { [ -t 0 ] || { [ -r /dev/tty ] && (exec </dev/tty) 2>/dev/null; }; }
+
+# GitHub CLI fuer die privaten Releases: vorhandene nehmen, sonst die offizielle von
+# github.com/cli/cli nur fuer diesen Lauf laden; nicht angemeldet -> gh auth login (Browser).
+# Setzt GH; Rueckgabe 1, wenn kein Zugang moeglich ist.
+GH=""
+need_gh() {
+  [ -n "$GH" ] && return 0
+  if command -v gh >/dev/null 2>&1; then
+    GH="$(command -v gh)"
+  else
+    echo "  getting the GitHub CLI (for the private download) ..."
+    GH_TMP="$(mktemp -d)"
+    case "$(uname -m)" in arm64) ARCH=arm64 ;; *) ARCH=amd64 ;; esac
+    GH_URL="$(curl -fsSL https://api.github.com/repos/cli/cli/releases/latest \
+      | grep -o "\"browser_download_url\": *\"[^\"]*macOS_$ARCH\.zip\"" | head -1 | sed 's/.*"\(http[^"]*\)"/\1/')"
+    [ -n "$GH_URL" ] && curl -fsSL -o "$GH_TMP/gh.zip" "$GH_URL" && ditto -x -k "$GH_TMP/gh.zip" "$GH_TMP" || return 1
+    GH="$(find "$GH_TMP" -path '*/bin/gh' -type f | head -1)"
+    [ -x "$GH" ] || return 1
+  fi
+  if ! "$GH" auth status >/dev/null 2>&1; then
+    has_tty || return 1
+    say "Sign in to GitHub"
+    echo "  LooperPilot is private: sign in once with the GitHub account you were invited with."
+    "$GH" auth login --hostname github.com --git-protocol https --web </dev/tty >/dev/tty 2>&1 || return 1
+  fi
+  return 0
+}
 
 # --- 0. Paket ---------------------------------------------------------------
 # PKG = der Ordner mit App, Scripts, Vorlagen und Presets: das entpackte Zip selbst
@@ -71,16 +103,15 @@ else
   say "Download"
   TMP="$(mktemp -d)"
   # Die Releases sind privat: laden nur mit Zugang zum Repo, ueber die GitHub CLI
-  if command -v gh >/dev/null 2>&1 && gh auth status >/dev/null 2>&1 \
-     && gh release download -R "$REPO" -p 'LooperPilot-*.zip' -D "$TMP" 2>/dev/null; then
+  if need_gh && "$GH" release download -R "$REPO" -p 'LooperPilot-*.zip' -D "$TMP" 2>/dev/null; then
     ZIP="$(ls "$TMP"/LooperPilot-*.zip | head -1)"
     echo "  downloaded $(basename "$ZIP")"
   else
-    echo "The releases are private (invited testers only)."
-    echo "Download LooperPilot-....zip in your browser from"
+    echo "No access to the private releases (invited testers only)."
+    echo "Accept the invitation to the GitHub organization LooperPilot, then run this again --"
+    echo "or download LooperPilot-....zip in your browser from"
     echo "  https://github.com/$REPO/releases/latest"
     echo "unzip it and run  sh install.sh  in that folder."
-    echo "Or install the GitHub CLI (brew install gh), run  gh auth login  once and start install.sh again."
     exit 1
   fi
   ditto -x -k "$ZIP" "$TMP"
@@ -117,7 +148,7 @@ done
 if [ "$CLIPS" = ask ]; then
   CLIPS=no
   # Auch bei "curl ... | sh" fragen: dann kommt die Antwort vom Terminal, nicht aus der Pipe
-  if [ -t 0 ] || { [ -r /dev/tty ] && (exec </dev/tty) 2>/dev/null; }; then
+  if has_tty; then
     printf '\nAlso install MorningstarClips (Session View with a Morningstar MC6 Pro)? [y/N] '
     if [ -t 0 ]; then read -r answer || answer=""; else read -r answer </dev/tty || answer=""; fi
     case "$answer" in [yYjJ]*) CLIPS=yes ;; esac
@@ -131,8 +162,7 @@ if [ "$CLIPS" = yes ]; then
     CLIPS_SRC=""
     # privates Repo: nur mit Zugang ueber die GitHub CLI
     CLIPS_TMP="$(mktemp -d)"
-    if command -v gh >/dev/null 2>&1 && gh auth status >/dev/null 2>&1 \
-       && gh release download -R "$CLIPS_REPO" -p 'morningstar-live-clips-*.zip' -D "$CLIPS_TMP" 2>/dev/null \
+    if need_gh && "$GH" release download -R "$CLIPS_REPO" -p 'morningstar-live-clips-*.zip' -D "$CLIPS_TMP" 2>/dev/null \
        && ditto -x -k "$(ls "$CLIPS_TMP"/morningstar-live-clips-*.zip | head -1)" "$CLIPS_TMP"; then
       echo "  downloaded MorningstarClips"
       CLIPS_SRC="$(find "$CLIPS_TMP" -maxdepth 2 -name MorningstarClips -type d | head -1)"

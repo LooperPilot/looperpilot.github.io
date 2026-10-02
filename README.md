@@ -24,14 +24,15 @@ Mit Zugang zum privaten Repo: unter
 [Releases](https://github.com/LooperPilot/looper-pilot/releases/latest) `LooperPilot-….zip`
 laden, entpacken und im Ordner `sh install.sh` ausführen.
 
-**Per Terminal** – eine Zeile, auch für Updates. Einmalig vorher die GitHub CLI installieren und
-anmelden (`brew install gh`, dann `gh auth login`; ohne Homebrew: <https://cli.github.com>):
+**Per Terminal** – eine Zeile, auch für Updates:
 
 ```
 curl -fsSL https://looperpilot.github.io/install.sh | sh
 ```
 
-Mit MorningstarClips ohne Frage: `curl -fsSL https://looperpilot.github.io/install.sh | sh -s -- --with-clips`
+Beim ersten Mal einmal bei GitHub anmelden (Code im Terminal, Bestätigung im Browser); fehlt die
+GitHub CLI, holt das Script sie selbst. Mit MorningstarClips ohne Frage:
+`curl -fsSL https://looperpilot.github.io/install.sh | sh -s -- --with-clips`
 
 Kopiert App, Remote Scripts und Vorlage an die richtigen Stellen und startet die App —
 ohne Sicherheitsabfrage von macOS. Danach Live neu starten und unter
