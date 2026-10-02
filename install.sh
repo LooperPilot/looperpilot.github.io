@@ -8,6 +8,10 @@
 # Ordner, sonst laedt es das neueste Release aus dem privaten Repo LooperPilot/looper-pilot
 # (nur fuer eingeladene Testleute, braucht die GitHub CLI: brew install gh, gh auth login).
 #
+# Per Terminal ohne Download (Testleute, einmal: brew install gh && gh auth login):
+#          curl -fsSL https://looperpilot.github.io/install.sh | sh
+#          curl -fsSL https://looperpilot.github.io/install.sh | sh -s -- --with-clips
+#
 # Usage:   ./install.sh               everything (asks about MorningstarClips)
 #          ./install.sh --scripts     Remote Scripts only
 #          ./install.sh --with-clips  also MorningstarClips for the Morningstar MC6 Pro
@@ -112,9 +116,10 @@ done
 # aus dem neuesten Release von $CLIPS_REPO.
 if [ "$CLIPS" = ask ]; then
   CLIPS=no
-  if [ -t 0 ]; then
+  # Auch bei "curl ... | sh" fragen: dann kommt die Antwort vom Terminal, nicht aus der Pipe
+  if [ -t 0 ] || { [ -r /dev/tty ] && (exec </dev/tty) 2>/dev/null; }; then
     printf '\nAlso install MorningstarClips (Session View with a Morningstar MC6 Pro)? [y/N] '
-    read -r answer || answer=""
+    if [ -t 0 ]; then read -r answer || answer=""; else read -r answer </dev/tty || answer=""; fi
     case "$answer" in [yYjJ]*) CLIPS=yes ;; esac
   fi
 fi
@@ -142,7 +147,8 @@ if [ "$CLIPS" = yes ]; then
     # Die Bank bleibt nur im entpackten Zip von selbst liegen -- sonst hierher kopieren
     BANK_DIR="$BANK_SRC"
     if [ "$PKG" != "$HERE" ] || [ -n "$CLIPS_TMP" ]; then
-      BANK_DIR="$HERE/Presets/Morningstar MC6 Pro"
+      # geladenes Release (auch per curl | sh): an einen festen, leicht auffindbaren Ort
+      BANK_DIR="$HOME/Music/Ableton/LooperPilot/Presets/Morningstar MC6 Pro"
       mkdir -p "$BANK_DIR"
       cp "$BANK_SRC"/*.json "$BANK_DIR/" 2>/dev/null || true
     fi

@@ -277,10 +277,14 @@
      <code>LooperPilot-….zip</code> laden (nicht „Source code"), entpacken und im Ordner
      <code>sh install.sh</code> ausführen (<code>--with-clips</code> installiert <b>MorningstarClips</b> für das
      Morningstar MC6 Pro gleich mit, <code>--no-clips</code> ohne Frage). Danach geht es mit Schritt 3 in Ableton Live weiter.</p>
-  <p><b>Per Terminal</b> (mit der GitHub CLI: <code>brew install gh</code>, einmal <code>gh auth login</code>) — auch für Updates:</p>
-  <pre>gh release download -R LooperPilot/looper-pilot -p 'LooperPilot-*.zip'
-unzip -q LooperPilot-*.zip
-sh LooperPilot-*/install.sh</pre>
+  <p><b>Per Terminal</b> — wie bisher eine Zeile, auch für Updates. Einmalig vorher die GitHub CLI
+     installieren und mit deinem GitHub-Account anmelden (der Zugang zum privaten Repo hängt daran):</p>
+  <pre>brew install gh
+gh auth login</pre>
+  <p>Dann installieren — fragt unterwegs nach <b>MorningstarClips</b>:</p>
+  <pre>curl -fsSL https://looperpilot.github.io/install.sh | sh</pre>
+  <p>Mit MorningstarClips ohne Frage: <code>curl -fsSL https://looperpilot.github.io/install.sh | sh -s -- --with-clips</code>.
+     Ohne Homebrew gibt es die GitHub CLI auch als Installer unter <a href="https://cli.github.com">cli.github.com</a>.</p>
   <p>Im entpackten Download-Ordner reicht <code>sh install.sh</code> im Terminal. Später wieder starten: einfach die
      App <b>LooperPilot</b> öffnen — aus „Programme", dem Launchpad oder per Spotlight; <code>install.sh</code>
      brauchst du nur für die Installation und für Updates. Lieber von Hand? Dann einfach weiterlesen.</p>
@@ -840,10 +844,14 @@ sh LooperPilot-*/install.sh</pre>
      <code>LooperPilot-….zip</code> (not "Source code"), unzip it and run <code>sh install.sh</code> in that folder
      (<code>--with-clips</code> also installs <b>MorningstarClips</b> for the Morningstar MC6 Pro, <code>--no-clips</code>
      without asking). Then continue with step 3 in Ableton Live.</p>
-  <p><b>Via Terminal</b> (with the GitHub CLI: <code>brew install gh</code>, <code>gh auth login</code> once) — also for updates:</p>
-  <pre>gh release download -R LooperPilot/looper-pilot -p 'LooperPilot-*.zip'
-unzip -q LooperPilot-*.zip
-sh LooperPilot-*/install.sh</pre>
+  <p><b>Via Terminal</b> — one line as before, also for updates. Once beforehand, install the GitHub CLI
+     and sign in with your GitHub account (access to the private repo depends on it):</p>
+  <pre>brew install gh
+gh auth login</pre>
+  <p>Then install — it asks about <b>MorningstarClips</b> along the way:</p>
+  <pre>curl -fsSL https://looperpilot.github.io/install.sh | sh</pre>
+  <p>With MorningstarClips, without asking: <code>curl -fsSL https://looperpilot.github.io/install.sh | sh -s -- --with-clips</code>.
+     Without Homebrew, the GitHub CLI also comes as an installer from <a href="https://cli.github.com">cli.github.com</a>.</p>
   <p>In the unzipped download folder, <code>sh install.sh</code> in Terminal is enough. To start it again later, just
      open the <b>LooperPilot</b> app — from Applications, Launchpad or Spotlight; you only need
      <code>install.sh</code> for installing and updating. Prefer doing it by hand? Just read on.</p>

@@ -22,14 +22,16 @@ Aufnahmelänge. Unter Live 11 läuft alles andere wie gewohnt.
 
 Mit Zugang zum privaten Repo: unter
 [Releases](https://github.com/LooperPilot/looper-pilot/releases/latest) `LooperPilot-….zip`
-laden, entpacken und im Ordner `sh install.sh` ausführen. Per Terminal mit der GitHub CLI
-(`brew install gh`, einmal `gh auth login`), auch für Updates:
+laden, entpacken und im Ordner `sh install.sh` ausführen.
+
+**Per Terminal** – eine Zeile, auch für Updates. Einmalig vorher die GitHub CLI installieren und
+anmelden (`brew install gh`, dann `gh auth login`; ohne Homebrew: <https://cli.github.com>):
 
 ```
-gh release download -R LooperPilot/looper-pilot -p 'LooperPilot-*.zip'
-unzip -q LooperPilot-*.zip
-sh LooperPilot-*/install.sh
+curl -fsSL https://looperpilot.github.io/install.sh | sh
 ```
+
+Mit MorningstarClips ohne Frage: `curl -fsSL https://looperpilot.github.io/install.sh | sh -s -- --with-clips`
 
 Kopiert App, Remote Scripts und Vorlage an die richtigen Stellen und startet die App —
 ohne Sicherheitsabfrage von macOS. Danach Live neu starten und unter
