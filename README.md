@@ -1,7 +1,7 @@
-# Looper Display
+# LooperPilot
 
-> **Download:** LooperDisplay ist in der Testphase – die Releases liegen im privaten Repo
-> [LooperPilot/looper-display](https://github.com/LooperPilot/looper-display/releases/latest) (Zugang auf Anfrage).
+> **Download:** LooperPilot ist in der Testphase – die Releases liegen im privaten Repo
+> [LooperPilot/looper-pilot](https://github.com/LooperPilot/looper-pilot/releases/latest) (Zugang auf Anfrage).
 >
 > **Schöner zu lesen:** die [Anleitung als Webseite](https://hennydrums.github.io/looper-display/install.html)
 > (DE/EN), liegt auch im Zip als `Anleitung - Guide.html`. Dieses Dokument
@@ -21,14 +21,14 @@ Aufnahmelänge. Unter Live 11 läuft alles andere wie gewohnt.
 ## Installation
 
 Mit Zugang zum privaten Repo: unter
-[Releases](https://github.com/LooperPilot/looper-display/releases/latest) `LooperDisplay-….zip`
+[Releases](https://github.com/LooperPilot/looper-pilot/releases/latest) `LooperPilot-….zip`
 laden, entpacken und im Ordner `sh install.sh` ausführen. Per Terminal mit der GitHub CLI
 (`brew install gh`, einmal `gh auth login`), auch für Updates:
 
 ```
-gh release download -R LooperPilot/looper-display -p 'LooperDisplay-*.zip'
-unzip -q LooperDisplay-*.zip
-sh LooperDisplay-*/install.sh
+gh release download -R LooperPilot/looper-pilot -p 'LooperPilot-*.zip'
+unzip -q LooperPilot-*.zip
+sh LooperPilot-*/install.sh
 ```
 
 Kopiert App, Remote Scripts und Vorlage an die richtigen Stellen und startet die App —
@@ -42,7 +42,7 @@ Mit dem Morningstar MC6 Pro: `sh install.sh --with-clips` installiert das Script
 
 Ab 2.0 zeigt die App die Anzeige in ihrem **eigenen Fenster** (Menü *Ansicht*: Clips ⌘1, Looper ⌘2, Songs ⌘3, Tablet-Adresse mit QR-Code ⌘T); Fenster schließen lässt den Server für Tablets weiterlaufen, *Server beenden* (⌥⌘Q) stoppt ihn.
 
-Später wieder starten: einfach die App **LooperDisplay** öffnen — aus
+Später wieder starten: einfach die App **LooperPilot** öffnen — aus
 „Programme“, dem Launchpad oder per Spotlight. `install.sh` brauchst du nur
 für die Installation und für Updates.
 
@@ -53,4 +53,4 @@ Adresse unter „📱 Tablet“; die Looper-Anzeige liegt unter `/looper`): das 
 im Browser und darunter eine Übersicht aller Spuren und Szenen mit Clip-Namen. Dafür
 das Remote Script [Morningstar Live Clips](https://hennydrums.github.io/morningstar-live-clips/)
 (ab 1.1) installieren – am einfachsten mit `./install.sh --with-clips` – und in Live als
-Bedienoberfläche wählen; LooperDisplay findet es von selbst.
+Bedienoberfläche wählen; LooperPilot findet es von selbst.

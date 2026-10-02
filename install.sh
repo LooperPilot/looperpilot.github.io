@@ -1,11 +1,11 @@
 #!/bin/sh
-# Installiert LooperDisplay auf dem Mac:
+# Installiert LooperPilot (bis 3.0: LooperDisplay) auf dem Mac:
 #   1. Remote Scripts in die Ableton User Library
-#   2. LooperDisplay.app nach /Applications
+#   2. LooperPilot.app nach /Applications (eine alte LooperDisplay.app wird ersetzt)
 #   3. Vorlagen nach User Library/Templates (nur wenn noch keine gleichnamige da ist)
 #   4. App starten
 # Alles kommt aus dem Release-Zip: liegt install.sh im entpackten Zip, aus diesem
-# Ordner, sonst laedt es das neueste Release aus dem privaten Repo LooperPilot/looper-display
+# Ordner, sonst laedt es das neueste Release aus dem privaten Repo LooperPilot/looper-pilot
 # (nur fuer eingeladene Testleute, braucht die GitHub CLI: brew install gh, gh auth login).
 #
 # Usage:   ./install.sh               everything (asks about MorningstarClips)
@@ -26,12 +26,13 @@ for arg in "$@"; do
 done
 
 HERE="$(cd "$(dirname "$0")" && pwd)"
-REPO="LooperPilot/looper-display"
+REPO="LooperPilot/looper-pilot"
 CLIPS_REPO="LooperPilot/morningstar-live-clips"
 LIB="${LOOPER_LIB:-$HOME/Music/Ableton/User Library}"          # zum Testen umlenkbar
 SCRIPTS_DEST="$LIB/Remote Scripts"
 TEMPLATES_DEST="$LIB/Templates"
-APP_DEST="${LOOPER_APP_DEST:-/Applications/LooperDisplay.app}"
+APP_DEST="${LOOPER_APP_DEST:-/Applications/LooperPilot.app}"
+OLD_APP="${APP_DEST%/*}/LooperDisplay.app"                    # Name bis 3.0
 TEMPLATE="LooperTemplateV1.6.als"
 CLIPS_TEMPLATE="MorningStarTemplate.als"
 
@@ -45,7 +46,7 @@ live_hint() {
 }
 
 if [ "$(uname -s)" != "Darwin" ]; then
-  echo "LooperDisplay only runs on macOS."; exit 1
+  echo "LooperPilot only runs on macOS."; exit 1
 fi
 if [ "$(uname -m)" != "arm64" ]; then
   echo "Note: the app is built for Macs with Apple silicon (M1 or newer)."
@@ -67,20 +68,20 @@ else
   TMP="$(mktemp -d)"
   # Die Releases sind privat: laden nur mit Zugang zum Repo, ueber die GitHub CLI
   if command -v gh >/dev/null 2>&1 && gh auth status >/dev/null 2>&1 \
-     && gh release download -R "$REPO" -p 'LooperDisplay-*.zip' -D "$TMP" 2>/dev/null; then
-    ZIP="$(ls "$TMP"/LooperDisplay-*.zip | head -1)"
+     && gh release download -R "$REPO" -p 'LooperPilot-*.zip' -D "$TMP" 2>/dev/null; then
+    ZIP="$(ls "$TMP"/LooperPilot-*.zip | head -1)"
     echo "  downloaded $(basename "$ZIP")"
   else
     echo "The releases are private (invited testers only)."
-    echo "Download LooperDisplay-....zip in your browser from"
+    echo "Download LooperPilot-....zip in your browser from"
     echo "  https://github.com/$REPO/releases/latest"
     echo "unzip it and run  sh install.sh  in that folder."
     echo "Or install the GitHub CLI (brew install gh), run  gh auth login  once and start install.sh again."
     exit 1
   fi
   ditto -x -k "$ZIP" "$TMP"
-  PKG="$(dirname "$(find "$TMP" -maxdepth 2 -name LooperDisplay.app -type d | head -1)")"
-  [ -d "$PKG/LooperDisplay.app" ] || { echo "Unexpected release contents."; exit 1; }
+  PKG="$(dirname "$(find "$TMP" -maxdepth 2 -name LooperPilot.app -type d | head -1)")"
+  [ -d "$PKG/LooperPilot.app" ] || { echo "Unexpected release contents."; exit 1; }
 fi
 if [ -d "$PKG/copy_to_RemoteScripts" ]; then
   SCRIPTS_SRC="$PKG/copy_to_RemoteScripts"
@@ -157,8 +158,8 @@ fi
 
 # --- 2. App ---------------------------------------------------------------
 say "App"
-APP_SRC="$PKG/LooperDisplay.app"
-[ -d "$APP_SRC" ] || { echo "LooperDisplay.app not found."; exit 1; }
+APP_SRC="$PKG/LooperPilot.app"
+[ -d "$APP_SRC" ] || { echo "LooperPilot.app not found."; exit 1; }
 [ "$PKG" = "$HERE" ] && echo "  from this folder"
 
 # Wer das Release im Browser geladen hat, hat die Quarantaene-Markierung von macOS
@@ -167,15 +168,20 @@ APP_SRC="$PKG/LooperDisplay.app"
 xattr -dr com.apple.quarantine "$APP_SRC" 2>/dev/null || true
 # Eine laufende (aeltere) App zuerst beenden -- sonst holt "open" unten nur das
 # alte Fenster nach vorne und dessen Server laeuft mit der alten Version weiter.
-if [ -z "$LOOPER_NO_OPEN" ] && pgrep -xq LooperDisplay 2>/dev/null; then
-  echo "  quitting the running LooperDisplay ..."
-  osascript -e 'quit app "LooperDisplay"' >/dev/null 2>&1 || true
-  i=0
-  while pgrep -xq LooperDisplay 2>/dev/null && [ $i -lt 10 ]; do sleep 1; i=$((i + 1)); done
-  pkill -x LooperDisplay 2>/dev/null || true
-  sleep 1
+if [ -z "$LOOPER_NO_OPEN" ]; then
+  for NAME in LooperPilot LooperDisplay; do      # LooperDisplay = alter Name bis 3.0
+    pgrep -xq "$NAME" 2>/dev/null || continue
+    echo "  quitting the running $NAME ..."
+    osascript -e "quit app \"$NAME\"" >/dev/null 2>&1 || true
+    i=0
+    while pgrep -xq "$NAME" 2>/dev/null && [ $i -lt 10 ]; do sleep 1; i=$((i + 1)); done
+    pkill -x "$NAME" 2>/dev/null || true
+    sleep 1
+  done
 fi
 rm -rf "$APP_DEST"
+# Aus LooperDisplay wurde LooperPilot: die alte App entfernen, damit nur eine im Dock landet
+if [ -d "$OLD_APP" ]; then rm -rf "$OLD_APP"; echo "  removed the old $(basename "$OLD_APP") (now LooperPilot)"; fi
 ditto "$APP_SRC" "$APP_DEST"
 echo "  -> $APP_DEST ($(/usr/libexec/PlistBuddy -c 'Print :CFBundleShortVersionString' "$APP_DEST/Contents/Info.plist"))"
 
@@ -206,7 +212,7 @@ fi
 
 say "Done. Now in Ableton Live:"
 echo "  1. Restart Live (Remote Scripts are only read at startup)."
-echo "  2. Settings > Link, Tempo & MIDI: choose 'LooperDisplay' as a Control Surface."
+echo "  2. Settings > Link, Tempo & MIDI: choose 'LooperDisplay' as a Control Surface (the script keeps its name)."
 echo "  3. With a Roland SPD-SX PRO, also add 'SPD_SX_Pro_Looper' (input: SPD-SX PRO)."
 if [ "$CLIPS" = yes ]; then
   echo "  4. With a Morningstar MC6 Pro, also add 'MorningstarClips' (input and output: MC6 Pro)"
@@ -214,7 +220,7 @@ if [ "$CLIPS" = yes ]; then
   echo "     The Clips page: http://localhost:8080/clips"
 fi
 echo
-echo "To start it again later, just open the 'LooperDisplay' app -- from Applications,"
-echo "Launchpad or Spotlight (Cmd+Space, 'LooperDisplay')."
+echo "To start it again later, just open the 'LooperPilot' app -- from Applications,"
+echo "Launchpad or Spotlight (Cmd+Space, 'LooperPilot')."
 echo "You only need install.sh for installing and updating."
 live_hint
