@@ -5,7 +5,8 @@
 #   3. Vorlagen nach User Library/Templates (nur wenn noch keine gleichnamige da ist)
 #   4. App starten
 # Alles kommt aus dem Release-Zip: liegt install.sh im entpackten Zip, aus diesem
-# Ordner, sonst (nach einem git clone) laedt es das neueste Release von GitHub.
+# Ordner, sonst laedt es das neueste Release aus dem privaten Repo LooperPilot/looper-display
+# (nur fuer eingeladene Testleute, braucht die GitHub CLI: brew install gh, gh auth login).
 #
 # Usage:   ./install.sh               everything (asks about MorningstarClips)
 #          ./install.sh --scripts     Remote Scripts only
@@ -25,7 +26,7 @@ for arg in "$@"; do
 done
 
 HERE="$(cd "$(dirname "$0")" && pwd)"
-REPO="hennydrums/looper-display"
+REPO="LooperPilot/looper-display"
 CLIPS_REPO="hennydrums/morningstar-live-clips"
 LIB="${LOOPER_LIB:-$HOME/Music/Ableton/User Library}"          # zum Testen umlenkbar
 SCRIPTS_DEST="$LIB/Remote Scripts"
@@ -70,11 +71,20 @@ if [ -d "$HERE/copy_to_RemoteScripts" ] || [ -d "$HERE/Zum Kopieren/Remote Scrip
 else
   say "Download"
   TMP="$(mktemp -d)"
-  URL="$(latest_zip "$REPO")"
-  [ -n "$URL" ] || { echo "No release found. Please download it manually: https://github.com/$REPO/releases/latest"; exit 1; }
-  echo "  downloading $(basename "$URL") ..."
-  curl -fL --progress-bar -o "$TMP/release.zip" "$URL"
-  ditto -x -k "$TMP/release.zip" "$TMP"
+  # Die Releases sind privat: laden nur mit Zugang zum Repo, ueber die GitHub CLI
+  if command -v gh >/dev/null 2>&1 && gh auth status >/dev/null 2>&1 \
+     && gh release download -R "$REPO" -p 'LooperDisplay-*.zip' -D "$TMP" 2>/dev/null; then
+    ZIP="$(ls "$TMP"/LooperDisplay-*.zip | head -1)"
+    echo "  downloaded $(basename "$ZIP")"
+  else
+    echo "The releases are private (invited testers only)."
+    echo "Download LooperDisplay-....zip in your browser from"
+    echo "  https://github.com/$REPO/releases/latest"
+    echo "unzip it and run  sh install.sh  in that folder."
+    echo "Or install the GitHub CLI (brew install gh), run  gh auth login  once and start install.sh again."
+    exit 1
+  fi
+  ditto -x -k "$ZIP" "$TMP"
   PKG="$(dirname "$(find "$TMP" -maxdepth 2 -name LooperDisplay.app -type d | head -1)")"
   [ -d "$PKG/LooperDisplay.app" ] || { echo "Unexpected release contents."; exit 1; }
 fi

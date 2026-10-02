@@ -1,7 +1,7 @@
 # Looper Display
 
-> **Download:** [`LooperDisplay-….zip` unter Releases](https://github.com/hennydrums/looper-display/releases/latest)
-> — nicht „Source code", dem fehlt die App.
+> **Download:** LooperDisplay ist in der Testphase – die Releases liegen im privaten Repo
+> [LooperPilot/looper-display](https://github.com/LooperPilot/looper-display/releases/latest) (Zugang auf Anfrage).
 >
 > **Schöner zu lesen:** die [Anleitung als Webseite](https://hennydrums.github.io/looper-display/install.html)
 > (DE/EN), liegt auch im Zip als `Anleitung - Guide.html`. Dieses Dokument
@@ -18,34 +18,29 @@ Stop den Loop zu Ende, kennt die Anzeige die Länge von Loops, die mit dem Set
 geladen wurden, und zeigt bei leeren Loopern die voreingestellte
 Aufnahmelänge. Unter Live 11 läuft alles andere wie gewohnt.
 
-## Installation per Terminal (am schnellsten)
+## Installation
+
+Mit Zugang zum privaten Repo: unter
+[Releases](https://github.com/LooperPilot/looper-display/releases/latest) `LooperDisplay-….zip`
+laden, entpacken und im Ordner `sh install.sh` ausführen. Per Terminal mit der GitHub CLI
+(`brew install gh`, einmal `gh auth login`), auch für Updates:
 
 ```
-git clone https://github.com/hennydrums/looper-display.git
-cd looper-display
-./install.sh
+gh release download -R LooperPilot/looper-display -p 'LooperDisplay-*.zip'
+unzip -q LooperDisplay-*.zip
+sh LooperDisplay-*/install.sh
 ```
 
-**Update:** Ist `looper-display` schon vom ersten Mal da („destination path
-'looper-display' already exists"), reicht:
+Kopiert App, Remote Scripts und Vorlage an die richtigen Stellen und startet die App —
+ohne Sicherheitsabfrage von macOS. Danach Live neu starten und unter
+*Einstellungen → Link, Tempo & MIDI* `LooperDisplay` als Bedienoberfläche wählen.
+`sh install.sh --scripts` aktualisiert nur die Remote Scripts.
 
-```
-cd looper-display
-git pull
-./install.sh
-```
-
-Lädt die neueste App, kopiert Remote Scripts und Vorlage an die richtigen
-Stellen und startet die App — ohne Sicherheitsabfrage von macOS. Danach Live
-neu starten und unter *Einstellungen → Link, Tempo & MIDI* `LooperDisplay`
-als Bedienoberfläche wählen. `./install.sh --scripts` aktualisiert nur die
-Remote Scripts.
-
-Mit dem Morningstar MC6 Pro: `./install.sh --with-clips` installiert das Script
+Mit dem Morningstar MC6 Pro: `sh install.sh --with-clips` installiert das Script
 [MorningstarClips](https://github.com/hennydrums/morningstar-live-clips) gleich mit
 (ohne Angabe fragt `install.sh` danach). Die MC6-Pro-Bank liegt dem Download bei.
 
-Ab 2.0 zeigt die App die Anzeige in ihrem **eigenen Fenster** (Menü *Ansicht*: Clips ⌘1, Looper ⌘2, Tablet-Adresse mit QR-Code ⌘T); Fenster schließen lässt den Server für Tablets weiterlaufen, *Server beenden* (⌥⌘Q) stoppt ihn.
+Ab 2.0 zeigt die App die Anzeige in ihrem **eigenen Fenster** (Menü *Ansicht*: Clips ⌘1, Looper ⌘2, Songs ⌘3, Tablet-Adresse mit QR-Code ⌘T); Fenster schließen lässt den Server für Tablets weiterlaufen, *Server beenden* (⌥⌘Q) stoppt ihn.
 
 Später wieder starten: einfach die App **LooperDisplay** öffnen — aus
 „Programme“, dem Launchpad oder per Spotlight. `install.sh` brauchst du nur

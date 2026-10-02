@@ -271,19 +271,16 @@
   <p class="eyebrow">Erste Einrichtung</p>
   <h2>Installation</h2>
 
-  <p class="note ok">⚡ <b>Am schnellsten per Terminal:</b> diese drei Zeilen erledigen Schritt 2 bis 4 auf
-     einmal — App laden und nach „Programme" legen, Remote Scripts und Vorlage kopieren, App starten.
-     Ohne Sicherheitsabfrage von macOS. Danach geht es mit Schritt 3 in Ableton Live weiter.
-     Unterwegs fragt es, ob auch <b>MorningstarClips</b> für das Morningstar MC6 Pro mit soll —
-     direkt mit <code>./install.sh --with-clips</code>, ohne Frage mit <code>--no-clips</code>.</p>
-  <pre>git clone https://github.com/hennydrums/looper-display.git
-cd looper-display
-./install.sh</pre>
-  <p><b>Update:</b> Ist <code>looper-display</code> schon vom ersten Mal da (Meldung „destination path
-     'looper-display' already exists"), reicht:</p>
-  <pre>cd looper-display
-git pull
-./install.sh</pre>
+  <p class="note ok">🔒 <b>Download für Testleute:</b> LooperDisplay ist gerade in der Testphase. Die Releases liegen
+     im privaten Repo <b>LooperPilot/looper-display</b> — Zugang auf Anfrage. Mit Zugang:
+     <a href="https://github.com/LooperPilot/looper-display/releases/latest">Releases</a> öffnen,
+     <code>LooperDisplay-….zip</code> laden (nicht „Source code"), entpacken und im Ordner
+     <code>sh install.sh</code> ausführen (<code>--with-clips</code> installiert <b>MorningstarClips</b> für das
+     Morningstar MC6 Pro gleich mit, <code>--no-clips</code> ohne Frage). Danach geht es mit Schritt 3 in Ableton Live weiter.</p>
+  <p><b>Per Terminal</b> (mit der GitHub CLI: <code>brew install gh</code>, einmal <code>gh auth login</code>) — auch für Updates:</p>
+  <pre>gh release download -R LooperPilot/looper-display -p 'LooperDisplay-*.zip'
+unzip -q LooperDisplay-*.zip
+sh LooperDisplay-*/install.sh</pre>
   <p>Im entpackten Download-Ordner reicht <code>sh install.sh</code> im Terminal. Später wieder starten: einfach die
      App <b>LooperDisplay</b> öffnen — aus „Programme", dem Launchpad oder per Spotlight; <code>install.sh</code>
      brauchst du nur für die Installation und für Updates. Lieber von Hand? Dann einfach weiterlesen.</p>
@@ -837,19 +834,16 @@ git pull
   <p class="eyebrow">First-time setup</p>
   <h2>Installation</h2>
 
-  <p class="note ok">⚡ <b>Fastest via Terminal:</b> these three lines do steps 2 to 4 in one go —
-     download the app and put it in Applications, copy the Remote Scripts and the template, start the app.
-     No macOS security prompt. Then continue with step 3 in Ableton Live.
-     Along the way it asks whether to add <b>MorningstarClips</b> for the Morningstar MC6 Pro —
-     directly with <code>./install.sh --with-clips</code>, without asking with <code>--no-clips</code>.</p>
-  <pre>git clone https://github.com/hennydrums/looper-display.git
-cd looper-display
-./install.sh</pre>
-  <p><b>Update:</b> if <code>looper-display</code> is already there from the first time (message "destination path
-     'looper-display' already exists"), this is enough:</p>
-  <pre>cd looper-display
-git pull
-./install.sh</pre>
+  <p class="note ok">🔒 <b>Download for testers:</b> LooperDisplay is in its testing phase. The releases are in the
+     private repo <b>LooperPilot/looper-display</b> — access on request. With access: open
+     <a href="https://github.com/LooperPilot/looper-display/releases/latest">Releases</a>, download
+     <code>LooperDisplay-….zip</code> (not "Source code"), unzip it and run <code>sh install.sh</code> in that folder
+     (<code>--with-clips</code> also installs <b>MorningstarClips</b> for the Morningstar MC6 Pro, <code>--no-clips</code>
+     without asking). Then continue with step 3 in Ableton Live.</p>
+  <p><b>Via Terminal</b> (with the GitHub CLI: <code>brew install gh</code>, <code>gh auth login</code> once) — also for updates:</p>
+  <pre>gh release download -R LooperPilot/looper-display -p 'LooperDisplay-*.zip'
+unzip -q LooperDisplay-*.zip
+sh LooperDisplay-*/install.sh</pre>
   <p>In the unzipped download folder, <code>sh install.sh</code> in Terminal is enough. To start it again later, just
      open the <b>LooperDisplay</b> app — from Applications, Launchpad or Spotlight; you only need
      <code>install.sh</code> for installing and updating. Prefer doing it by hand? Just read on.</p>
