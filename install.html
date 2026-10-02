@@ -264,6 +264,7 @@
     <li><a href="#metronom-de">Das Metronom</a></li>
     <li><a href="#nano-usage-de">KORG nanoKONTROL2</a></li>
     <li><a href="#spd-usage-de">Roland SPD-SX PRO</a></li>
+    <li><a href="#arr-looper-de">Looper aus dem Arrangement</a></li>
   </ol>
 </div>
 
@@ -767,6 +768,57 @@
     </div>
   </details>
 
+
+  <h3 id="arr-looper-de">Looper aus dem Arrangement steuern</h3>
+  <p>Mit einer eigenen MIDI-Spur steuerst du die Looper direkt aus dem Arrangement: aufnehmen, abspielen,
+     stoppen, löschen und speichern, taktgenau und ohne Fußschalter. Die Locator-Leiste bleibt dabei frei
+     für deine Songs.</p>
+  <ol>
+    <li>Eine neue <b>MIDI-Spur</b> anlegen und <code>+LooperPilot</code> nennen. Das Plus gehört dazu,
+        Groß- und Kleinschreibung ist egal. Instrument oder Ausgang braucht sie nicht.</li>
+    <li>Im Arrangement an die gewünschte Stelle einen <b>leeren MIDI-Clip</b> legen (⌘⇧M). Seine Länge
+        ist egal, es zählt nur der <b>Anfang</b>.</li>
+    <li>Den Clip in den Befehl <b>umbenennen</b> (⌘R), z. B. <code>RECORD 1</code>.</li>
+  </ol>
+  <ul class="keys">
+    <li><b>RECORD x</b><span>Aufnahme starten. Ist die Aufnahmelänge am Looper fest eingestellt, spielt er danach von selbst weiter</span></li>
+    <li><b>OVERDUB x</b><span>über den laufenden Loop weitere Schichten aufnehmen</span></li>
+    <li><b>START x</b><span>abspielen, nur gefüllte Looper (ein leerer würde sonst aufnehmen)</span></li>
+    <li><b>STOP x</b><span>sofort stoppen</span></li>
+    <li><b>DELETE x</b><span>Inhalt löschen</span></li>
+    <li><b>SAVE x</b><span>Loop als Clip auf seine Clip-Spur speichern, wie der Knopf 💾</span></li>
+  </ul>
+  <p><code>x</code> ist die Nummer des Loopers wie in der Anzeige (1–8) oder <code>ALL</code> für alle,
+     ohne Nummer sind ebenfalls alle gemeint. Statt <code>DELETE</code> geht auch <code>CLEAR</code>, statt
+     <code>RECORD</code> auch <code>REC</code>, statt <code>START</code> auch <code>PLAY</code>, und
+     <code>LOOPER</code> davor (<code>LOOPER STOP 2</code>) ist erlaubt. Ein Clip-Name darf auch mehrere Befehle
+     enthalten, z. B. <code>STOP 1 RECORD 2</code>.</p>
+  <p><b>Beispiel</b> mit 4-taktigen Loops (Aufnahmelänge am Looper: 4 Takte):</p>
+  <pre>Takt  1   RECORD 1     Looper 1 nimmt 4 Takte auf, spielt dann weiter
+Takt  5   RECORD 2     Looper 2 dazu
+Takt  9   OVERDUB 1    eine Schicht auf Looper 1
+Takt 13   STOP 1       Looper 1 aus, Looper 2 läuft weiter
+Takt 17   STOP ALL     alles aus
+Takt 21   DELETE ALL   alles leer für den nächsten Song</pre>
+  <ul class="keys">
+    <li><b>Timing</b><span><code>RECORD</code>, <code>OVERDUB</code> und <code>START</code> löst das Script etwa 0,2 s <i>vor</i>
+        dem Clip-Anfang aus. Lives Quantisierung (Einstellung „Quantization“ am Looper) setzt sie damit genau am
+        Clip-Anfang ein. Lege diese Clips also direkt auf den Takt- bzw. Schlaganfang und nicht davor. Steht die
+        Quantisierung auf „None“, setzen sie 0,2 s zu früh ein. <code>STOP</code> und <code>DELETE</code> wirken genau
+        am Clip-Anfang.</span></li>
+    <li><b>Wann es greift</b><span>nur, wenn die Wiedergabe über den Clip-Anfang <i>läuft</i>. Springst du in der Probe
+        direkt an eine Stelle oder startest genau dort, passiert nichts, damit beim Herumspringen nichts gelöscht
+        wird. Liegt der Clip in einem Arrangement-Loop, greift er bei jedem Durchlauf.</span></li>
+    <li><b>Vor dem Auftritt</b><span>einmal <b>⚙ Settings → „Create clip tracks now“</b> auf der Clips-Seite. Aufnehmen
+        geht erst, wenn die Clip-Spur zum Speichern da ist. Sonst legt das Script sie beim ersten <code>RECORD</code>
+        an, und diese Aufnahme fällt aus.</span></li>
+    <li><b>Ohne eigene Spur</b><span>Dieselben Befehle gehen als Locator (z. B. <code>LOOPER STOP 2</code>, zählt nicht als
+        Song), hinter einem Abschnitt (<code>&gt; Outro LOOPER STOP 2</code>) oder im Namen eines Clips der
+        Sections-Spur.</span></li>
+    <li><b>Dazu am nanoKONTROL2</b><span>■ einmal: alle Looper sofort aus, ■ zweimal schnell: auch Lives Wiedergabe aus.
+        M zweimal schnell löscht einen Looper, ● zweimal schnell alle.</span></li>
+  </ul>
+
 </section>
 
 <section id="lizenz-de">
@@ -832,6 +884,7 @@
     <li><a href="#metronome-en">The metronome</a></li>
     <li><a href="#nano-usage-en">KORG nanoKONTROL2</a></li>
     <li><a href="#spd-usage-en">Roland SPD-SX PRO</a></li>
+    <li><a href="#arr-looper-en">Loopers from the Arrangement</a></li>
   </ol>
 </div>
 
@@ -1331,6 +1384,54 @@
          channel 1.</p>
     </div>
   </details>
+
+
+  <h3 id="arr-looper-en">Controlling the loopers from the Arrangement</h3>
+  <p>With a MIDI track of its own you control the loopers right from the Arrangement: record, play, stop,
+     clear and save, exactly on the beat and without a foot switch. The locator bar stays free for your songs.</p>
+  <ol>
+    <li>Create a new <b>MIDI track</b> and name it <code>+LooperPilot</code>. The plus belongs to the name, case
+        does not matter. It needs no instrument and no output.</li>
+    <li>In the Arrangement, put an <b>empty MIDI clip</b> where something should happen (⌘⇧M). Its length does
+        not matter, only its <b>start</b> counts.</li>
+    <li><b>Rename</b> the clip to the command (⌘R), e.g. <code>RECORD 1</code>.</li>
+  </ol>
+  <ul class="keys">
+    <li><b>RECORD x</b><span>start recording. With a fixed record length on the looper it then plays on by itself</span></li>
+    <li><b>OVERDUB x</b><span>record more layers over the running loop</span></li>
+    <li><b>START x</b><span>play, filled loopers only (an empty one would record instead)</span></li>
+    <li><b>STOP x</b><span>stop instantly</span></li>
+    <li><b>DELETE x</b><span>clear its content</span></li>
+    <li><b>SAVE x</b><span>save the loop as a clip on its clip track, like the 💾 button</span></li>
+  </ul>
+  <p><code>x</code> is the looper's number as on the display (1–8) or <code>ALL</code> for all of them; no number
+     means all as well. <code>CLEAR</code> works for <code>DELETE</code>, <code>REC</code> for <code>RECORD</code>,
+     <code>PLAY</code> for <code>START</code>, and <code>LOOPER</code> in front (<code>LOOPER STOP 2</code>) is fine.
+     One clip name may hold several commands, e.g. <code>STOP 1 RECORD 2</code>.</p>
+  <p><b>Example</b> with 4-bar loops (record length on the looper: 4 bars):</p>
+  <pre>Bar  1   RECORD 1     looper 1 records 4 bars, then plays on
+Bar  5   RECORD 2     add looper 2
+Bar  9   OVERDUB 1    one layer on looper 1
+Bar 13   STOP 1       looper 1 off, looper 2 keeps playing
+Bar 17   STOP ALL     everything off
+Bar 21   DELETE ALL   all empty for the next song</pre>
+  <ul class="keys">
+    <li><b>Timing</b><span>The script fires <code>RECORD</code>, <code>OVERDUB</code> and <code>START</code> about 0.2 s
+        <i>before</i> the clip start, so Live's quantization (the looper's "Quantization" setting) brings them in
+        exactly at the clip start. So put these clips right on the bar or beat, not before it. With quantization
+        "None" they come in 0.2 s early. <code>STOP</code> and <code>DELETE</code> act exactly at the clip start.</span></li>
+    <li><b>When it fires</b><span>only when playback <i>runs</i> over the clip start. Jumping straight to a spot in
+        rehearsal or starting right there does nothing, so jumping around never clears anything. Inside an
+        Arrangement loop it fires on every pass.</span></li>
+    <li><b>Before the show</b><span>tap <b>⚙ Settings → "Create clip tracks now"</b> on the Clips page once. Recording
+        only starts once the clip track for saving exists. Otherwise the script creates it at the first
+        <code>RECORD</code>, and that take is lost.</span></li>
+    <li><b>Without a track of its own</b><span>The same commands work as a locator (e.g. <code>LOOPER STOP 2</code>, not
+        counted as a song), after a section (<code>&gt; Outro LOOPER STOP 2</code>) or in the name of a clip on the
+        Sections track.</span></li>
+    <li><b>Along with the nanoKONTROL2</b><span>■ once: all loopers off instantly, ■ twice quickly: Live's playback off
+        too. M twice quickly clears one looper, ● twice quickly all of them.</span></li>
+  </ul>
 
 </section>
 
