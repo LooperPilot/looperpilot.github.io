@@ -1,0 +1,979 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Morningstar Live Clips Handbuch</title>
+<meta name="description" content="Ableton Live Remote Script: Session View mit dem Morningstar MC6 Pro steuern – navigieren, aufnehmen, abspielen, stoppen, mit LED- und Display-Feedback.">
+<link rel="preload" href="fonts/fraunces-latin.woff2" as="font" type="font/woff2" crossorigin>
+<style>
+  /* Fraunces selbst gehostet (keine Anfrage an Google-Server), SIL Open Font License: fonts/OFL.txt */
+  @font-face { font-family: "Fraunces"; font-style: normal; font-weight: 600 800; font-display: swap;
+    src: url(fonts/fraunces-latin-ext.woff2) format("woff2");
+    unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF; }
+  @font-face { font-family: "Fraunces"; font-style: normal; font-weight: 600 800; font-display: swap;
+    src: url(fonts/fraunces-latin.woff2) format("woff2");
+    unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+
+  :root {
+    --bg: #f4f2ed; --surface: #ffffff; --card: #ffffff; --card-2: #ece7db;
+    --fg: #1c1a17; --dim: #6b655c; --border: #e2ddd0;
+    --accent: #a3720a; --accent-fg: #ffffff;
+    --stop: #8a857c; --record: #c9271b; --play: #1f7a3d; --select: #0860b8;
+    --shadow: 0 1px 2px rgba(28,26,23,.06), 0 8px 24px -12px rgba(28,26,23,.18);
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #0b0b0d; --surface: #131316; --card: #17171a; --card-2: #1d1d21;
+      --fg: #f2f2f2; --dim: #9a9aa2; --border: #232327;
+      --accent: #ffd60a; --accent-fg: #0b0b0d;
+      --stop: #55555c; --record: #ff3b30; --play: #34c759; --select: #0a84ff;
+      --shadow: 0 1px 2px rgba(0,0,0,.4), 0 12px 32px -14px rgba(0,0,0,.6);
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #0b0b0d; --surface: #131316; --card: #17171a; --card-2: #1d1d21;
+    --fg: #f2f2f2; --dim: #9a9aa2; --border: #232327;
+    --accent: #ffd60a; --accent-fg: #0b0b0d;
+    --stop: #55555c; --record: #ff3b30; --play: #34c759; --select: #0a84ff;
+    --shadow: 0 1px 2px rgba(0,0,0,.4), 0 12px 32px -14px rgba(0,0,0,.6);
+  }
+
+  * { box-sizing: border-box; }
+  html, body { background: var(--bg); color: var(--fg); }
+  body {
+    margin: 0; padding-inline: 20px; max-width: 760px; margin-inline: auto;
+    font-family: -apple-system, "Helvetica Neue", Helvetica, Arial, sans-serif;
+    line-height: 1.6; font-size: 15.5px;
+  }
+  [hidden] { display: none !important; }
+  a { color: var(--accent); }
+  h1, h2, h3 { font-family: "Fraunces", Georgia, "Times New Roman", serif; text-wrap: balance; color: var(--fg); }
+  code, pre, .mono { font: 500 13px ui-monospace, "SF Mono", Menlo, monospace; }
+  code { background: var(--card-2); color: var(--fg); padding: 2px 7px; border-radius: 5px; }
+  pre { background: var(--card-2); border: 1px solid var(--border); border-radius: 10px; padding: 14px 16px; overflow-x: auto; color: var(--fg); margin: 12px 0; }
+  pre code { background: none; padding: 0; }
+  p { color: var(--dim); }
+  p b, li b, td b { color: var(--fg); }
+
+  /* ---------- header ---------- */
+  header.top {
+    position: sticky; top: env(safe-area-inset-top, 0px); z-index: 20;
+    background: color-mix(in srgb, var(--bg) 88%, transparent);
+    backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--border);
+    margin-inline: -20px; padding: 14px 20px; padding-top: calc(14px + env(safe-area-inset-top, 0px));
+    display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap;
+  }
+  .brand { display: flex; align-items: center; gap: 10px; min-width: 0; }
+  .brand svg { width: 30px; height: 30px; flex: none; }
+  .brand span { font-family: "Fraunces", Georgia, serif; font-weight: 600; font-size: 17px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .head-actions { display: flex; align-items: center; gap: 10px; }
+  .langswitch { display: flex; border: 1px solid var(--border); border-radius: 999px; padding: 3px; gap: 2px; background: var(--card); }
+  .langswitch button {
+    border: none; background: transparent; color: var(--dim); font: 600 12px -apple-system, sans-serif;
+    padding: 5px 11px; border-radius: 999px; cursor: pointer; letter-spacing: .02em;
+  }
+  .langswitch button[aria-pressed="true"] { background: var(--accent); color: var(--accent-fg); }
+  .coffee { font-size: 12.5px; color: var(--dim); text-decoration: none; white-space: nowrap; }
+  .coffee:hover { color: var(--accent); }
+
+  /* ---------- hero ---------- */
+  .hero-shot { width: 100%; max-width: 100%; height: auto; border-radius: 14px; margin: 22px 0 6px; display: block; border: 1px solid var(--border); }
+  h1 { font-size: 34px; font-weight: 800; margin: 26px 0 4px; letter-spacing: -.01em; }
+  .lede { font-size: 16px; margin: 14px 0; }
+  .lede.small { font-size: 15px; }
+
+  /* ---------- quick nav ---------- */
+  nav.toc { display: flex; flex-wrap: wrap; gap: 8px; margin: 22px 0 8px; }
+  nav.toc a {
+    font-size: 12.5px; font-weight: 600; text-decoration: none; color: var(--dim);
+    background: var(--card); border: 1px solid var(--border); border-radius: 999px; padding: 6px 12px;
+  }
+  nav.toc a:hover { color: var(--fg); border-color: var(--accent); }
+
+  /* ---------- sections ---------- */
+  section { margin-top: 48px; scroll-margin-top: 84px; }
+  h3[id] { scroll-margin-top: 84px; }
+  .eyebrow { font-size: 11.5px; font-weight: 700; letter-spacing: .09em; text-transform: uppercase; color: var(--accent); margin: 0 0 6px; }
+  h2 { font-size: 24px; margin: 0 0 6px; font-weight: 600; }
+  h3 { font-size: 16.5px; margin: 30px 0 10px; display: flex; align-items: center; gap: 10px; }
+  h4 { font-size: 14.5px; color: var(--fg); margin: 22px 0 8px; }
+
+  .stepnum {
+    display: inline-flex; align-items: center; justify-content: center; width: 24px; height: 24px;
+    border-radius: 50%; background: var(--accent); color: var(--accent-fg); font-size: 13px; font-weight: 800; flex: none;
+  }
+
+  ol.steps { color: var(--dim); font-size: 14px; padding-left: 20px; margin: 10px 0; display: grid; gap: 7px; }
+  ol.steps li::marker { color: var(--fg); font-weight: 600; }
+  ul.keys { list-style: none; padding: 0; margin: 14px 0; display: grid; gap: 8px; }
+  ul.keys li { background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 10px 14px;
+    display: flex; align-items: baseline; gap: 12px; font-size: 13.5px; flex-wrap: wrap; }
+  ul.keys li b { color: var(--fg); flex: none; min-width: 180px; }
+  ul.keys li span { color: var(--dim); }
+
+  table.settings { width: 100%; border-collapse: collapse; margin: 14px 0; font-size: 13.5px; }
+  .table-wrap { overflow-x: auto; }
+  table.settings th, table.settings td { text-align: left; padding: 9px 12px; border-bottom: 1px solid var(--border); }
+  table.settings th { color: var(--dim); font-weight: 600; font-size: 10.5px; text-transform: uppercase; letter-spacing: .06em; white-space: nowrap; }
+  table.settings td { color: var(--fg); }
+  table.settings td.dim { color: var(--dim); }
+  table.settings td.num { font: 600 13px ui-monospace, "SF Mono", Menlo, monospace; white-space: nowrap; }
+  table.settings tbody tr:last-child td { border-bottom: none; }
+
+  p.note { background: var(--card); border-left: 3px solid var(--accent); border-radius: 0 8px 8px 0; padding: 10px 14px; font-size: 13px; }
+  p.note.ok { border-left-color: var(--play); }
+  p.note.warn { border-left-color: var(--record); }
+
+  .filetree { background: var(--card-2); border: 1px solid var(--border); border-radius: 10px; padding: 16px 18px;
+    font: 500 12.5px ui-monospace, "SF Mono", Menlo, monospace; color: var(--dim); white-space: pre; overflow-x: auto; }
+  .filetree b { color: var(--fg); }
+
+  details.hw { background: var(--surface); border: 1px solid var(--border); border-radius: 14px; margin: 16px 0; overflow: hidden; }
+  details.hw summary { list-style: none; cursor: pointer; padding: 16px 18px; display: flex; align-items: center; gap: 12px; font-family: "Fraunces", Georgia, serif; font-weight: 600; font-size: 16px; color: var(--fg); }
+  details.hw summary::-webkit-details-marker { display: none; }
+  details.hw summary .chev { margin-left: auto; color: var(--dim); transition: transform .18s ease; font-size: 13px; }
+  details.hw[open] summary .chev { transform: rotate(90deg); }
+  details.hw summary .tag { font-size: 11px; font-weight: 700; letter-spacing: .04em; text-transform: uppercase; color: var(--dim); background: var(--card-2); border-radius: 999px; padding: 3px 9px; }
+  details.hw .hw-body { padding: 0 18px 20px; border-top: 1px solid var(--border); }
+  details.hw .hw-body > *:first-child { margin-top: 18px; }
+
+  /* ---------- MC6 Pro board ---------- */
+  .board { background: #141416; border-radius: 16px; padding: 18px 16px 16px; margin: 16px 0 6px; box-shadow: var(--shadow); color: #f2f2f2; }
+  .board .row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+  .board .sw { display: flex; align-items: center; gap: 8px; justify-content: center; font: 700 11px -apple-system, sans-serif; color: #9a9aa2; letter-spacing: .06em; }
+  .board .sw i { width: 30px; height: 30px; border-radius: 50%; background: radial-gradient(circle at 35% 35%, #e4e4e4, #767676); display: block; flex: none; }
+  .board .screens { margin: 14px 0; }
+  .board .screen { background: #000; border-radius: 6px; padding: 6px; display: grid; gap: 3px; text-align: center; min-width: 0; }
+  .board .screen span { font: 700 12.5px -apple-system, sans-serif; padding: 3px 2px; border-radius: 3px; overflow-wrap: anywhere; line-height: 1.25; }
+  .board .screen .top { color: #ffd60a; }
+  .board .screen .mid { background: #3f63c8; color: #e8edff; font-weight: 600; }
+  .board .screen .mid.dim { background: #26325c; color: #aab4d6; font-weight: 500; font-size: 11px; }
+  .board .screen .bot { color: #ffffff; }
+  .board .screen.rec .bot { background: #c9271b; color: #fff; }
+  .board .screen.play .bot { background: #1f7a3d; color: #fff; }
+  .board-cap { margin: 0 0 4px; font-size: 12px; color: var(--dim); text-align: center; }
+
+  .legend { display: grid; grid-template-columns: 1fr; gap: 8px; margin: 14px 0; }
+  .legend .row { display: flex; align-items: center; gap: 12px; background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 10px 14px; }
+  .legend .swatch { width: 28px; height: 28px; border-radius: 7px; flex: none; }
+  .legend .row b { font-size: 13.5px; }
+  .legend .row span { color: var(--dim); font-size: 12.5px; }
+
+  footer.page {
+    margin-top: 56px; padding-block: 28px calc(28px + env(safe-area-inset-bottom, 0px));
+    border-top: 1px solid var(--border); text-align: center; color: var(--dim); font-size: 12.5px;
+  }
+  footer.page a { text-decoration: none; }
+  footer.page .flinks { margin-top: 10px; display: flex; justify-content: center; gap: 14px; flex-wrap: wrap; }
+
+  @media (max-width: 520px) {
+    h1 { font-size: 28px; }
+    ul.keys li b { min-width: 0; }
+    .board { padding: 14px 10px 12px; }
+    .board .row { gap: 6px; }
+    .board .screen span { font-size: 10.5px; }
+    .board .screen .mid.dim { font-size: 9.5px; }
+  }
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="brand">
+    <svg viewBox="0 0 30 30" aria-hidden="true"><rect width="30" height="30" rx="8" fill="#141416"/><rect x="6" y="8" width="18" height="8" rx="2" fill="#3f63c8"/><circle cx="9" cy="22" r="2.6" fill="#d8d8d8"/><circle cx="15" cy="22" r="2.6" fill="#d8d8d8"/><circle cx="21" cy="22" r="2.6" fill="#ff3b30"/></svg>
+    <span>Morningstar Live Clips</span>
+  </div>
+  <div class="head-actions">
+    <div class="langswitch" role="group" aria-label="Language">
+      <button type="button" id="btn-de" aria-pressed="true">DE</button>
+      <button type="button" id="btn-en" aria-pressed="false">EN</button>
+    </div>
+    <a class="coffee" href="https://buymeacoffee.com/hennydrums" target="_blank" rel="noopener">☕ <span data-de="Kaffee spendieren" data-en="Buy me a coffee">Kaffee spendieren</span></a>
+  </div>
+</header>
+
+<img class="hero-shot" src="mc6pro.jpg" width="1400" height="962" alt="Morningstar MC6 Pro: die Displays zeigen die Spur „Guit“, die Szene „Verse“ und RECORD auf Schalter A">
+
+<!-- ======================================================= DEUTSCH -->
+<div id="content-de" lang="de">
+
+<h1>Session View per Fuß</h1>
+<p class="lede">Morningstar Live Clips ist ein Remote Script für Ableton Live, mit dem ein
+   <b>Morningstar MC6 Pro</b> die Session View steuert: Spuren und Szenen auswählen,
+   Clips aufnehmen, abspielen und stoppen — ohne die Hände vom Instrument zu nehmen.
+   Es läuft parallel zu Push; Push folgt der Auswahl automatisch.</p>
+<p class="lede small">Das MC6 Pro zeigt dabei an, was in Live passiert: Spurname
+   und Szene auf den Displays, <b>RECORD</b> oder <b>PLAY</b> auf dem Rec-Schalter,
+   rot während der Aufnahme, grün solange auf der Spur ein Clip läuft. Nach jeder
+   Aufnahme springt die Auswahl automatisch zur nächsten Spur.</p>
+<p class="note"><b>Voraussetzungen:</b> Mac mit Ableton Live und einem Morningstar
+   MC6 Pro per USB. Andere MIDI-Fußschalter funktionieren für die Steuerung genauso;
+   LED- und Display-Anzeige sind auf das MC6 Pro (bzw. MC8 Pro) zugeschnitten.</p>
+
+<nav class="toc">
+  <a href="#installation-de">Installation</a>
+  <a href="#live-de">Live einrichten</a>
+  <a href="#mc6-de">MC6 Pro</a>
+  <a href="#bedienung-de">Bedienung</a>
+  <a href="#anzeige-de">Displays &amp; LEDs</a>
+  <a href="#browser-de">Browser</a>
+  <a href="#midi-de">MIDI-Befehle</a>
+  <a href="#anpassen-de">Anpassen</a>
+  <a href="#fehlersuche-de">Fehlersuche</a>
+</nav>
+
+<section id="installation-de">
+  <p class="eyebrow">Erste Einrichtung</p>
+  <h2>Installation</h2>
+
+  <p class="note ok">🔒 <b>Testphase:</b> die Releases liegen im privaten Repo <b>LooperPilot/morningstar-live-clips</b> — Zugang auf Anfrage. Mit Zugang: das <a href="https://github.com/LooperPilot/morningstar-live-clips/releases/latest" target="_blank" rel="noopener">neueste Release</a>
+     als ZIP laden (unter „Assets“, nicht „Source code“), entpacken und im Terminal im Ordner
+     <code>sh install.sh</code> ausführen — das kopiert das Remote Script an die richtige Stelle.
+     Danach geht es mit „Live einrichten" weiter.</p>
+  <p class="note">🎛 <b>Mit LooperPilot:</b> <a href="https://github.com/LooperPilot/looper-pilot/releases/latest" target="_blank" rel="noopener">LooperPilot</a>
+     bringt MorningstarClips gleich mit — dessen <code>./install.sh --with-clips</code> installiert
+     das Script, die MC6-Pro-Bank liegt im Download unter <code>Presets/Morningstar MC6 Pro</code>.</p>
+
+  <h3>Vorlage für Live</h3>
+  <p><a href="https://github.com/LooperPilot/looper-pilot/releases/latest"><code>MorningStarTemplate.als</code></a> ist ein fertig eingerichtetes Live-Set zum
+     Ausprobieren und Weiterbauen: Aufnahme-Bereich von <code>&gt; Guit</code> bis <code>Drums &lt;</code>,
+     eine Spur ohne Input dazwischen, eine Looper-Gruppe für LooperPilot und je ein Reverb- und
+     Delay-Return. Sie liegt dem LooperPilot-Download bei; <code>./install.sh --with-clips</code> legt sie nach
+     <code>~/Music/Ableton/User Library/Templates</code> — dann steht sie in Live im Browser unter
+     <b>Vorlagen</b>. Eine vorhandene Datei gleichen Namens wird nicht überschrieben.</p>
+  <p class="note">Die Drum-Sounds kommen aus dem Ableton-Pack <b>Drum Booth</b>. Fehlt es, bietet Live an,
+     das Pack nachzuladen. Braucht Live 12.</p>
+
+  <h3>Im ZIP</h3>
+  <div class="filetree"><b>MorningstarClips/</b>              das Remote Script für Ableton Live
+<b>MorningStarPresets/</b>             fertige MC6-Pro-Bank „PUSH CTRL" für den Morningstar Editor
+<b>install.sh</b>                      kopiert das Script in die User Library
+<b>README.md</b>, <b>LICENSE</b></div>
+
+  <h3><span class="stepnum">1</span> Remote Script kopieren</h3>
+  <p>Das erledigt <code>install.sh</code>. Von Hand: den Ordner <code>MorningstarClips</code> nach</p>
+  <pre>~/Music/Ableton/User Library/Remote Scripts/</pre>
+  <p>kopieren.</p>
+</section>
+
+<section id="live-de">
+  <p class="eyebrow">Ableton Live</p>
+  <h2>Live einrichten</h2>
+  <h3><span class="stepnum">2</span> Bedienoberfläche auswählen</h3>
+  <ol class="steps">
+    <li>Live starten oder neu starten — Remote Scripts werden nur beim Programmstart eingelesen.</li>
+    <li><code>Einstellungen → Link, Tempo &amp; MIDI</code> öffnen.</li>
+    <li>In einer freien Zeile der Bedienoberflächen <code>MorningstarClips</code> wählen. Push bleibt in seiner eigenen Zeile.</li>
+  </ol>
+  <div class="table-wrap"><table class="settings">
+    <thead><tr><th>Bedienoberfläche</th><th>Eingang</th><th>Ausgang</th></tr></thead>
+    <tbody><tr><td><code>MorningstarClips</code></td><td>Morningstar MC6 Pro</td><td>Morningstar MC6 Pro</td></tr></tbody>
+  </table></div>
+  <p>Der Ausgang ist für LEDs und Displays nötig. Unten bei den MIDI-Ports für das MC6 Pro
+     <b>Track</b> und <b>Remote</b> ausschalten — sonst landen die CCs zusätzlich auf
+     scharfgeschalteten MIDI-Spuren.</p>
+  <p class="note ok">✅ Klappt alles, erscheint unten in Lives Statusleiste „Morningstar Clips geladen".</p>
+</section>
+
+<section id="mc6-de">
+  <p class="eyebrow">Morningstar Editor</p>
+  <h2>MC6 Pro einrichten</h2>
+
+  <h3><span class="stepnum">3</span> Fertige Bank laden</h3>
+  <p>Im Ordner <code>MorningStarPresets</code> liegt die Bank <b>„PUSH CTRL"</b> —
+     Namen, CCs, Toggle Mode und Farben sind darin schon eingestellt.</p>
+  <ol class="steps">
+    <li>MC6 Pro per USB verbinden und den <b>Morningstar Editor</b> öffnen.</li>
+    <li>Die Bank-Datei als Bank-Backup wiederherstellen und auf einen freien Bank-Platz legen.</li>
+    <li>Unter <b>Controller Settings → MIDI Channel</b> Kanal <b>1</b> einstellen (Empfang für LEDs und Displays).</li>
+  </ol>
+
+  <div class="board" role="img" aria-label="MC6 Pro Belegung: oben D Start Szene, E Szene hoch, F Stop Szene; unten A Record/Play, B nächste Szene, C Stop Spur">
+    <div class="row">
+      <div class="sw"><i></i>D</div><div class="sw"><i></i>E</div><div class="sw"><i></i>F</div>
+    </div>
+    <div class="row screens">
+      <div class="screen rec"><span class="top">Start Szene</span><span class="mid">Guit</span><span class="bot">RECORD</span></div>
+      <div class="screen"><span class="top">Szene hoch</span><span class="mid">Verse</span><span class="bot">Szene runter</span></div>
+      <div class="screen play"><span class="top">Stop Szene</span><span class="mid dim">B003 PG1</span><span class="bot">Stop Spur</span></div>
+    </div>
+    <div class="row">
+      <div class="sw"><i></i>A</div><div class="sw"><i></i>B</div><div class="sw"><i></i>C</div>
+    </div>
+  </div>
+  <p class="board-cap">Oben stehen die Namen von D, E, F, unten die von A, B, C. In der Mitte: ausgewählte Spur und Szene.</p>
+
+  <details class="hw">
+    <summary><span>Presets selbst anlegen</span><span class="tag">optional</span><span class="chev">▶</span></summary>
+    <div class="hw-body">
+      <p>Jede Nachricht: Typ <b>CC</b>, Kanal <b>1</b>, Wert <b>127</b>. E sendet
+         mit Aktion <b>Press</b> schon beim Antreten. Alle anderen haben zusätzlich
+         eine <b>Long Press</b>-Nachricht — ihre kurze Nachricht steht deshalb auf
+         <b>Release</b>, damit das MC6 Pro kurz und lang sauber trennt.</p>
+      <div class="table-wrap"><table class="settings">
+        <thead><tr><th>Schalter</th><th>Kurz</th><th>Lang (Long Press)</th><th>Toggle Mode</th></tr></thead>
+        <tbody>
+          <tr><td><b>D</b></td><td>Start Szene · CC 33 · Release</td><td>Spur links · CC 22</td><td class="dim">aus</td></tr>
+          <tr><td><b>E</b></td><td>Szene hoch · CC 20 · Press</td><td class="dim">–</td><td class="dim">aus</td></tr>
+          <tr><td><b>F</b></td><td>Stop Szene · CC 34 · Release</td><td>Spur rechts · CC 23</td><td class="dim">aus</td></tr>
+          <tr><td><b>A</b></td><td>Record / Play · CC 25 · Release</td><td>Letzte Aufnahme löschen · CC 31</td><td>an · Position 2 rot</td></tr>
+          <tr><td><b>B</b></td><td>Nächste Szene, erste Spur · CC 21 · Release</td><td>Clips 2 Szenen tiefer kopieren · CC 32</td><td class="dim">aus</td></tr>
+          <tr><td><b>C</b></td><td>Stop Spur · CC 27 · Release</td><td>Transport stoppen · CC 35</td><td>an · Position 2 grün</td></tr>
+        </tbody>
+      </table></div>
+      <p>Bei A und C alle Nachrichten auf Toggle-Position <b>Both</b> stellen, sonst senden
+         sie nur bei jedem zweiten Tritt. Ab wann ein Druck als lang zählt, legt
+         <b>Controller Settings → Long Press Time</b> fest.</p>
+      <p class="note">Weitere Funktionen gehen genauso als Long Press, z. B. Undo (CC 29)
+         oder Clip löschen (CC 30).</p>
+    </div>
+  </details>
+
+  <p class="note warn">⚠️ <b>Eigene Bank sichern:</b> Das Script überschreibt Namen auf
+     dem MC6 Pro vorübergehend — ein Backup aus dem Editor würde diese Anzeigen
+     mitspeichern. Vorher Live schließen (oder das Script abwählen) und am MC6 Pro
+     einmal die Bank wechseln und zurück.</p>
+</section>
+
+<section id="bedienung-de">
+  <p class="eyebrow">Auf der Bühne</p>
+  <h2>Bedienung</h2>
+  <ul class="keys">
+    <li><b>D — START SCENE</b><span>startet die ausgewählte Szene im Aufnahme-Bereich: Clips der Szene starten, Spuren mit leerem Slot stoppen</span></li>
+    <li><b>F — STOP SCENE</b><span>stoppt die Clips der ausgewählten Szene im Aufnahme-Bereich</span></li>
+    <li><b>D / F lang drücken</b><span>Spur links / rechts</span></li>
+    <li><b>E</b><span>Szene hoch</span></li>
+    <li><b>B</b><span>nächste Szene, auf die erste Spur im Aufnahme-Bereich</span></li>
+    <li><b>A — RECORD</b><span>leerer Slot: Spur wird scharfgeschaltet, Aufnahme startet</span></li>
+    <li><b>A — während der Aufnahme</b><span>Aufnahme endet, der Clip spielt, die Auswahl springt zur nächsten Spur</span></li>
+    <li><b>A — PLAY</b><span>gestoppter Clip im Slot: Clip startet, die Auswahl springt zur nächsten Spur</span></li>
+    <li><b>C</b><span>stoppt die Clips der ausgewählten Spur</span></li>
+    <li><b>A lang drücken</b><span>löscht rückwärts die letzte Aufnahme und wählt ihren Slot wieder aus — jeder weitere lange Druck löscht eine weiter zurück, Spuren ohne Input bleiben unberührt</span></li>
+    <li><b>B lang drücken</b><span>die aufgenommenen Clips der Szene zwei Szenen tiefer kopieren (siehe unten)</span></li>
+    <li><b>C lang drücken</b><span>stoppt den Transport von Live — und damit alles</span></li>
+  </ul>
+  <p>Aufnahmestart und -ende folgen Lives Clip-Quantisierung. Die Auswahl springt
+     sofort weiter; der alte Clip nimmt trotzdem bis zum nächsten Quantisierungspunkt auf.</p>
+
+  <h3>Aufnahmen rückwärts löschen</h3>
+  <p>Lang auf A drücken löscht die zuletzt mit A gestartete Aufnahme — auch wenn die
+     Auswahl danach schon zur nächsten Spur gesprungen ist — und springt zurück auf
+     ihren Slot, sodass der nächste Tritt dort neu aufnimmt. Jeder weitere lange Druck
+     löscht die Aufnahme davor. Sind alle Aufnahmen dieser Sitzung gelöscht (oder Live
+     wurde neu gestartet), geht es vom ausgewählten Slot aus rückwärts weiter: Spuren
+     nach links, dann die vorige Szene ab der letzten Spur. Spuren ohne Input und Spuren
+     außerhalb des Aufnahme-Bereichs werden nie gelöscht. Weil A kurz auf <b>Release</b> steht, startet die Aufnahme beim
+     Loslassen des Schalters; mit Lives Clip-Quantisierung fällt das nicht ins Gewicht.</p>
+
+  <h3>Weiterspringen nach der Aufnahme</h3>
+  <p>Beendest du eine Aufnahme mit A oder startest einen Clip mit PLAY, springt die Auswahl zur nächsten
+     aufnahmefähigen Spur rechts — der nächste Tritt nimmt also gleich dort auf.
+     Nach der letzten Spur geht es eine Szene weiter nach unten auf die erste Spur
+     links. Gruppen-Spuren werden übersprungen; in der letzten Szene bleibt die
+     Auswahl stehen und Live zeigt „Letzte Szene erreicht".</p>
+  <p>Das gilt auch, wenn du die Aufnahme anders beendest, etwa am <b>Push</b> oder mit der Maus:
+     Steht die Auswahl noch auf dem Slot, der gerade aufgenommen hat, springt sie genauso weiter.</p>
+  <p>Die Spur, auf der gerade aufgenommen wurde, wird dabei wieder <b>entarmt</b> —
+     sobald ihre Aufnahme wirklich beendet ist, also nach dem Quantisierungspunkt.</p>
+
+  <h3>Szene zwei Szenen tiefer kopieren</h3>
+  <p><b>B lang drücken</b> kopiert die aufgenommenen Clips der ausgewählten Szene — alle Spuren mit
+     Input im Aufnahme-Bereich (<code>&gt;</code> … <code>&lt;</code>) — <b>zwei Szenen tiefer</b>. Fehlen
+     unten Szenen, legt das Script sie an. Schon belegte Ziel-Slots bleiben unberührt, Spuren ohne Input
+     und Spuren außerhalb des Bereichs auch. Das Script erledigt alles nacheinander mit kurzen Pausen
+     (mit angeschlossenem Push ist das sicherer); Live meldet am Ende, wie viele Clips kopiert wurden.
+     Wie weit kopiert wird, steht in <code>COPY_SCENES_DOWN</code>.</p>
+
+  <h3>Aufnahme-Bereich festlegen</h3>
+  <p>Liegen im Set Spuren, die nichts mit den Aufnahmen zu tun haben (Click, Zuspieler,
+     FX …), grenzt du den Bereich über die Spurnamen ab: Die erste Spur bekommt ein
+     <code>&gt;</code> in den Namen, die letzte ein <code>&lt;</code> — z. B.
+     „&gt; Drums" und „Bass &lt;". Weiterspringen, Szenenwechsel, Mitstarten und das
+     Stoppen alter Szenen wirken dann nur innerhalb dieses Bereichs; nach der Spur mit
+     <code>&lt;</code> geht es direkt in die nächste Szene. Beide Zeichen sind optional,
+     mit D und F lang gedrückt erreichst du weiterhin jede Spur. Bequemer geht es auf
+     der Clips-Seite im Browser: Spur antippen, dann „&gt; Start here“ oder „End here &lt;“ —
+     das Script setzt die Zeichen selbst und entfernt sie bei der bisherigen Spur. Auf dem MC6-Display erscheinen die
+     Namen ohne die Zeichen.</p>
+
+  <h3>Spuren ohne Input starten mit</h3>
+  <p>Spuren, die nicht aufnehmen können (kein Input, z. B. vorbereitete Loops), werden
+     beim Weiterspringen übersprungen — ihr Clip in der aktuellen Szene startet dabei
+     aber quantisiert mit. Liegen solche Spuren links von der ersten Aufnahme-Spur,
+     starten sie zusammen mit der ersten Aufnahme der Szene. Gruppen-Spuren werden nicht
+     gestartet. Abschaltbar mit <code>LAUNCH_SKIPPED_TRACKS = False</code>.</p>
+
+  <h3>Szenen im Arrangement mitschreiben</h3>
+  <p>Schaltest du bei stehendem Transport <b>REC</b> ein (Arrangement-Aufnahme), legt das Script am Ende des Sets
+     eine MIDI-Spur <b>„Scene Log“</b> mit einem leeren Clip pro Szene an. Nach dem Start startet es dort bei jedem Szenenwechsel den Clip
+     mit dem Szenennamen — genau dann, wenn die neue Szene einsetzt. Live nimmt den Clip wie jeden
+     Session-Clip ins Arrangement auf; danach steht dort über die ganze Aufnahme, welche Szene wann
+     lief. Die Spur hat keinen Input und gehört nie zum Aufnahme-Bereich.
+     Abschaltbar unter ⚙ Settings oder mit <code>LOG_SCENES = False</code>.</p>
+  <p class="note warn"><b>⚠ Mit Ableton Push:</b> Legt ein Script eine Spur an, während das Push-Script läuft,
+     kann Live abstürzen. Lege die Spur deshalb vorher selbst an: eine <b>MIDI-Spur</b> mit dem Namen
+     <b>„Scene Log“</b> (genau so geschrieben) und Input <b>„No Input“</b>. Das Script findet sie am
+     Namen und legt keine neue an. Stürzt Live trotzdem ab, schalte „Log scenes in the arrangement“
+     aus, solange der Push angeschlossen ist.</p>
+
+  <h3>Neue Szene, alte aus</h3>
+  <p>Startest du mit A eine Aufnahme auf der <b>ersten Spur</b> einer Szene, stoppen alle
+     Clips, die noch in anderen Szenen laufen — quantisiert, also genau dann, wenn die
+     neue Aufnahme beginnt. So klingt die vorherige Szene bis zum Einsatz weiter und ist
+     danach komplett aus. Abschaltbar mit <code>STOP_OTHER_SCENES_ON_FIRST_RECORD = False</code>.</p>
+</section>
+
+<section id="anzeige-de">
+  <p class="eyebrow">Rückmeldung</p>
+  <h2>Displays &amp; LEDs</h2>
+  <div class="legend">
+    <div class="row"><div class="swatch" style="background: #3f63c8;"></div>
+      <div><b>Linkes Display, Mitte</b><br><span>Name der ausgewählten Spur</span></div></div>
+    <div class="row"><div class="swatch" style="background: #3f63c8;"></div>
+      <div><b>Mittleres Display, Mitte</b><br><span>Name der ausgewählten Szene — ohne Namen „Szene 3" usw.</span></div></div>
+    <div class="row"><div class="swatch" style="background: var(--card-2); border: 1px solid var(--border);"></div>
+      <div><b>A: RECORD / PLAY / NO INPUT</b><br><span>RECORD bei leerem Slot, PLAY sobald dort ein Clip liegt, NO INPUT auf einer Spur ohne Input — dort kann nicht aufgenommen werden</span></div></div>
+    <div class="row"><div class="swatch" style="background: var(--record);"></div>
+      <div><b>A leuchtet rot</b><br><span>Aufnahme läuft oder wartet auf den Start</span></div></div>
+    <div class="row"><div class="swatch" style="background: var(--play);"></div>
+      <div><b>C leuchtet grün</b><br><span>auf der ausgewählten Spur läuft ein Clip</span></div></div>
+  </div>
+  <p>Die Namen werden per SysEx nur <b>temporär</b> überschrieben, deine gespeicherte
+     Bank bleibt unverändert. Nach einem Bankwechsel am MC6 Pro stehen dort wieder die
+     gespeicherten Namen, bis du den nächsten Schalter trittst. Umlaute erscheinen als
+     ae/oe/ue.</p>
+  <p class="note">Im Toggle Mode wechselt das MC6 Pro beim Tritt kurz selbst die Farbe.
+     Das Script setzt sie direkt danach wieder auf den echten Zustand — ein kurzes
+     Flackern ist normal.</p>
+</section>
+
+<section id="browser-de">
+  <p class="eyebrow">Ohne Fußschalter</p>
+  <h2>Im Browser steuern</h2>
+  <p>Zusammen mit <a href="https://github.com/LooperPilot/looper-pilot/releases/latest" target="_blank" rel="noopener">LooperPilot</a> (ab 1.8)
+     gibt es das MC6 Pro auch im Browser — auf dem Mac oder auf einem Tablet im selben
+     WLAN. Die Seite <code>/clips</code> (in der Looper-Anzeige oben „🎛 Clips") zeigt die
+     sechs Schalter mit Spur, Szene und RECORD/PLAY, kurz und lang tippen wie am Gerät.
+     Darunter liegt eine Übersicht aller Spuren und Szenen: laufende Clips grün, Aufnahmen
+     rot, die letzte Aufnahme markiert, Spuren ohne Input schraffiert mit „⊘ no input“; ein Tipp auf einen Slot wählt ihn aus.</p>
+  <img class="hero-shot" src="clips-view.png" width="1398" height="481" loading="lazy" alt="Die Clips-Seite im Browser: links das nachgebildete MC6 Pro mit Start/Stop Scene, Spur claps, Szene 3 und RECORD, rechts die Übersicht mit Clip-Namen, den Knöpfen für den Aufnahme-Bereich und einer schraffierten Spur ohne Input">
+  <p class="board-cap">Die Clips-Seite: links das MC6 Pro, rechts die Übersicht — die hellen Linien markieren den Aufnahme-Bereich von „&gt;“ bis „&lt;“.</p>
+  <ul class="keys">
+    <li><b>Voraussetzung</b><span>LooperPilot läuft auf demselben Mac wie Live, MorningstarClips ist als Bedienoberfläche gewählt</span></li>
+    <li><b>Adresse</b><span><code>http://localhost:8080/clips</code>, fürs Tablet die Adresse unter „📱 Tablet" plus <code>/clips</code></span></li>
+    <li><b>Parallel</b><span>MC6 Pro und Browser dürfen gleichzeitig laufen, beide steuern dasselbe Script</span></li>
+    <li><b>Aufnahme-Bereich</b><span>Spur antippen, dann <b>„&gt; Start here“</b> oder <b>„End here &lt;“</b> — das Script setzt <code>&gt;</code> bzw. <code>&lt;</code> in den Spurnamen und entfernt es bei der bisherigen Spur (in Live mit Undo umkehrbar)</span></li>
+    <li><b>⚙ Settings</b><span>Schalter für den Betrieb, siehe unten — gespeichert in <code>~/Library/Application Support/MorningstarClips/settings.json</code>, bleiben über Neustarts und Updates erhalten</span></li>
+  </ul>
+  <h3>⚙ Settings</h3>
+  <div class="table-wrap"><table class="settings">
+    <thead><tr><th>Schalter</th><th>Wirkung</th><th>Voreinstellung im Script</th></tr></thead>
+    <tbody>
+      <tr><td><b>Disarm previous track</b></td><td>Nach dem Weiterspringen wird die Spur, auf der gerade aufgenommen wurde, entarmt — sobald ihre Aufnahme beendet ist</td><td><code>DISARM_ON_ADVANCE</code></td></tr>
+      <tr><td><b>New scene stops the old one</b></td><td>Die erste Aufnahme einer Szene stoppt die Clips anderer Szenen im Aufnahme-Bereich — quantisiert, genau zum Einsatz</td><td><code>STOP_OTHER_SCENES_ON_FIRST_RECORD</code></td></tr>
+      <tr><td><b>Launch tracks without input</b></td><td>Übersprungene Spuren ohne Input (z. B. vorbereitete Loops) starten ihren Clip beim Weiterspringen mit</td><td><code>LAUNCH_SKIPPED_TRACKS</code></td></tr>
+      <tr><td><b>Second press stops new clips</b></td><td>Fertig aufgenommene Clips im Aufnahme-Bereich bekommen den Startmodus „Toggle“ (gut 1 s nach dem Ende der Aufnahme, einer nach dem anderen): ein zweiter Druck aufs Pad am Push oder per Maus stoppt den Clip, statt ihn neu zu starten. Clips, die mit B lang kopiert werden, übernehmen den Modus</td><td><code>TOGGLE_CLIPS</code></td></tr>
+      <tr><td><b>Show MC6 Pro and overview</b></td><td>Aus: das Script baut MC6-Ansicht und Overview im Browser gar nicht erst auf — spart Rechenleistung in Live (hilfreich auf knappen Rechnern, wenn Aufnahmen knacken). Das MC6 Pro mit seinen Displays und die Transport-Leiste arbeiten normal weiter. Während einer Aufnahme wird die Overview ohnehin nur einmal pro Sekunde aktualisiert</td><td><code>SHOW_BOARD</code></td></tr>
+      <tr><td><b>Log scenes in the arrangement</b></td><td>Läuft die Arrangement-Aufnahme (REC), startet bei jedem Szenenwechsel auf der MIDI-Spur „Scene Log“ ein Clip mit dem Szenennamen — Live nimmt ihn mit auf. So steht im Arrangement, welche Szene wann lief</td><td><code>LOG_SCENES</code></td></tr>
+    </tbody>
+  </table></div>
+  <p>Alle sind ab Werk an. Die Werte im Script gelten nur, solange im Browser noch nichts umgeschaltet wurde.</p>
+  <p>Das Script schickt seinen Zustand per UDP an Port 11007 und nimmt Befehle auf 11008
+     an. Abschalten mit <code>WEB_ENABLED = False</code>.</p>
+</section>
+
+<section id="midi-de">
+  <p class="eyebrow">Referenz</p>
+  <h2>MIDI-Befehle</h2>
+  <p>Alle Befehle sind Control Changes auf <b>MIDI-Kanal 1</b>, ausgelöst bei jedem Wert
+     größer 0 (am besten 127). Damit lässt sich auch jeder andere Fußschalter anbinden.</p>
+  <div class="table-wrap"><table class="settings">
+    <thead><tr><th>CC</th><th>Funktion</th></tr></thead>
+    <tbody>
+      <tr><td class="num">20</td><td>Szene hoch</td></tr>
+      <tr><td class="num">21</td><td>Nächste Szene, erste Spur im Aufnahme-Bereich</td></tr>
+      <tr><td class="num">22</td><td>Spur links</td></tr>
+      <tr><td class="num">23</td><td>Spur rechts</td></tr>
+      <tr><td class="num">24</td><td>Arm an/aus (beachtet „Exklusiv-Arm")</td></tr>
+      <tr><td class="num">25</td><td>Record / Play</td></tr>
+      <tr><td class="num">26</td><td>Play</td></tr>
+      <tr><td class="num">27</td><td>Stop Spur</td></tr>
+      <tr><td class="num">28</td><td>Alle Clips stoppen</td></tr>
+      <tr><td class="num">29</td><td>Undo</td></tr>
+      <tr><td class="num">30</td><td>Clip im ausgewählten Slot löschen</td></tr>
+      <tr><td class="num">31</td><td>Letzte Aufnahme löschen</td></tr>
+      <tr><td class="num">32</td><td>Clips der Szene 2 Szenen tiefer kopieren</td></tr>
+      <tr><td class="num">33</td><td>Szene starten (im Aufnahme-Bereich)</td></tr>
+      <tr><td class="num">34</td><td>Szene stoppen (im Aufnahme-Bereich)</td></tr>
+      <tr><td class="num">35</td><td>Transport stoppen</td></tr>
+    </tbody>
+  </table></div>
+  <p>Zurück ans MC6 Pro schickt das Script CC 2 / CC 3 (Toggle-Position eines Presets)
+     und SysEx-Nachrichten für die Namen.</p>
+</section>
+
+<section id="anpassen-de">
+  <p class="eyebrow">Für Bastler</p>
+  <h2>Anpassen</h2>
+  <p>Alle Einstellungen stehen oben in <code>MorningstarClips/MorningstarClips.py</code>.
+     <code>DISARM_ON_ADVANCE</code>, <code>STOP_OTHER_SCENES_ON_FIRST_RECORD</code> und
+     <code>LAUNCH_SKIPPED_TRACKS</code> sind dabei nur die Voreinstellung — umgeschaltet
+     werden sie bequemer auf der Clips-Seite unter ⚙ Settings.</p>
+  <pre>CHANNEL = 0                    # Eingangskanal: 0 = Kanal 1 … 15 = Kanal 16
+CC_SCENE_UP = 20               # … CC-Nummern der Befehle
+FEEDBACK_CHANNEL = 0           # MIDI Channel des MC6 Pro
+PRESET_REC = 0                 # Preset für die Aufnahme-LED (0 = A)
+PRESET_STOP = 2                # Preset für die Wiedergabe-LED (2 = C)
+NAME_ON_MAIN_DISPLAY = True    # Spurname im linken Display
+SCENE_ON_BANK_NAME = True      # Szene im mittleren Display
+NAME_PRESET = None             # Spurname zusätzlich auf einem Preset (0 = A)
+REC_LABELS = ('RECORD', 'PLAY') # Beschriftung von A (None = aus)
+NO_INPUT_LABEL = 'NO INPUT'    # A auf einer Spur ohne Input
+MC_DEVICE_ID = 0x06            # MC6 Pro (MC8 Pro = 0x08)
+DISARM_ON_ADVANCE = True       # vorherige Spur nach der Aufnahme entarmen
+STOP_OTHER_SCENES_ON_FIRST_RECORD = True  # Aufnahme auf erster Spur stoppt andere Szenen
+LAUNCH_SKIPPED_TRACKS = True   # übersprungene Spuren ohne Input mitstarten
+RANGE_START = '>'              # Zeichen für die erste Spur im Aufnahme-Bereich
+RANGE_END = '<'                # Zeichen für die letzte Spur
+WEB_ENABLED = True             # Zustand an LooperPilot senden (Browser-Ansicht)
+WEB_STATE_PORT = 11007         # Zustand an den LooperPilot-Server
+WEB_COMMAND_PORT = 11008       # Befehle aus dem Browser
+SETTINGS_FILE = '~/Library/Application Support/MorningstarClips/settings.json'</pre>
+  <p>Nach einer Änderung <code>./install.sh</code> erneut ausführen und Live neu starten.</p>
+</section>
+
+<section id="fehlersuche-de">
+  <p class="eyebrow">Wenn etwas hakt</p>
+  <h2>Fehlersuche</h2>
+  <ul class="keys">
+    <li><b>Script fehlt in der Liste</b><span>liegt der Ordner unter <code>~/Music/Ableton/User Library/Remote Scripts/MorningstarClips</code>? Live neu starten</span></li>
+    <li><b>Tritte bewirken nichts</b><span>Eingang im Slot prüfen; sendet das MC6 Pro auf Kanal 1?</span></li>
+    <li><b>LEDs reagieren nicht</b><span>Ausgang im Slot, MIDI Channel am MC6 Pro und Toggle Mode bei A und C prüfen</span></li>
+    <li><b>Keine Namen im Display</b><span>Ausgang im Slot prüfen; beim MC8 Pro <code>MC_DEVICE_ID = 0x08</code> setzen</span></li>
+    <li><b>Clips-Seite: „not connected"</b><span>LooperPilot ab 1.8 läuft auf demselben Mac, MorningstarClips ab 1.1.1 ist in Live gewählt? Live nach einem Script-Update neu starten</span></li>
+    <li><b>Fehlermeldungen</b><span>in <code>~/Library/Preferences/Ableton/Live &lt;Version&gt;/Log.txt</code> nach „MorningstarClips" suchen</span></li>
+  </ul>
+</section>
+
+<section id="lizenz-de">
+  <p class="eyebrow">Kleingedrucktes</p>
+  <h2>Lizenz</h2>
+  <p>MIT-Lizenz — frei nutzbar, auch zum Anpassen und Weitergeben. Releases für Testleute
+     im privaten Repo <a href="https://github.com/LooperPilot/morningstar-live-clips/releases/latest" target="_blank" rel="noopener">LooperPilot/morningstar-live-clips</a>.
+     Morningstar, MC6 Pro, Ableton Live und Push sind Marken ihrer jeweiligen Inhaber;
+     dieses Projekt ist nicht mit ihnen verbunden. Die Schrift Fraunces steht unter der
+     <a href="fonts/OFL.txt">SIL Open Font License</a> und wird direkt von dieser Seite geladen.</p>
+</section>
+
+</div>
+
+<!-- ======================================================= ENGLISH -->
+<div id="content-en" lang="en" hidden>
+
+<h1>Session View by foot</h1>
+<p class="lede">Morningstar Live Clips is a Remote Script for Ableton Live that lets a
+   <b>Morningstar MC6 Pro</b> drive the Session View: select tracks and scenes,
+   record, play and stop clips — without taking your hands off the instrument.
+   It runs alongside Push; Push follows the selection automatically.</p>
+<p class="lede small">The MC6 Pro shows what's happening in Live: track name and
+   scene on its displays, <b>RECORD</b> or <b>PLAY</b> on the record switch, red
+   while recording, green while a clip plays on the track. After every take the
+   selection jumps to the next track automatically.</p>
+<p class="note"><b>Requirements:</b> a Mac with Ableton Live and a Morningstar MC6 Pro
+   connected via USB. Any other MIDI foot controller works for control as well; LED and
+   display feedback are tailored to the MC6 Pro (or MC8 Pro).</p>
+
+<nav class="toc">
+  <a href="#installation-en">Installation</a>
+  <a href="#live-en">Live setup</a>
+  <a href="#mc6-en">MC6 Pro</a>
+  <a href="#usage-en">Usage</a>
+  <a href="#feedback-en">Displays &amp; LEDs</a>
+  <a href="#browser-en">Browser</a>
+  <a href="#midi-en">MIDI commands</a>
+  <a href="#customize-en">Customize</a>
+  <a href="#troubleshooting-en">Troubleshooting</a>
+</nav>
+
+<section id="installation-en">
+  <p class="eyebrow">First-time setup</p>
+  <h2>Installation</h2>
+
+  <p class="note ok">🔒 <b>Testing phase:</b> the releases are in the private repo <b>LooperPilot/morningstar-live-clips</b> — access on request. With access: download the <a href="https://github.com/LooperPilot/morningstar-live-clips/releases/latest" target="_blank" rel="noopener">latest release</a>
+     as a ZIP (under "Assets", not "Source code"), unpack it and run <code>sh install.sh</code> in that
+     folder in Terminal — it copies the Remote Script to the right place. Then continue with "Live setup".</p>
+  <p class="note">🎛 <b>With LooperPilot:</b> <a href="https://github.com/LooperPilot/looper-pilot/releases/latest" target="_blank" rel="noopener">LooperPilot</a>
+     ships MorningstarClips too — its <code>./install.sh --with-clips</code> installs the script, and
+     the MC6 Pro bank is in the download under <code>Presets/Morningstar MC6 Pro</code>.</p>
+
+  <h3>Template for Live</h3>
+  <p><a href="https://github.com/LooperPilot/looper-pilot/releases/latest"><code>MorningStarTemplate.als</code></a> is a ready-made Live set to try things out and
+     build on: a recording range from <code>&gt; Guit</code> to <code>Drums &lt;</code>, a track without input
+     in between, a looper group for LooperPilot and a reverb and a delay return. It comes with the
+     LooperPilot download; <code>./install.sh --with-clips</code> puts it in
+     <code>~/Music/Ableton/User Library/Templates</code> — then it shows up in Live's browser under
+     <b>Templates</b>. An existing file with the same name is never overwritten.</p>
+  <p class="note">The drum sounds come from Ableton's <b>Drum Booth</b> pack. If it's missing, Live offers to
+     download it. Needs Live 12.</p>
+
+  <h3>In the ZIP</h3>
+  <div class="filetree"><b>MorningstarClips/</b>              the Remote Script for Ableton Live
+<b>MorningStarPresets/</b>             ready-made MC6 Pro bank "PUSH CTRL" for the Morningstar Editor
+<b>install.sh</b>                      copies the script into your User Library
+<b>README.md</b>, <b>LICENSE</b></div>
+
+  <h3><span class="stepnum">1</span> Copy the Remote Script</h3>
+  <p><code>install.sh</code> does this for you. By hand: copy the <code>MorningstarClips</code> folder to</p>
+  <pre>~/Music/Ableton/User Library/Remote Scripts/</pre>
+</section>
+
+<section id="live-en">
+  <p class="eyebrow">Ableton Live</p>
+  <h2>Live setup</h2>
+  <h3><span class="stepnum">2</span> Choose the control surface</h3>
+  <ol class="steps">
+    <li>Start or restart Live — Remote Scripts are only loaded at startup.</li>
+    <li>Open <code>Settings → Link, Tempo &amp; MIDI</code>.</li>
+    <li>Pick <code>MorningstarClips</code> in a free control surface row. Push keeps its own row.</li>
+  </ol>
+  <div class="table-wrap"><table class="settings">
+    <thead><tr><th>Control surface</th><th>Input</th><th>Output</th></tr></thead>
+    <tbody><tr><td><code>MorningstarClips</code></td><td>Morningstar MC6 Pro</td><td>Morningstar MC6 Pro</td></tr></tbody>
+  </table></div>
+  <p>The output is needed for LEDs and displays. Below, in the MIDI ports, turn
+     <b>Track</b> and <b>Remote</b> off for the MC6 Pro — otherwise the CCs also end up
+     on armed MIDI tracks.</p>
+  <p class="note ok">✅ When everything works, Live's status bar shows "Morningstar Clips geladen".</p>
+</section>
+
+<section id="mc6-en">
+  <p class="eyebrow">Morningstar Editor</p>
+  <h2>MC6 Pro setup</h2>
+
+  <h3><span class="stepnum">3</span> Load the ready-made bank</h3>
+  <p>The <code>MorningStarPresets</code> folder contains the bank <b>"PUSH CTRL"</b> —
+     names, CCs, toggle mode and colours are already set.</p>
+  <ol class="steps">
+    <li>Connect the MC6 Pro via USB and open the <b>Morningstar Editor</b>.</li>
+    <li>Restore the file as a bank backup onto a free bank slot.</li>
+    <li>Under <b>Controller Settings → MIDI Channel</b>, set channel <b>1</b> (receive channel for LEDs and displays).</li>
+  </ol>
+
+  <div class="board" role="img" aria-label="MC6 Pro layout: top D start scene, E scene up, F stop scene; bottom A record/play, B next scene, C stop track">
+    <div class="row">
+      <div class="sw"><i></i>D</div><div class="sw"><i></i>E</div><div class="sw"><i></i>F</div>
+    </div>
+    <div class="row screens">
+      <div class="screen rec"><span class="top">Start Szene</span><span class="mid">Guit</span><span class="bot">RECORD</span></div>
+      <div class="screen"><span class="top">Szene hoch</span><span class="mid">Verse</span><span class="bot">Szene runter</span></div>
+      <div class="screen play"><span class="top">Stop Szene</span><span class="mid dim">B003 PG1</span><span class="bot">Stop Spur</span></div>
+    </div>
+    <div class="row">
+      <div class="sw"><i></i>A</div><div class="sw"><i></i>B</div><div class="sw"><i></i>C</div>
+    </div>
+  </div>
+  <p class="board-cap">Top row: names of D, E, F; bottom row: A, B, C. In the middle: selected track and scene. The bank's labels are in German.</p>
+
+  <details class="hw">
+    <summary><span>Set up presets yourself</span><span class="tag">optional</span><span class="chev">▶</span></summary>
+    <div class="hw-body">
+      <p>Every message: type <b>CC</b>, channel <b>1</b>, value <b>127</b>. E uses
+         action <b>Press</b> and sends as soon as you step on it. All others also have a
+         <b>Long Press</b> message — their short message is therefore set to
+         <b>Release</b>, so the MC6 Pro can tell short and long apart.</p>
+      <div class="table-wrap"><table class="settings">
+        <thead><tr><th>Switch</th><th>Short</th><th>Long (Long Press)</th><th>Toggle mode</th></tr></thead>
+        <tbody>
+          <tr><td><b>D</b></td><td>Start scene · CC 33 · Release</td><td>Track left · CC 22</td><td class="dim">off</td></tr>
+          <tr><td><b>E</b></td><td>Scene up · CC 20 · Press</td><td class="dim">–</td><td class="dim">off</td></tr>
+          <tr><td><b>F</b></td><td>Stop scene · CC 34 · Release</td><td>Track right · CC 23</td><td class="dim">off</td></tr>
+          <tr><td><b>A</b></td><td>Record / Play · CC 25 · Release</td><td>Delete last take · CC 31</td><td>on · position 2 red</td></tr>
+          <tr><td><b>B</b></td><td>Next scene, first track · CC 21 · Release</td><td>Copy clips 2 scenes down · CC 32</td><td class="dim">off</td></tr>
+          <tr><td><b>C</b></td><td>Stop track · CC 27 · Release</td><td>Stop transport · CC 35</td><td>on · position 2 green</td></tr>
+        </tbody>
+      </table></div>
+      <p>For A and C set all messages to toggle position <b>Both</b>, otherwise they only
+         send on every second press. <b>Controller Settings → Long Press Time</b> sets how
+         long a press has to be to count as long.</p>
+      <p class="note">More functions work the same way as a long press, e.g. undo (CC 29)
+         or delete clip (CC 30).</p>
+    </div>
+  </details>
+
+  <p class="note warn">⚠️ <b>Backing up your own bank:</b> the script temporarily
+     overwrites names on the MC6 Pro — a backup from the editor would store those
+     labels too. Close Live first (or deselect the script) and switch the bank on the
+     MC6 Pro away and back once.</p>
+</section>
+
+<section id="usage-en">
+  <p class="eyebrow">On stage</p>
+  <h2>Usage</h2>
+  <ul class="keys">
+    <li><b>D — START SCENE</b><span>launches the selected scene inside the recording range: the scene's clips start, tracks with an empty slot stop</span></li>
+    <li><b>F — STOP SCENE</b><span>stops the selected scene's clips inside the recording range</span></li>
+    <li><b>D / F long press</b><span>track left / right</span></li>
+    <li><b>E</b><span>scene up</span></li>
+    <li><b>B</b><span>next scene, onto the first track in the recording range</span></li>
+    <li><b>A — RECORD</b><span>empty slot: the track gets armed and recording starts</span></li>
+    <li><b>A — while recording</b><span>recording ends, the clip plays, the selection jumps to the next track</span></li>
+    <li><b>A — PLAY</b><span>stopped clip in the slot: the clip starts, the selection jumps to the next track</span></li>
+    <li><b>C</b><span>stops the clips on the selected track</span></li>
+    <li><b>A long press</b><span>deletes the last take backwards and selects its slot again — each further long press goes one further back; tracks without input are never touched</span></li>
+    <li><b>B long press</b><span>copy the recorded clips of the scene two scenes down (see below)</span></li>
+    <li><b>C long press</b><span>stops Live's transport — and with it everything</span></li>
+  </ul>
+  <p>Recording start and end follow Live's clip launch quantization. The selection
+     moves on immediately; the previous clip still records up to the next quantization point.</p>
+
+  <h3>Deleting takes backwards</h3>
+  <p>A long press on A deletes the last take started with A — even if the selection
+     has already moved on to the next track — and jumps back to its slot, so the next
+     press records there anew. Each further long press deletes the take before it. Once
+     all takes of this session are gone (or Live was restarted), it carries on backwards
+     from the selected slot: tracks to the left, then the previous scene from its last
+     track. Tracks without input and tracks outside the recording range are never
+     deleted. Since A's
+     short action is <b>Release</b>, recording starts when you lift your foot; with
+     Live's clip launch quantization that makes no difference.</p>
+
+  <h3>Moving on after a take</h3>
+  <p>When you end a recording with A or start a clip with PLAY, the selection jumps to the next track to the
+     right that can record — so the next press records right there. After the last
+     track it moves one scene down to the first track on the left. Group tracks are
+     skipped; in the last scene the selection stays put and Live shows
+     "Letzte Szene erreicht" (last scene reached).</p>
+  <p>This also works when you end the recording some other way, e.g. on a <b>Push</b> or with the mouse:
+     if the selection is still on the slot that just recorded, it jumps on the same way.</p>
+  <p>The track you just recorded on gets <b>disarmed</b> again — as soon as its
+     recording has really ended, i.e. after the quantization point.</p>
+
+  <h3>Copying a scene two scenes down</h3>
+  <p><b>Long press on B</b> copies the recorded clips of the selected scene — all tracks with an input
+     inside the recording range (<code>&gt;</code> … <code>&lt;</code>) — <b>two scenes down</b>. If scenes
+     are missing at the bottom, the script adds them. Target slots that already hold a clip stay untouched,
+     and so do tracks without an input and tracks outside the range. The script does everything one step
+     at a time with short pauses (safer with a Push connected); Live reports how many clips were copied.
+     How far it copies is set by <code>COPY_SCENES_DOWN</code>.</p>
+
+  <h3>Setting the recording range</h3>
+  <p>If your set has tracks that have nothing to do with the recordings (click, backing
+     tracks, FX …), mark the range in the track names: the first track gets a
+     <code>&gt;</code> in its name, the last one a <code>&lt;</code> — e.g. "&gt; Drums"
+     and "Bass &lt;". Moving on, scene changes, launching along and stopping old scenes
+     then only apply inside that range; after the track with <code>&lt;</code> it goes
+     straight to the next scene. Both marks are optional, and a long press on D and F still reaches every
+     track. Even easier on the Clips page in the browser: tap a track, then "&gt; Start
+     here" or "End here &lt;" — the script sets the marks itself and removes them from
+     the previous track. The MC6 display shows the names without the marks.</p>
+
+  <h3>Tracks without input launch along</h3>
+  <p>Tracks that can't record (no input, e.g. prepared loops) are skipped when moving
+     on — but their clip in the current scene launches along, quantized. If such tracks
+     sit to the left of a scene's first recording track, they start together with that
+     scene's first recording. Group tracks are not launched. Turn it off with
+     <code>LAUNCH_SKIPPED_TRACKS = False</code>.</p>
+
+  <h3>Logging scenes in the arrangement</h3>
+  <p>When you switch on <b>REC</b> (arrangement recording) while the transport is stopped, the script adds a MIDI track
+     <b>"Scene Log"</b> with one empty clip per scene at the end of the set. After Start, on every scene change it launches the clip named
+     after the scene there — right when the new scene starts. Live records it into the arrangement
+     like any session clip, so afterwards the arrangement shows which scene played when. The track
+     has no input and is never part of the recording range. Turn it off under ⚙ Settings or with
+     <code>LOG_SCENES = False</code>.</p>
+  <p class="note warn"><b>⚠ With an Ableton Push:</b> if a script creates a track while the Push script is running,
+     Live can crash. So create the track yourself beforehand: a <b>MIDI track</b> named
+     <b>"Scene Log"</b> (spelled exactly like that) with input <b>"No Input"</b>. The script finds it by
+     name and creates no new one. If Live still crashes, switch off "Log scenes in the arrangement"
+     while the Push is connected.</p>
+
+  <h3>New scene, old one off</h3>
+  <p>When you start a recording with A on the <b>first track</b> of a scene, all clips
+     still playing in other scenes stop — quantized, i.e. exactly when the new recording
+     starts. The previous scene keeps playing until then and is completely off
+     afterwards. Turn it off with <code>STOP_OTHER_SCENES_ON_FIRST_RECORD = False</code>.</p>
+</section>
+
+<section id="feedback-en">
+  <p class="eyebrow">Feedback</p>
+  <h2>Displays &amp; LEDs</h2>
+  <div class="legend">
+    <div class="row"><div class="swatch" style="background: #3f63c8;"></div>
+      <div><b>Left display, middle</b><br><span>name of the selected track</span></div></div>
+    <div class="row"><div class="swatch" style="background: #3f63c8;"></div>
+      <div><b>Center display, middle</b><br><span>name of the selected scene — "Szene 3" etc. if it has none</span></div></div>
+    <div class="row"><div class="swatch" style="background: var(--card-2); border: 1px solid var(--border);"></div>
+      <div><b>A: RECORD / PLAY / NO INPUT</b><br><span>RECORD on an empty slot, PLAY as soon as it holds a clip, NO INPUT on a track without input — it can't record there</span></div></div>
+    <div class="row"><div class="swatch" style="background: var(--record);"></div>
+      <div><b>A lights red</b><br><span>recording, or waiting to start recording</span></div></div>
+    <div class="row"><div class="swatch" style="background: var(--play);"></div>
+      <div><b>C lights green</b><br><span>a clip is playing on the selected track</span></div></div>
+  </div>
+  <p>The names are overwritten via SysEx only <b>temporarily</b> — your stored bank stays
+     unchanged. After a bank change on the MC6 Pro the stored names are back until you
+     press the next switch. Umlauts are shown as ae/oe/ue.</p>
+  <p class="note">In toggle mode the MC6 Pro briefly flips the colour itself when pressed.
+     The script sets it back to the real state right away — a short flicker is normal.</p>
+</section>
+
+<section id="browser-en">
+  <p class="eyebrow">No foot controller needed</p>
+  <h2>Control from the browser</h2>
+  <p>Together with <a href="https://github.com/LooperPilot/looper-pilot/releases/latest" target="_blank" rel="noopener">LooperPilot</a> (1.8 or newer)
+     the MC6 Pro is also available in the browser — on the Mac or on a tablet on the same
+     Wi-Fi. The page <code>/clips</code> ("🎛 Clips" at the top of the looper display) shows
+     the six switches with track, scene and RECORD/PLAY; short and long taps work like on
+     the device. Below is an overview of all tracks and scenes: playing clips green,
+     recordings red, the last take marked, tracks without input hatched with "⊘ no input"; tapping a slot selects it.</p>
+  <img class="hero-shot" src="clips-view.png" width="1398" height="481" loading="lazy" alt="The Clips page in the browser: on the left the virtual MC6 Pro with start/stop scene, track claps, scene 3 and RECORD, on the right the overview with clip names, the recording range buttons and a hatched track without input">
+  <p class="board-cap">The Clips page: the MC6 Pro on the left, the overview on the right — the light lines mark the recording range from "&gt;" to "&lt;".</p>
+  <ul class="keys">
+    <li><b>Requirement</b><span>LooperPilot runs on the same Mac as Live, MorningstarClips is selected as a control surface</span></li>
+    <li><b>Address</b><span><code>http://localhost:8080/clips</code>; on a tablet, the address under "📱 Tablet" plus <code>/clips</code></span></li>
+    <li><b>Side by side</b><span>MC6 Pro and browser can run at the same time, both drive the same script</span></li>
+    <li><b>Recording range</b><span>tap a track, then <b>"&gt; Start here"</b> or <b>"End here &lt;"</b> — the script puts <code>&gt;</code> or <code>&lt;</code> into the track name and removes it from the previous track (undoable in Live)</span></li>
+    <li><b>⚙ Settings</b><span>switches for playing live, see below — saved in <code>~/Library/Application Support/MorningstarClips/settings.json</code>, kept across restarts and updates</span></li>
+  </ul>
+  <h3>⚙ Settings</h3>
+  <div class="table-wrap"><table class="settings">
+    <thead><tr><th>Switch</th><th>Effect</th><th>Default in the script</th></tr></thead>
+    <tbody>
+      <tr><td><b>Disarm previous track</b></td><td>After moving on, the track you just recorded on is disarmed — once its recording has ended</td><td><code>DISARM_ON_ADVANCE</code></td></tr>
+      <tr><td><b>New scene stops the old one</b></td><td>The first recording of a scene stops clips of other scenes inside the recording range — quantized, right on the downbeat</td><td><code>STOP_OTHER_SCENES_ON_FIRST_RECORD</code></td></tr>
+      <tr><td><b>Launch tracks without input</b></td><td>Skipped tracks without input (e.g. prepared loops) launch their clip along when moving on</td><td><code>LAUNCH_SKIPPED_TRACKS</code></td></tr>
+      <tr><td><b>Second press stops new clips</b></td><td>Finished takes in the recording range get the launch mode "Toggle" (about a second after the recording ends, one at a time): pressing the pad again on the Push or with the mouse stops the clip instead of restarting it. Clips copied with a long press on B keep the mode</td><td><code>TOGGLE_CLIPS</code></td></tr>
+      <tr><td><b>Show MC6 Pro and overview</b></td><td>Off: the script doesn't build the MC6 view and overview for the browser at all — saves CPU in Live (helpful on tight machines when recordings crackle). The MC6 Pro with its displays and the transport bar keep working. While recording, the overview only updates once per second anyway</td><td><code>SHOW_BOARD</code></td></tr>
+      <tr><td><b>Log scenes in the arrangement</b></td><td>While arrangement recording (REC) runs, every scene change starts a clip named after the scene on the MIDI track "Scene Log" — Live records it along, so the arrangement shows which scene played when</td><td><code>LOG_SCENES</code></td></tr>
+    </tbody>
+  </table></div>
+  <p>All are on by default. The values in the script only apply until something has been switched in the browser.</p>
+  <p>The script sends its state via UDP to port 11007 and receives commands on 11008.
+     Turn it off with <code>WEB_ENABLED = False</code>.</p>
+</section>
+
+<section id="midi-en">
+  <p class="eyebrow">Reference</p>
+  <h2>MIDI commands</h2>
+  <p>All commands are Control Changes on <b>MIDI channel 1</b>, triggered by any value
+     above 0 (127 recommended). Any other foot controller can use them too.</p>
+  <div class="table-wrap"><table class="settings">
+    <thead><tr><th>CC</th><th>Function</th></tr></thead>
+    <tbody>
+      <tr><td class="num">20</td><td>Scene up</td></tr>
+      <tr><td class="num">21</td><td>Next scene, first track in the recording range</td></tr>
+      <tr><td class="num">22</td><td>Track left</td></tr>
+      <tr><td class="num">23</td><td>Track right</td></tr>
+      <tr><td class="num">24</td><td>Arm on/off (respects "Exclusive Arm")</td></tr>
+      <tr><td class="num">25</td><td>Record / Play</td></tr>
+      <tr><td class="num">26</td><td>Play</td></tr>
+      <tr><td class="num">27</td><td>Stop track</td></tr>
+      <tr><td class="num">28</td><td>Stop all clips</td></tr>
+      <tr><td class="num">29</td><td>Undo</td></tr>
+      <tr><td class="num">30</td><td>Delete clip in the selected slot</td></tr>
+      <tr><td class="num">31</td><td>Delete last take</td></tr>
+      <tr><td class="num">32</td><td>Copy the scene's clips 2 scenes down</td></tr>
+      <tr><td class="num">33</td><td>Start scene (inside the recording range)</td></tr>
+      <tr><td class="num">34</td><td>Stop scene (inside the recording range)</td></tr>
+      <tr><td class="num">35</td><td>Stop transport</td></tr>
+    </tbody>
+  </table></div>
+  <p>Back to the MC6 Pro the script sends CC 2 / CC 3 (a preset's toggle position) and
+     SysEx messages for the names.</p>
+</section>
+
+<section id="customize-en">
+  <p class="eyebrow">For tinkerers</p>
+  <h2>Customize</h2>
+  <p>All settings live at the top of <code>MorningstarClips/MorningstarClips.py</code>.
+     <code>DISARM_ON_ADVANCE</code>, <code>STOP_OTHER_SCENES_ON_FIRST_RECORD</code> and
+     <code>LAUNCH_SKIPPED_TRACKS</code> are just defaults — switch them more conveniently
+     on the Clips page under ⚙ Settings.</p>
+  <pre>CHANNEL = 0                    # input channel: 0 = channel 1 … 15 = channel 16
+CC_SCENE_UP = 20               # … CC numbers of the commands
+FEEDBACK_CHANNEL = 0           # MIDI channel of the MC6 Pro
+PRESET_REC = 0                 # preset for the recording LED (0 = A)
+PRESET_STOP = 2                # preset for the playing LED (2 = C)
+NAME_ON_MAIN_DISPLAY = True    # track name on the left display
+SCENE_ON_BANK_NAME = True      # scene on the center display
+NAME_PRESET = None             # track name on a preset too (0 = A)
+REC_LABELS = ('RECORD', 'PLAY') # labels for A (None = off)
+NO_INPUT_LABEL = 'NO INPUT'    # A on a track without input
+MC_DEVICE_ID = 0x06            # MC6 Pro (MC8 Pro = 0x08)
+DISARM_ON_ADVANCE = True       # disarm the previous track after a take
+STOP_OTHER_SCENES_ON_FIRST_RECORD = True  # recording on the first track stops other scenes
+LAUNCH_SKIPPED_TRACKS = True   # launch skipped tracks without input
+RANGE_START = '>'              # mark for the first track of the recording range
+RANGE_END = '<'                # mark for the last track
+WEB_ENABLED = True             # send state to LooperPilot (browser view)
+WEB_STATE_PORT = 11007         # state to the LooperPilot server
+WEB_COMMAND_PORT = 11008       # commands from the browser
+SETTINGS_FILE = '~/Library/Application Support/MorningstarClips/settings.json'</pre>
+  <p>After a change, run <code>./install.sh</code> again and restart Live.</p>
+</section>
+
+<section id="troubleshooting-en">
+  <p class="eyebrow">When something's off</p>
+  <h2>Troubleshooting</h2>
+  <ul class="keys">
+    <li><b>Script missing from the list</b><span>is the folder at <code>~/Music/Ableton/User Library/Remote Scripts/MorningstarClips</code>? Restart Live</span></li>
+    <li><b>Presses do nothing</b><span>check the input in the slot; is the MC6 Pro sending on channel 1?</span></li>
+    <li><b>LEDs don't react</b><span>check the output in the slot, the MC6 Pro's MIDI channel and toggle mode on A and C</span></li>
+    <li><b>No names on the display</b><span>check the output in the slot; for an MC8 Pro set <code>MC_DEVICE_ID = 0x08</code></span></li>
+    <li><b>Clips page: "not connected"</b><span>is LooperPilot 1.8+ running on the same Mac and MorningstarClips 1.1.1+ selected in Live? Restart Live after updating the script</span></li>
+    <li><b>Error messages</b><span>search <code>~/Library/Preferences/Ableton/Live &lt;version&gt;/Log.txt</code> for "MorningstarClips"</span></li>
+  </ul>
+</section>
+
+<section id="license-en">
+  <p class="eyebrow">Small print</p>
+  <h2>License</h2>
+  <p>MIT license — free to use, modify and share. Releases for testers in the private repo
+     <a href="https://github.com/LooperPilot/morningstar-live-clips/releases/latest" target="_blank" rel="noopener">LooperPilot/morningstar-live-clips</a>.
+     Morningstar, MC6 Pro, Ableton Live and Push are trademarks of their respective
+     owners; this project is not affiliated with them. The Fraunces typeface is licensed
+     under the <a href="fonts/OFL.txt">SIL Open Font License</a> and served from this site.</p>
+</section>
+
+</div>
+
+<footer class="page">
+  <span>Made for the gig, not for sale.</span>
+  <div class="flinks">
+    <a href="https://hennys.de" target="_blank" rel="noopener">hennys.de</a>
+    <a href="https://github.com/LooperPilot" target="_blank" rel="noopener">GitHub</a>
+    <a href="https://buymeacoffee.com/hennydrums" target="_blank" rel="noopener">☕ <span data-de="Kaffee spendieren" data-en="Buy me a coffee">Kaffee spendieren</span></a>
+  </div>
+</footer>
+
+<script>
+(() => {
+  var saved = null;
+  try { saved = localStorage.getItem('morningstar-guide-lang'); } catch (e) {}
+  var lang = saved === 'en' || saved === 'de' ? saved
+    : ((navigator.language || 'de').toLowerCase().indexOf('de') === 0 ? 'de' : 'en');
+
+  var deEl = document.getElementById('content-de');
+  var enEl = document.getElementById('content-en');
+  var btnDe = document.getElementById('btn-de');
+  var btnEn = document.getElementById('btn-en');
+  var labels = document.querySelectorAll('[data-de][data-en]');
+
+  function setLang(l) {
+    lang = l;
+    deEl.hidden = l !== 'de';
+    enEl.hidden = l !== 'en';
+    btnDe.setAttribute('aria-pressed', String(l === 'de'));
+    btnEn.setAttribute('aria-pressed', String(l === 'en'));
+    document.documentElement.setAttribute('lang', l);
+    labels.forEach(function (el) { el.textContent = el.getAttribute('data-' + l); });
+    try { localStorage.setItem('morningstar-guide-lang', l); } catch (e) {}
+  }
+  btnDe.addEventListener('click', function () { setLang('de'); });
+  btnEn.addEventListener('click', function () { setLang('en'); });
+  setLang(lang);
+})();
+</script>
+</body>
+</html>
