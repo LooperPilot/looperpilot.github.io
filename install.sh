@@ -85,10 +85,16 @@ need_gh() {
     [ -x "$GH" ] || return 1
   fi
   if ! "$GH" auth status >/dev/null 2>&1; then
-    has_tty || return 1
     say "Sign in to GitHub"
     echo "  LooperPilot is private: sign in once with the GitHub account you were invited with."
-    "$GH" auth login --hostname github.com --git-protocol https --web </dev/tty >/dev/tty 2>&1 || return 1
+    echo "  Your browser opens github.com/login/device -- paste the code shown below (it is already"
+    echo "  in the clipboard), confirm, then come back here. Installation continues by itself."
+    echo
+    # Ohne Rueckfragen (stdin kein Terminal): gh zeigt nur Code und Adresse und wartet auf die
+    # Bestaetigung. Mit Terminal-Eingabe scheitert gh an seinen Rueckfragen, wenn das Script per
+    # "curl | sh" laeuft. Die Seite oeffnen wir selbst.
+    ( sleep 2; open "https://github.com/login/device" >/dev/null 2>&1 ) &
+    "$GH" auth login --hostname github.com --git-protocol https --web </dev/null || return 1
   fi
   return 0
 }
