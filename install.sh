@@ -87,14 +87,24 @@ need_gh() {
   if ! "$GH" auth status >/dev/null 2>&1; then
     say "Sign in to GitHub"
     echo "  LooperPilot is private: sign in once with the GitHub account you were invited with."
-    echo "  Your browser opens github.com/login/device -- paste the code shown below (it is already"
-    echo "  in the clipboard), confirm, then come back here. Installation continues by itself."
-    echo
     # Ohne Rueckfragen (stdin kein Terminal): gh zeigt nur Code und Adresse und wartet auf die
-    # Bestaetigung. Mit Terminal-Eingabe scheitert gh an seinen Rueckfragen, wenn das Script per
-    # "curl | sh" laeuft. Die Seite oeffnen wir selbst.
-    ( sleep 2; open "https://github.com/login/device" >/dev/null 2>&1 ) &
-    "$GH" auth login --hostname github.com --git-protocol https --web </dev/null || return 1
+    # Bestaetigung -- mit Terminal-Eingabe scheitert gh per "curl | sh" an seinen Rueckfragen.
+    # Den Code zeigen wir selbst gross an und oeffnen den Browser erst danach.
+    "$GH" auth login --hostname github.com --git-protocol https --web </dev/null 2>&1 | while IFS= read -r line; do
+      CODE="$(printf '%s' "$line" | grep -o '[A-Z0-9]\{4\}-[A-Z0-9]\{4\}' | head -1)"
+      if [ -n "$CODE" ]; then
+        printf '%s' "$CODE" | pbcopy 2>/dev/null || true
+        printf '\n  Your code:   \033[1;33m%s\033[0m   (already copied -- just paste it with Cmd+V)\n\n' "$CODE"
+        echo "  Opening github.com/login/device in your browser: paste the code, confirm with"
+        echo "  your GitHub account, then come back here -- the installation continues by itself."
+        sleep 3
+        open "https://github.com/login/device" >/dev/null 2>&1 || echo "  Open https://github.com/login/device in your browser."
+      else
+        case "$line" in ''|*'login/device'*) ;; *) echo "  $line" ;; esac
+      fi
+    done
+    "$GH" auth status >/dev/null 2>&1 || return 1
+    echo "  signed in."
   fi
   return 0
 }
