@@ -1,6 +1,6 @@
 {
-  "version": "3.3.3",
-  "notes": "Looper aus dem Arrangement steuern (Spur +LooperPilot)",
+  "version": "3.3.4",
+  "notes": "nano: ▶▶ / ■■ für Lives Wiedergabe, Taster gegen Prellen abgesichert",
   "date": "2026-10-02",
-  "url": "https://github.com/LooperPilot/looper-pilot/releases/tag/v3.3.3"
+  "url": "https://github.com/LooperPilot/looper-pilot/releases/tag/v3.3.4"
 }
