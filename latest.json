@@ -1,6 +1,6 @@
 {
-  "version": "3.3.0",
-  "notes": "Eigene Setlist: sortieren, Songs herausnehmen, Längen",
+  "version": "3.3.2",
+  "notes": "Play-Knöpfe in den Setlists, Loop-Knopf, MorningstarClips 1.4.9",
   "date": "2026-10-02",
-  "url": "https://github.com/LooperPilot/looper-pilot/releases/tag/v3.3.0"
+  "url": "https://github.com/LooperPilot/looper-pilot/releases/tag/v3.3.2"
 }
