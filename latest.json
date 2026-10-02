@@ -1,6 +1,6 @@
 {
-  "version": "3.3.2",
-  "notes": "Play-Knöpfe in den Setlists, Loop-Knopf, MorningstarClips 1.4.9",
+  "version": "3.3.3",
+  "notes": "Looper aus dem Arrangement steuern (Spur +LooperPilot)",
   "date": "2026-10-02",
-  "url": "https://github.com/LooperPilot/looper-pilot/releases/tag/v3.3.2"
+  "url": "https://github.com/LooperPilot/looper-pilot/releases/tag/v3.3.3"
 }
