@@ -27,7 +27,7 @@ done
 
 HERE="$(cd "$(dirname "$0")" && pwd)"
 REPO="LooperPilot/looper-display"
-CLIPS_REPO="hennydrums/morningstar-live-clips"
+CLIPS_REPO="LooperPilot/morningstar-live-clips"
 LIB="${LOOPER_LIB:-$HOME/Music/Ableton/User Library}"          # zum Testen umlenkbar
 SCRIPTS_DEST="$LIB/Remote Scripts"
 TEMPLATES_DEST="$LIB/Templates"
@@ -55,12 +55,6 @@ TMP=""
 CLIPS_TMP=""
 cleanup() { [ -n "$TMP" ] && rm -rf "$TMP"; [ -n "$CLIPS_TMP" ] && rm -rf "$CLIPS_TMP"; true; }
 trap cleanup EXIT
-
-# Neuestes Release-Zip eines Repos: URL der ersten .zip-Datei
-latest_zip() {
-  curl -fsSL "https://api.github.com/repos/$1/releases/latest" \
-    | grep -o '"browser_download_url": *"[^"]*\.zip"' | head -1 | sed 's/.*"\(http[^"]*\)"/\1/'
-}
 
 # --- 0. Paket ---------------------------------------------------------------
 # PKG = der Ordner mit App, Scripts, Vorlagen und Presets: das entpackte Zip selbst
@@ -129,14 +123,14 @@ if [ "$CLIPS" = yes ]; then
   BANK_SRC="$BANK_PKG"
   if [ ! -d "$CLIPS_SRC" ]; then
     CLIPS_SRC=""
-    URL="$(latest_zip "$CLIPS_REPO" || true)"
-    if [ -n "$URL" ]; then
-      CLIPS_TMP="$(mktemp -d)"
-      echo "  downloading $(basename "$URL") ..."
-      if curl -fL --progress-bar -o "$CLIPS_TMP/clips.zip" "$URL" && ditto -x -k "$CLIPS_TMP/clips.zip" "$CLIPS_TMP"; then
-        CLIPS_SRC="$(find "$CLIPS_TMP" -maxdepth 2 -name MorningstarClips -type d | head -1)"
-        BANK_SRC="$(dirname "$CLIPS_SRC")/MorningStarPresets"
-      fi
+    # privates Repo: nur mit Zugang ueber die GitHub CLI
+    CLIPS_TMP="$(mktemp -d)"
+    if command -v gh >/dev/null 2>&1 && gh auth status >/dev/null 2>&1 \
+       && gh release download -R "$CLIPS_REPO" -p 'morningstar-live-clips-*.zip' -D "$CLIPS_TMP" 2>/dev/null \
+       && ditto -x -k "$(ls "$CLIPS_TMP"/morningstar-live-clips-*.zip | head -1)" "$CLIPS_TMP"; then
+      echo "  downloaded MorningstarClips"
+      CLIPS_SRC="$(find "$CLIPS_TMP" -maxdepth 2 -name MorningstarClips -type d | head -1)"
+      BANK_SRC="$(dirname "$CLIPS_SRC")/MorningStarPresets"
     fi
   fi
   if [ -n "$CLIPS_SRC" ] && [ -d "$CLIPS_SRC" ]; then
