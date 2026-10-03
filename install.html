@@ -265,6 +265,7 @@
     <li><a href="#nano-usage-de">KORG nanoKONTROL2</a></li>
     <li><a href="#spd-usage-de">Roland SPD-SX PRO</a></li>
     <li><a href="#arr-looper-de">Looper aus dem Arrangement</a></li>
+    <li><a href="#track-mapping-de">Track-Mapping (Routing je Soundkarte)</a></li>
   </ol>
 </div>
 
@@ -481,6 +482,7 @@
         <li><b>Songs-Seite</b><span>„Songs →“ oben (⌘3 in der App): Setlist, aktueller Song mit Fortschritt und seinen Abschnitten als großen Tasten — Tipp springt quantisiert, lang halten loopt den Abschnitt; ◀◀ ▶▶ für Songs, ◀ ▶ für Abschnitte. „Stop After Song“ (Schalter auf der Songs-Seite): an <code>SONG END</code> stoppt Live und steht am Anfang des nächsten Songs; ausgeschaltet geht es nahtlos mit dem nächsten Song weiter.</span></li>
         <li><b>Lyrics</b><span>wie bei AbleSet: eine MIDI-Spur, deren Name <code>+LYRICS</code> enthält (z. B. <code>Vocals +LYRICS</code>), mit einem Clip je Zeile – der Clip-Name ist der Text, angezeigt solange die Wiedergabe im Clip ist. Die Looper-Seite zeigt sie unten groß (aktuelle Zeile) mit vorheriger und nächster Zeile; ein- und ausblenden mit <b>🎤 Lyrics</b> oben. Mit <b>▭ Track</b> im Kasten zeigt er stattdessen die Lyrics-Spur wie in Live: die Clips als Boxen mit Text, die unter einer festen Abspielmarke durchlaufen wie bei „Song folgen“ (8 oder 16 Takte sichtbar, umschaltbar; am Mac mit Live rückt sie taktweise weiter, auf dem Tablet gleitet sie). Oben die Abschnitte (Sections), darunter die Lyrics, ganz oben die Looper-Aktionen aus der Spur <code>+LooperPilot</code> und aus Locators als Marken (z. B. „● RECORD 1“). Ragt eine Box links aus dem Bild, bleibt ihr Text am linken Rand stehen. Ein aktiver Arrangement-Loop erscheint als Klammer über der Spur. Die Boxen übernehmen die Clip-Farben aus Live (eine Farbe im Spurnamen wie <code>[blue]</code> gilt für alle); bei mehreren <code>+LYRICS</code>-Spuren wählst du oben rechts aus, welche angezeigt wird. Standard ist die Spur-Ansicht. <b>Antippen</b> einer Box springt in Live an ihren Anfang (frei: an den Takt), <b>Ziehen</b> verschiebt die Ansicht zum Vor- und Zurückschauen – 3 s nach dem Loslassen folgt sie wieder. Die Abschnitte zeigen ihre Befehle: <code>+SKIP</code>/<code>+END</code> gedimmt und durchgestrichen, <code>⟳</code> für <code>+LOOP</code>, <code>⏸</code> für <code>+PAUSE</code>, <code>→ Ziel</code> für Übergänge und Looper-Befehle wie <code>■ L2</code>. Unterstützt <code>**fett**</code>, <code>*kursiv*</code>, eine Farbe am Zeilenanfang oder im Spurnamen (<code>[blue]</code>), Akkorde im Text (<code>[Am]</code>) und <code>\</code> als Zeilenumbruch. AbleSet-Lyrics-Spuren funktionieren direkt.</span></li>
         <li><b>Eigene Setlist</b><span>Auf der Songs-Seite <b>Edit</b>: Songs am Griff ⠿ in die gewünschte Reihenfolge ziehen, Häkchen weg nimmt einen Song vorübergehend heraus. Gespeichert auf dem Mac je Live-Set, getrennt für Arrangement und Session. Die Reihenfolge gilt überall: Setlists auf Clips- und Looper-Seite, ◀◀ ▶▶, nanoKONTROL2 und der nächste Song nach <code>SONG END</code>; herausgenommene Songs werden übersprungen. Im Arrangement stehen die Songlängen an den Songs (aus Abschnitten und Tempo, oder <code>[3:20]</code> im Locator) und die Gesamtlänge der gewählten Songs im Kopf. „Reset order“ stellt die Reihenfolge des Sets wieder her.</span></li>
+        <li id="mapping-de"><b>Track-Mapping (Routing-Presets)</b><span>Ausführlich: <a href="#track-mapping-de">Track-Mapping</a>. „Mapping →“ oben (⌘4 in der App): Ein- und Ausgänge aller Spuren, Return-Spuren und des Masters als Preset je Soundkarte speichern – an einer anderen Karte einmal alles einstellen, „Save as preset“, danach genügt ein Klick auf „Apply“ (Ausgänge und/oder Eingänge). Welche Soundkarte Live benutzt, liest LooperPilot aus Lives Log; Presets für diese Karte sind grün markiert. Weicht das Routing vom passenden Preset ab, erscheint oben auf allen Seiten ein gelber Hinweis; mit <b>auto</b> wendet LooperPilot das Preset beim Wechsel auf diese Karte selbst an. „Compare“ zeigt vorher, was sich ändern würde; danach listet LooperPilot Kanäle, die es an dieser Karte nicht gibt (z. B. 5/6 an einer Karte mit 2 Ausgängen). Die Spuren erscheinen als Kanalzüge wie im In/Out-Bereich von Lives Session-Ansicht (Spurfarbe, Audio From, Monitor, Audio To; Ext.-Ein- und -Ausgänge blau) oder als Liste; „Only Ext. In / Out“ (Standard) blendet Spuren ohne Ein- oder Ausgang der Soundkarte aus, „Hide muted“ stumm geschaltete Spuren. Die Ansicht <b>Map</b> zeigt den Signalweg von links nach rechts: Ext.-Eingänge und MIDI-Eingänge → Spuren → Gruppen und Returns (gestrichelt = Send, je dicker desto lauter) → Main → Ext.-Ausgänge; Spuren, die in eine Gruppe gehen, stehen wie in Live als Block unter ihrer Gruppe (Gruppe oben mit Gruppensymbol, Spuren schmaler, eine Sammelleitung rechts hoch in die Gruppe); Linien in Spurfarbe mit kleinem Pfeil am Ende, Linien zum gleichen Ziel laufen früh als ein Strang zusammen, Linien einer Quelle zu mehreren Spuren laufen als ein Strang und verteilen sich erst vor den Zielen wie ein Kamm, stumme Spuren blass; was am Ende an keinem Ausgang ankommt (z. B. Gruppe auf „Sends Only“ ohne Sends), ist strichpunktiert. Ein Klick auf ein Element hebt seinen ganzen Weg hervor – was kommt woher, was geht wohin. Mit <b>✎ Edit</b> änderst du das Routing direkt in der Map: von einer Spur auf ein Ziel ziehen (Ext. Out, Main, Gruppe) setzt ihren Ausgang, von einer Quelle (Ext. In, MIDI-Eingang) auf eine Spur ihren Eingang – auch von einer anderen Spur, Gruppe oder einem Return („Audio From: INPUTS“, Kanal wie bei Spuren, die schon darauf hören); dabei sind alle Spuren und alle Kanäle der Soundkarte zu sehen, auch unbenutzte. Der kleine Schalter <b>SO</b> an jeder Spur schaltet „Sends Only“ ein (kein Ausgang, nur über die Sends) und wieder aus (vorheriger Ausgang bzw. Main); außerhalb von Edit steht „SO“ an solchen Spuren. Ziehst du eine Spur auf eine Return-Spur, bekommt sie dorthin einen Send – parallel zu ihrem Ausgang, mit 0 dB; den Pegel stellst du in der Änderungsliste mit dem Regler ein. Bestehende Linien kannst du greifen und auf ein anderes Ziel bzw. eine andere Quelle ziehen; lässt du sie im Leeren los, wird die Verbindung entfernt (Ausgang → „Sends Only“, Eingang → „No Input“, Send → −inf; Main und Returns brauchen immer einen Ausgang). Die Änderungen werden gelb gestrichelt gesammelt (einzeln mit ✕ zurücknehmen) und mit <b>Send to Live</b> übernommen – nur bei gestopptem Live. Spuren werden über ihren Namen gefunden, gleichnamige der Reihe nach – so passt ein Preset auch zu anderen Sets. Angewendet wird nur, wenn Live steht (ein Routing-Wechsel während der Wiedergabe kann knacksen). Die Soundkarte selbst stellst du weiter in Live unter Einstellungen → Audio ein.</span></li>
         <li><b>Guide-Spuren (wie bei AbleSet)</b><span>Eine Spur (Audio oder MIDI) mit <code>+GUIDE</code> im Namen, z. B. für Ansagen wie „Chorus“, ist normalerweise an. Sie schweigt nur, wenn ein Sprung zu einem <i>anderen</i> als dem nächsten Abschnitt ansteht (Setlist, nanoKONTROL2, vorgemerkt) oder der aktuelle Abschnitt geloopt wird – dann kündigt sie nichts Falsches an. Eine Spur mit <code>+LOOPGUIDE</code> ist umgekehrt stumm und nur an, solange der aktuelle Abschnitt geloopt wird, z. B. für die Ansage „noch mal“. Groß schreiben wie bei AbleSet. LooperPilot schaltet nur bei einer Änderung; dazwischen kannst du die Spuren von Hand muten.</span></li>
         <li><b>Locator-Notation (wie bei AbleSet)</b><span>Jeder Locator ist ein Songanfang (Name = Song). <code>&gt; Verse</code> bzw. <code>&gt;&gt; Chorus</code> = Abschnitt; alternativ Clips auf einer Spur, deren Name mit <code>Sections</code> beginnt (Clip-Name = Abschnitt; <code>Sections +CC</code> übernimmt die Clip-Farben in die Ansicht; Sprung am nächsten Taktanfang im Takt). <code>SONG END</code> schließt den Song ab, <code>STOP</code> / <code>AUTOSTOP</code> stoppt immer (<code>+STAY</code> bleibt dort stehen, sonst auf den nächsten Song), <code>. Song</code> stoppt vor diesem Song. Flags: <code>+LOOP</code>, <code>+LOOP:4</code> (Abschnitt so oft spielen), <code>+LOOPFULL</code>, <code>+PAUSE</code>, <code>+SKIP</code>, <code>+END</code> (ab hier ausgelassen), Übergänge <code>Intro &gt;&gt;&gt; Verse 1</code> bzw. <code>&gt;&gt;&gt; SONG END</code>. Anzeige: <code>{Beschreibung}</code>, <code>[3:20]</code> Dauer, <code>[blue]</code> Farbe, <code>[nosong]</code> ohne Nummer, <code>#tags</code>. <b>Looper aus dem Arrangement</b> — am besten auf einer MIDI-Spur namens <code>+LooperPilot</code>: Jeder Clip dort ist ein Befehl, sein Name sagt welcher (z. B. <code>STOP 2</code>, <code>RECORD 3</code>, <code>DELETE ALL</code>); er greift, wenn die Wiedergabe den Clip-Anfang erreicht, und die Locator-Leiste bleibt frei. Genauso gehen Locators (kein Song) oder ein Zusatz hinter einem Abschnitt, z. B. <code>&gt; Outro LOOPER STOP 2</code>. Befehle: <code>LOOPER STOP x</code> (sofort), <code>LOOPER START x</code>, <code>LOOPER RECORD x</code>, <code>LOOPER OVERDUB x</code>, <code>LOOPER DELETE x</code>, <code>LOOPER SAVE x</code> – x = Nummer wie in der Anzeige oder <code>ALL</code> (ohne Nummer = alle). Ausgelöst, wenn die Wiedergabe dort vorbeikommt, nicht beim direkten Hinspringen. Locators mit <code>*</code> und ClyphX-Locators werden ignoriert. Die alte Schreibweise <code>S: Song</code> / <code>SE</code> funktioniert weiter.</span></li>
         <li><b>Ableton Live öffnen</b><span>„▶ Live mit dem letzten Set öffnen“ unter ⚙ Settings und im Hinweis, wenn Live nicht verbunden ist: startet die zuletzt benutzte Live-Version mit dem zuletzt geladenen Set; läuft Live schon, kommt es nur nach vorne</span></li>
@@ -642,9 +644,10 @@
     <li><b>Ecktaste STOP</b><span>unten links am Ring — stoppt am Ende des Loops, siehe unten</span></li>
     <li><b>Violetten Fader ziehen</b><span>links außen am Ring: stellt die Lautstärke der Spur in Live ein — hoch = lauter, runter = leiser</span></li>
     <li><b>Ecktaste 🗑 (Mülleimer)</b><span>oben rechts am Ring — Looper löschen. Liegt bewusst diagonal gegenüber von STOP, damit man sich nicht verdrückt</span></li>
-    <li><b>Ecktaste Diskette</b><span>unten rechts am Ring (nur Live 12) — speichert den Loop als Clip auf die Clip-Spur daneben („Bass" → „Bass Clips"), in den ersten freien Slot. Die Clip-Spur legt LooperPilot beim ersten Speichern selbst an: gleiche Farbe, kein Input, Monitor „Auto" — die Looper-Spur bleibt auf „In" und loopt weiter</span></li>
+    <li><b>Ecktaste Diskette</b><span>unten rechts am Ring (nur Live 12) — speichert den Loop als Clip auf die Clip-Spur daneben („Bass" → „Recordings Bass"), in den ersten freien Slot. Die Clip-Spur legt LooperPilot beim ersten Speichern selbst an: gleiche Farbe, kein Input, Monitor „Auto" — die Looper-Spur bleibt auf „In" und loopt weiter</span></li>
     <li><b>Taste F / Button „Fullscreen"</b><span>Vollbild an/aus</span></li>
     <li><b>Taste R</b><span>Looper im Set neu suchen, nach einem Umbau</span></li>
+    <li><b>Leertaste</b><span>Play / Stop in Live, wie in Ableton – auf der Clips- und der Looper-Seite</span></li>
     <li><b>Tab</b><span>zwischen Clips- und Looper-Seite umschalten, wie in Ableton zwischen Session und Arrangement</span></li>
     <li><b>„📱 Tablet"</b><span>zeigt die Adresse, unter der Tablet oder Handy im selben WLAN die Anzeige öffnen</span></li>
     <li><b>„⏻ Quit server"</b><span>beendet den Server, nach Rückfrage — alle offenen Tabs und Tablets zeigen danach „The server was quit from the display"; neu starten per Doppelklick auf <code>LooperPilot.app</code> am Rechner selbst</span></li>
@@ -685,14 +688,14 @@
      Arrangement-Aufnahme bzw. den Arrangement-Loop um. Sie wirken sofort über
      die Live-API, ohne dass dafür etwas eingerichtet werden muss.</p>
   <p><b>💾 SAVE ALL</b> (nur Live 12) kopiert alle Looper mit Inhalt in <b>eine</b> freie Szene, jeden
-     auf seine Clip-Spur („Bass" → „Bass Clips"): die erste Szene, in der alle diese Slots frei sind,
+     auf seine Clip-Spur („Bass" → „Recordings Bass"): die erste Szene, in der alle diese Slots frei sind,
      sonst unten eine neue. So entsteht eine Szene, die sich als Ganzes starten lässt. Ausgegraut,
      solange kein Looper Inhalt hat.</p>
   <p><b>🗑 DELETE ALL</b> (nur Live 12) leert <b>alle</b> Looper auf einmal — nur mit <b>langem Druck</b>:
      Die Taste füllt sich beim Halten rot, nach knapp einer Sekunde wird gelöscht. Früher loslassen bricht ab.</p>
   <p class="note warn"><b>⚠ Mit Ableton Push:</b> Legt ein Script eine Spur an, während das Push-Script läuft,
      kann Live abstürzen. Lege die Clip-Spuren deshalb vorher selbst an: je Looper-Spur eine
-     <b>Audiospur</b> mit dem Namen <b>„&lt;Looper-Spur&gt; Clips“</b> („Bass“ → „Bass Clips“), Input
+     <b>Audiospur</b> mit dem Namen <b>„Recordings &lt;Looper-Spur&gt;“</b> („Bass“ → „Recordings Bass“; alte Spuren „Bass Clips“ benennt LooperPilot automatisch um; liegt die Looper-Spur in einer Gruppe, kommt die neue Spur mit hinein – ist sie die letzte der Gruppe, direkt davor), Input
      <b>„No Input“</b>, Monitor <b>„Auto“</b>. LooperPilot findet sie am Namen und legt dann nichts an. Bequemer: auf der Clips-Seite unter ⚙ Settings → <b>„Create clip tracks now“</b> legt LooperPilot alle fehlenden Clip-Spuren vorab an, Schritt für Schritt mit kurzen Pausen — am besten bei gestopptem Transport vor dem Auftritt. Solange eine Clip-Spur fehlt oder angelegt wird, nimmt der zugehörige Looper nicht auf — fehlt sie, legt LooperPilot sie an, danach einfach noch einmal drücken.</p>
   <p class="note">🧾 <b>Stürzt Live ab?</b> In der App unter <b>Hilfe → Fehlerbericht erstellen …</b> oder auf der Clips-Seite unter ⚙ Settings → <b>„Create crash report“</b> (geht auch im Browser und vom Tablet) entsteht auf dem Schreibtisch eine ZIP-Datei mit Lives Log (samt den letzten Speicher-Schritten), den Absturzberichten der letzten 7 Tage und Angaben zum Rechner — die einfach weiterschicken.</p>
   <p><b>CLIPS ▶</b> wechselt zur Clips-Seite (Session View mit dem Morningstar MC6 Pro); dort führt
@@ -826,6 +829,75 @@ Takt 21   DELETE ALL   alles leer für den nächsten Song</pre>
 
 <section id="lizenz-de">
   <p class="eyebrow">Kleingedrucktes</p>
+  <h3 id="track-mapping-de">Track-Mapping: Routing je Soundkarte</h3>
+  <p>An einer anderen Soundkarte stimmen in Live oft die Ausgänge und Eingänge der Spuren nicht mehr, und Live kennt
+     dafür keine Presets. Die Seite <b>Mapping</b> (oben „Mapping →“, ⌘4 in der App) speichert das Routing aller Spuren
+     je Soundkarte, zeigt es übersichtlich an und lässt es dich per Ziehen ändern.</p>
+  <ol>
+    <li>Soundkarte in Live wählen (Einstellungen → Audio) und das Routing einmal von Hand passend einstellen.</li>
+    <li>Mapping öffnen, oben steht die erkannte Karte (z. B. „Steinberg UR242“). Unter <b>Aktuelles Routing speichern</b>
+        einen Namen eingeben und <b>Als Preset speichern</b>.</li>
+    <li>An einer anderen Karte genauso ein zweites Preset anlegen.</li>
+    <li>Ab dann: Karte in Live wechseln, Live stoppen, im Preset <b>Anwenden</b> – fertig. Oder <b>automatisch</b> anhaken,
+        dann setzt LooperPilot es beim Wechsel auf diese Karte selbst.</li>
+  </ol>
+  <ul class="keys">
+    <li><b>Erkennung</b><span>LooperPilot liest die Soundkarte aus Lives Log. Presets für die aktuelle Karte sind grün markiert.
+        Weicht das Routing davon ab, erscheint oben auf allen Seiten ein gelber Hinweis („🎚 UR242: „Bühne“ anwenden?“).</span></li>
+    <li><b>Was gespeichert wird</b><span>Eingang (Typ und Kanal) und Ausgang jeder Spur und Gruppe, der Ausgang jeder Return-Spur
+        und der Main-Ausgang. Spuren werden über ihren Namen gefunden, gleichnamige der Reihe nach – so passt ein Preset auch zu
+        anderen Sets. Beim Anwenden wählst du, ob Ausgänge, Eingänge oder beides gesetzt werden.</span></li>
+    <li><b>Gespeichert</b><span>auf dem Mac (für alle Sets) und zusätzlich im Live-Set, sobald du das Set in Live speicherst.
+        Öffnest du das Set auf einem anderen Rechner, kommen seine Presets dort automatisch in die Liste (neuere Fassungen gewinnen,
+        gelöschte kommen nicht wieder). Nach einer Preset-Änderung zeigt Live das Set daher als geändert an.</span></li>
+    <li><b>Vergleichen</b><span>zeigt vor dem Anwenden gelb, welche Spuren sich ändern würden. Nach dem Anwenden listet die Seite
+        Kanäle, die es an dieser Karte nicht gibt (z. B. „5/6“ an einer Karte mit zwei Ausgängen).</span></li>
+    <li><b>Aktuelles übernehmen</b><span>überschreibt ein Preset mit dem jetzigen Routing (zweimal klicken).
+        <b>Für diese Karte</b> ordnet ein Preset der Karte zu, die Live gerade benutzt.</span></li>
+  </ul>
+  <p><b>Ansichten.</b> <b>Spuren</b> zeigt Kanalzüge wie der In/Out-Bereich in Lives Session-Ansicht (Spurfarbe, Audio von,
+     Monitor, Audio zu; Ext.-Kanäle blau, MIDI gelb). <b>Map</b> zeigt den Signalfluss, <b>Liste</b> alles als Tabelle.
+     „Nur Ext. In / Out“ (Standard) zeigt nur Spuren, die die Soundkarte benutzen, „Stumme ausblenden“ blendet gemutete aus.</p>
+  <ul class="keys">
+    <li><b>Map lesen</b><span>Links die Quellen (Ext. In je Kanal, MIDI-Eingänge, Resampling), in der Mitte die Spuren,
+        rechts Returns und Main und ganz rechts die Ausgänge. Durchgezogen = Ausgang, gestrichelt = Send (dicker = lauter),
+        strichpunktiert = kommt an keinem Ausgang an. Ein kleiner Pfeil zeigt die Richtung. Audiospuren grün, MIDI gelb,
+        Soundkarte blau, Gruppen in ihrer Farbe mit dem Gruppensymbol.</span></li>
+    <li><b>Gruppen</b><span>stehen wie in Live als Block: Gruppe oben, ihre Spuren schmaler darunter, eine Sammelleitung rechts
+        hoch in die Gruppe.</span></li>
+    <li><b>Gebündelte Linien</b><span>Linien zum gleichen Ziel laufen früh als ein Strang. Linien einer Quelle zu mehreren
+        Spuren laufen als ein Strang und verteilen sich erst vor den Zielen wie ein Kamm.</span></li>
+    <li><b>Weg verfolgen</b><span>Ein Klick auf ein Element hebt seinen ganzen Weg hervor, ein zweiter zeigt wieder alles.</span></li>
+  </ul>
+  <p><b>Routing in der Map ändern</b> – <b>✎ Bearbeiten</b> einschalten. Dann sind alle Spuren und alle Kanäle der
+     Soundkarte zu sehen, auch unbenutzte.</p>
+  <ul class="keys">
+    <li><b>Ausgang</b><span>Spur auf ein Ziel ziehen: Ext. Out (jeder Kanal), Main oder eine Gruppe.</span></li>
+    <li><b>Eingang</b><span>Quelle auf eine Spur ziehen: Ext. In, MIDI-Eingang – oder eine andere Spur, Gruppe oder Return
+        („Audio von: INPUTS“). Der Kanal richtet sich nach Spuren, die schon darauf hören.</span></li>
+    <li><b>Send</b><span>Spur auf eine Return-Spur ziehen: Send mit 0 dB, parallel zum Ausgang. Den Pegel stellst du in der
+        Änderungsliste mit dem Regler ein.</span></li>
+    <li><b>Sends Only</b><span>der kleine Schalter <b>SO</b> an jeder Spur: an = kein Ausgang, nur noch über die Sends;
+        aus = vorheriger Ausgang (bzw. Main).</span></li>
+    <li><b>Neue Spur</b><span>im Bearbeiten-Kasten oben Namen eingeben und „＋ Audiospur“ bzw. „＋ MIDI-Spur“ (kommt ans Ende des Sets) – oder im Bearbeiten-Modus Rechtsklick in die Map: neue Audio- oder MIDI-Spur in Live anlegen, optional mit Namen – auf einer
+        Spur dahinter, auf einer Gruppe als erste Spur darin, im Leeren am Ende des Sets.</span></li>
+    <li><b>Duplizieren / Löschen</b><span>im Bearbeiten-Modus Rechtsklick auf eine Spur – in der Map, auf einen Kanalzug oder eine Listenzeile. Löschen fragt einmal nach (bei einer Gruppe samt ihrer Spuren);
+        rückgängig machen geht in Live mit ⌘Z. Beides wirkt sofort, nicht erst mit „An Live senden“.</span></li>
+    <li><b>Umhängen / Löschen</b><span>eine vorhandene Linie greifen (auch an ihrem Ende) und auf ein anderes Ziel ziehen;
+        im Leeren loslassen entfernt sie (Ausgang → Sends Only, Eingang → No Input, Send → −inf).</span></li>
+    <li><b>An Live senden</b><span>Alle Änderungen werden erst gesammelt (gelb gestrichelt, Liste oben, einzeln mit ✕
+        zurücknehmen) und mit <b>An Live senden</b> übernommen.</span></li>
+  </ul>
+  <ul class="keys">
+    <li><b>Nur bei gestopptem Live</b><span>Presets und Änderungen werden nur angewendet, wenn Live steht – ein Routing-Wechsel
+        während der Wiedergabe kann knacksen.</span></li>
+    <li><b>Was nicht geht</b><span>Die Soundkarte selbst wählst du weiter in Live (Einstellungen → Audio), und den Cue-Ausgang
+        gibt Live für Scripts nicht frei.</span></li>
+    <li><b>Last</b><span>Bei geschlossener Seite fragt LooperPilot das Routing nur alle 15 s ab und nur, wenn es ein Preset für
+        die aktuelle Karte gibt – reine Lesezugriffe.</span></li>
+  </ul>
+
+
   <h2>Lizenz</h2>
   <p>Dieses Projekt ist für den persönlichen, nicht-kommerziellen Gebrauch
      gedacht. Weitergabe an Freunde und Bandkollegen ist ausdrücklich
@@ -888,6 +960,7 @@ Takt 21   DELETE ALL   alles leer für den nächsten Song</pre>
     <li><a href="#nano-usage-en">KORG nanoKONTROL2</a></li>
     <li><a href="#spd-usage-en">Roland SPD-SX PRO</a></li>
     <li><a href="#arr-looper-en">Loopers from the Arrangement</a></li>
+    <li><a href="#track-mapping-en">Track-Mapping (routing per interface)</a></li>
   </ol>
 </div>
 
@@ -1100,6 +1173,7 @@ Takt 21   DELETE ALL   alles leer für den nächsten Song</pre>
         <li><b>Songs page</b><span>"Songs →" at the top (⌘3 in the app): setlist, the current song with progress and its sections as large buttons — tap jumps quantized, hold loops the section; ◀◀ ▶▶ for songs, ◀ ▶ for sections. "Stop After Song" (switch on the Songs page): at <code>SONG END</code> Live stops and waits at the start of the next song; switched off, playback continues seamlessly with the next song.</span></li>
         <li><b>Lyrics</b><span>like AbleSet: a MIDI track whose name contains <code>+LYRICS</code> (e.g. <code>Vocals +LYRICS</code>) with one clip per line – the clip name is the text, shown while playback is inside the clip. The Looper page shows them at the bottom in large type (current line) with the previous and next line; toggle with <b>🎤 Lyrics</b> at the top. <b>▭ Track</b> in the box shows the lyrics track like in Live instead: the clips as boxes with their text, running under a fixed playhead like "Follow" (8 or 16 bars visible, switchable; on the Mac running Live it moves on bar by bar, on a tablet it glides). Sections on top, lyrics below, and at the very top the looper actions from the <code>+LooperPilot</code> track and from locators as markers (e.g. "● RECORD 1"). When a box runs off the left edge, its text stays at the left edge. An active Arrangement loop shows as a bracket above the track. The boxes take the clip colours from Live (a colour in the track name like <code>[blue]</code> applies to all of them); with several <code>+LYRICS</code> tracks, pick the one to show at the top right. The track view is the default. <b>Tap</b> a box to make Live jump to its start (empty space: to that bar), <b>drag</b> to look ahead or back – 3 s after letting go it follows again. Sections show their commands: <code>+SKIP</code>/<code>+END</code> dimmed and struck through, <code>⟳</code> for <code>+LOOP</code>, <code>⏸</code> for <code>+PAUSE</code>, <code>→ target</code> for transitions and looper commands like <code>■ L2</code>. Supports <code>**bold**</code>, <code>*italic*</code>, a colour at the start of a line or in the track name (<code>[blue]</code>), chords in the text (<code>[Am]</code>) and <code>\</code> as a line break. AbleSet lyrics tracks work as they are.</span></li>
         <li><b>Your own setlist</b><span>On the Songs page tap <b>Edit</b>: drag songs by the ⠿ grip into the order you want, untick a song to take it out for now. Saved on the Mac per Live set, separately for Arrangement and Session. The order applies everywhere: the setlists on the Clips and Looper pages, ◀◀ ▶▶, the nanoKONTROL2 and the next song after <code>SONG END</code>; songs taken out are skipped. In the Arrangement each song shows its length (from its sections and the tempo, or <code>[3:20]</code> in the locator) and the header shows the total of the chosen songs. "Reset order" brings back the order of the set.</span></li>
+        <li id="mapping-en"><b>Track-Mapping (routing presets)</b><span>In detail: <a href="#track-mapping-en">Track-Mapping</a>. "Mapping →" at the top (⌘4 in the app): store the inputs and outputs of all tracks, return tracks and the main output as a preset per audio interface – set everything up once on another interface, "Save as preset", from then on one click on "Apply" (outputs and/or inputs). LooperPilot reads the interface Live is using from Live's log; presets for it are marked green. If the routing differs from the matching preset, a yellow hint appears at the top of every page; with <b>auto</b> LooperPilot applies the preset itself when Live switches to that interface. "Compare" shows beforehand what would change; afterwards LooperPilot lists channels that don't exist on this interface (e.g. 5/6 on an interface with 2 outputs). Tracks are shown as channel strips like the In/Out section of Live's Session View (track colour, Audio From, Monitor, Audio To; Ext. inputs and outputs in blue) or as a list; "Only Ext. In / Out" (default) hides tracks that use no input or output of the interface, "Hide muted" hides muted tracks. The <b>Map</b> view shows the signal flow from left to right: Ext. and MIDI inputs → tracks → groups and returns (dashed = send, thicker = louder) → Main → Ext. outputs; tracks that feed a group stand as a block under their group like in Live (group on top with the group symbol, tracks narrower, one collecting line on the right up into the group); lines in track colours with a small arrow at the end, lines to the same destination merge early into one strand, lines from one source to several tracks run as one strand and split like a comb just before them, muted tracks faded; anything that never reaches an output (e.g. a group on "Sends Only" without sends) is drawn dash-dotted. Click an element to highlight its whole path – what comes from where, what goes where. With <b>✎ Edit</b> you change the routing right in the map: drag from a track onto a destination (Ext. Out, Main, group) to set its output, from a source (Ext. In, MIDI input) onto a track to set its input – also from another track, group or return ("Audio From: INPUTS", channel as used by tracks already listening to it); all tracks and all channels of the interface are shown, used or not. The small <b>SO</b> switch on each track turns "Sends Only" on (no output, only its sends) and off again (previous output or Main); outside Edit, such tracks show "SO". Drag a track onto a return track to give it a send there – in parallel to its output, at 0 dB; set the level with the slider in the list of changes. Grab an existing line to move it onto another destination or source; drop it on empty space to remove the connection (output → "Sends Only", input → "No Input", send → −inf; Main and return tracks always need an output). Changes are collected as yellow dashed lines (undo each with ✕) and applied with <b>Send to Live</b> – only while Live is stopped. Tracks are found by name, tracks with the same name in order – so a preset also fits other sets. Presets are only applied while Live is stopped (changing routings during playback can click). The interface itself is still chosen in Live under Settings → Audio.</span></li>
         <li><b>Guide tracks (like AbleSet)</b><span>A track (audio or MIDI) with <code>+GUIDE</code> in its name, e.g. for spoken cues like "Chorus", plays normally. It is muted only while a jump to a section <i>other</i> than the next one is pending (setlist, nanoKONTROL2, marked) or while the current section is looped – so it never announces the wrong part. A track with <code>+LOOPGUIDE</code> is the other way round: muted, and only unmuted while the current section is looped, e.g. for a "one more time" cue. Upper case as in AbleSet. LooperPilot only switches on a change; in between you can mute the tracks by hand.</span></li>
         <li><b>Locator notation (like AbleSet)</b><span>Every locator starts a song (name = song). <code>&gt; Verse</code> or <code>&gt;&gt; Chorus</code> = section; alternatively clips on a track whose name starts with <code>Sections</code> (clip name = section; <code>Sections +CC</code> shows the clip colours; jumps on the next downbeat, in time). <code>SONG END</code> ends the song, <code>STOP</code> / <code>AUTOSTOP</code> always stops (<code>+STAY</code> stays there, otherwise it moves to the next song), <code>. Song</code> stops before that song. Flags: <code>+LOOP</code>, <code>+LOOP:4</code> (play the section that often), <code>+LOOPFULL</code>, <code>+PAUSE</code>, <code>+SKIP</code>, <code>+END</code> (skipped from here on), transitions <code>Intro &gt;&gt;&gt; Verse 1</code> or <code>&gt;&gt;&gt; SONG END</code>. Display: <code>{description}</code>, <code>[3:20]</code> duration, <code>[blue]</code> colour, <code>[nosong]</code> without a number, <code>#tags</code>. <b>Loopers from the Arrangement</b> — best on a MIDI track named <code>+LooperPilot</code>: every clip there is a command, its name says which (e.g. <code>STOP 2</code>, <code>RECORD 3</code>, <code>DELETE ALL</code>); it fires when playback reaches the clip start, and the locator bar stays free. Locators (not a song) or an addition after a section, e.g. <code>&gt; Outro LOOPER STOP 2</code>, work the same. Commands: <code>LOOPER STOP x</code> (instantly), <code>LOOPER START x</code>, <code>LOOPER RECORD x</code>, <code>LOOPER OVERDUB x</code>, <code>LOOPER DELETE x</code>, <code>LOOPER SAVE x</code> – x = number as on the display or <code>ALL</code> (no number = all). Triggered when playback passes there, not when jumping straight to it. Locators starting with <code>*</code> and ClyphX locators are ignored. The old <code>S: Song</code> / <code>SE</code> naming still works.</span></li>
         <li><b>Open Ableton Live</b><span>"▶ Open Live with the last set" under ⚙ Settings and in the notice when Live is not connected: starts the Live version used last with the set loaded last; if Live is already running, it is just brought to the front</span></li>
@@ -1261,9 +1335,10 @@ Takt 21   DELETE ALL   alles leer für den nächsten Song</pre>
     <li><b>Corner button STOP</b><span>bottom left on the ring — stops at the end of the loop, see below</span></li>
     <li><b>Drag the violet fader</b><span>on the outside left of the ring: sets the track volume in Live — up = louder, down = quieter</span></li>
     <li><b>Corner button 🗑 (trash can)</b><span>top right on the ring — clears the looper. It sits diagonally opposite STOP on purpose, so you don't hit it by accident</span></li>
-    <li><b>Floppy-disk corner button</b><span>bottom right on the ring (Live 12 only) — saves the loop as a clip on the clip track next to it ("Bass" → "Bass Clips"), in the first free slot. LooperPilot creates the clip track on the first save: same colour, no input, monitoring "Auto" — the looper track stays on "In" and keeps looping</span></li>
+    <li><b>Floppy-disk corner button</b><span>bottom right on the ring (Live 12 only) — saves the loop as a clip on the clip track next to it ("Bass" → "Recordings Bass"), in the first free slot. LooperPilot creates the clip track on the first save: same colour, no input, monitoring "Auto" — the looper track stays on "In" and keeps looping</span></li>
     <li><b>Key F / "Fullscreen" button</b><span>toggle fullscreen</span></li>
     <li><b>Key R</b><span>re-scan the loopers in the set, after a rebuild</span></li>
+    <li><b>Space</b><span>Play / Stop in Live, like in Ableton – on the Clips and the Looper page</span></li>
     <li><b>Tab</b><span>switch between the Clips and Looper pages, like switching between Session and Arrangement in Ableton</span></li>
     <li><b>"📱 Tablet"</b><span>shows the address a tablet or phone on the same Wi-Fi can open the display at</span></li>
     <li><b>"⏻ Quit server"</b><span>stops the server, after confirmation — all open tabs and tablets then show "The server was quit from the display"; restart by double-clicking <code>LooperPilot.app</code> on the computer itself</span></li>
@@ -1305,14 +1380,14 @@ Takt 21   DELETE ALL   alles leer für den nächsten Song</pre>
      arrangement recording and the arrangement loop. They act instantly via
      the Live API, without needing any setup.</p>
   <p><b>💾 SAVE ALL</b> (Live 12 only) copies all loopers with content into <b>one</b> free scene, each
-     onto its clip track ("Bass" → "Bass Clips"): the first scene where all those slots are free,
+     onto its clip track ("Bass" → "Recordings Bass"): the first scene where all those slots are free,
      otherwise a new one at the bottom. That gives you a scene you can launch as a whole. Greyed out
      while no looper has content.</p>
   <p><b>🗑 DELETE ALL</b> (Live 12 only) clears <b>all</b> loopers at once — only with a <b>long press</b>:
      the button fills up red while you hold it and clears after just under a second. Let go earlier to cancel.</p>
   <p class="note warn"><b>⚠ With an Ableton Push:</b> if a script creates a track while the Push script is running,
      Live can crash. So create the clip tracks yourself beforehand: one <b>audio track</b> per looper track
-     named <b>"&lt;looper track&gt; Clips"</b> ("Bass" → "Bass Clips"), input <b>"No Input"</b>, monitoring
+     named <b>"Recordings &lt;looper track&gt;"</b> ("Bass" → "Recordings Bass"; older "Bass Clips" tracks are renamed automatically; if the looper track is in a group, the new track goes into it too – placed just before it when it is the last one in the group), input <b>"No Input"</b>, monitoring
      <b>"Auto"</b>. LooperPilot finds them by name and then creates nothing. Easier: on the Clips page, ⚙ Settings → <b>"Create clip tracks now"</b> makes LooperPilot add all missing clip tracks beforehand, step by step with short pauses — best with the transport stopped, before the show. While a clip track is missing or being created, its looper does not start recording — if it is missing, LooperPilot adds it; then just press again.</p>
   <p class="note">🧾 <b>Live crashed?</b> In the app, <b>Help → Fehlerbericht erstellen …</b> — or on the Clips page, ⚙ Settings → <b>"Create crash report"</b> (works in the browser and on a tablet, too) — puts a ZIP file on the desktop with Live's log (including the last saving steps), crash reports from the last 7 days and details about the Mac — just send that on.</p>
   <p><b>CLIPS ▶</b> switches to the Clips page (Session View with the Morningstar MC6 Pro); there,
@@ -1443,6 +1518,75 @@ Bar 21   DELETE ALL   all empty for the next song</pre>
 
 <section id="license-en">
   <p class="eyebrow">Fine print</p>
+  <h3 id="track-mapping-en">Track-Mapping: routing per audio interface</h3>
+  <p>On another audio interface the inputs and outputs of the tracks in Live often no longer fit, and Live has no presets
+     for that. The <b>Mapping</b> page ("Mapping →" at the top, ⌘4 in the app) stores the routing of all tracks per
+     interface, shows it clearly and lets you change it by dragging.</p>
+  <ol>
+    <li>Pick the interface in Live (Settings → Audio) and set the routing up by hand once.</li>
+    <li>Open Mapping; the detected interface is shown at the top (e.g. "Steinberg UR242"). Under <b>Save current routing</b>
+        enter a name and click <b>Save as preset</b>.</li>
+    <li>Do the same on another interface for a second preset.</li>
+    <li>From then on: switch the interface in Live, stop Live, click <b>Apply</b> on the preset – done. Or tick <b>auto</b>
+        and LooperPilot applies it itself when Live switches to that interface.</li>
+  </ol>
+  <ul class="keys">
+    <li><b>Detection</b><span>LooperPilot reads the interface from Live's log. Presets for the current interface are marked green.
+        If the routing differs, a yellow hint appears at the top of every page ("🎚 UR242: apply “Stage”?").</span></li>
+    <li><b>What is stored</b><span>input (type and channel) and output of every track and group, the output of every return track
+        and the main output. Tracks are found by name, tracks with the same name in order – so a preset also fits other sets.
+        When applying you choose outputs, inputs or both.</span></li>
+    <li><b>Where they are stored</b><span>on the Mac (for all sets) and also in the Live set once you save it in Live. Open the set
+        on another computer and its presets are added to the list there automatically (newer versions win, deleted ones don't come
+        back). After changing a preset, Live therefore shows the set as modified.</span></li>
+    <li><b>Compare</b><span>shows in yellow which tracks would change. After applying, the page lists channels that don't exist on
+        this interface (e.g. "5/6" on an interface with two outputs).</span></li>
+    <li><b>Update from current</b><span>overwrites a preset with the routing now (click twice). <b>Use for this interface</b>
+        assigns a preset to the interface Live is using now.</span></li>
+  </ul>
+  <p><b>Views.</b> <b>Tracks</b> shows channel strips like the In/Out section of Live's Session View (track colour, Audio From,
+     Monitor, Audio To; Ext. channels blue, MIDI yellow). <b>Map</b> shows the signal flow, <b>List</b> everything as a table.
+     "Only Ext. In / Out" (default) shows only tracks that use the interface, "Hide muted" hides muted tracks.</p>
+  <ul class="keys">
+    <li><b>Reading the map</b><span>Sources on the left (Ext. In per channel, MIDI inputs, resampling), tracks in the middle,
+        returns and Main on the right and the outputs at the far right. Solid = output, dashed = send (thicker = louder),
+        dash-dotted = never reaches an output. A small arrow shows the direction. Audio tracks green, MIDI yellow,
+        interface blue, groups in their colour with the group symbol.</span></li>
+    <li><b>Groups</b><span>stand as a block like in Live: group on top, its tracks narrower below, one collecting line on the right
+        up into the group.</span></li>
+    <li><b>Bundled lines</b><span>Lines to the same destination merge early into one strand. Lines from one source to several
+        tracks run as one strand and split like a comb just before them.</span></li>
+    <li><b>Follow a path</b><span>Click an element to highlight its whole path, click again to show everything.</span></li>
+  </ul>
+  <p><b>Changing the routing in the map</b> – switch on <b>✎ Edit</b>. All tracks and all channels of the interface are shown,
+     used or not.</p>
+  <ul class="keys">
+    <li><b>Output</b><span>drag a track onto a destination: Ext. Out (any channel), Main or a group.</span></li>
+    <li><b>Input</b><span>drag a source onto a track: Ext. In, MIDI input – or another track, group or return
+        ("Audio From: INPUTS"). The channel follows tracks already listening to it.</span></li>
+    <li><b>Send</b><span>drag a track onto a return track: a send at 0 dB, in parallel to the output. Set the level with the
+        slider in the list of changes.</span></li>
+    <li><b>Sends Only</b><span>the small <b>SO</b> switch on each track: on = no output, only via its sends;
+        off = previous output (or Main).</span></li>
+    <li><b>New track</b><span>in the edit box at the top enter a name and click "＋ Audio track" or "＋ MIDI track" (added at the end of the set) – or, in edit mode, right-click in the map: create a new audio or MIDI track in Live, optionally with a name – on a track
+        right after it, on a group as the first track inside it, on empty space at the end of the set.</span></li>
+    <li><b>Duplicate / delete</b><span>in edit mode, right-click a track – in the map, on a channel strip or a list row. Delete asks once (for a group: including its tracks); undo in Live with
+        ⌘Z. Both act immediately, not only with "Send to Live".</span></li>
+    <li><b>Move / remove</b><span>grab an existing line (also at its end) and drag it onto another destination; drop it on empty
+        space to remove it (output → Sends Only, input → No Input, send → −inf).</span></li>
+    <li><b>Send to Live</b><span>All changes are collected first (yellow dashed, list at the top, undo each with ✕) and applied
+        with <b>Send to Live</b>.</span></li>
+  </ul>
+  <ul class="keys">
+    <li><b>Only while Live is stopped</b><span>Presets and changes are only applied while Live is stopped – changing routings
+        during playback can click.</span></li>
+    <li><b>What doesn't work</b><span>The interface itself is still chosen in Live (Settings → Audio), and Live does not give scripts
+        access to the cue output.</span></li>
+    <li><b>Load</b><span>With the page closed, LooperPilot reads the routing only every 15 s and only if there is a preset for the
+        current interface – read access only.</span></li>
+  </ul>
+
+
   <h2>License</h2>
   <p>This project is intended for personal, non-commercial use. Sharing it
      with friends and bandmates is explicitly welcome — reselling it or
