@@ -70,6 +70,16 @@ has_tty() { [ -t 0 ] || { [ -r /dev/tty ] && (exec </dev/tty) 2>/dev/null; }; }
 # github.com/cli/cli nur fuer diesen Lauf laden; nicht angemeldet -> gh auth login (Browser).
 # Setzt GH; Rueckgabe 1, wenn kein Zugang moeglich ist.
 GH=""
+GH_FALLBACK_VERSION="2.102.0"   # falls die GitHub-API nicht antwortet
+gh_manual() {
+  echo ""
+  echo "  The GitHub CLI could not be downloaded automatically (slow or blocked connection?)."
+  echo "  Install it once by hand, then run this command again:"
+  echo "    1. open https://cli.github.com and click \"Download for Mac\" (installer .pkg)"
+  echo "    2. double-click the downloaded file and follow the installer"
+  echo "  (or with Homebrew:  brew install gh)"
+  echo ""
+}
 need_gh() {
   [ -n "$GH" ] && return 0
   if command -v gh >/dev/null 2>&1; then
@@ -78,11 +88,26 @@ need_gh() {
     echo "  getting the GitHub CLI (for the private download) ..."
     GH_TMP="$(mktemp -d)"
     case "$(uname -m)" in arm64) ARCH=arm64 ;; *) ARCH=amd64 ;; esac
-    GH_URL="$(curl -fsSL https://api.github.com/repos/cli/cli/releases/latest \
+    # Jeder Schritt mit Zeitlimit und sichtbar -- vorher lief das lautlos und sah bei langsamer
+    # Verbindung wie "haengt" aus (oder hing wirklich, curl hatte kein Limit).
+    echo "  - looking up the latest version on github.com ..."
+    GH_URL="$(curl -fsSL --connect-timeout 15 --max-time 60 https://api.github.com/repos/cli/cli/releases/latest \
       | grep -o "\"browser_download_url\": *\"[^\"]*macOS_$ARCH\.zip\"" | head -1 | sed 's/.*"\(http[^"]*\)"/\1/')"
-    [ -n "$GH_URL" ] && curl -fsSL -o "$GH_TMP/gh.zip" "$GH_URL" && ditto -x -k "$GH_TMP/gh.zip" "$GH_TMP" || return 1
+    if [ -z "$GH_URL" ]; then
+      # API nicht erreichbar oder Limit erreicht: bekannte Version direkt nehmen
+      GH_URL="https://github.com/cli/cli/releases/download/v$GH_FALLBACK_VERSION/gh_${GH_FALLBACK_VERSION}_macOS_$ARCH.zip"
+      echo "    (no answer -- using version $GH_FALLBACK_VERSION)"
+    fi
+    echo "  - downloading $(basename "$GH_URL") (about 15 MB) ..."
+    if ! curl -fL --connect-timeout 15 --max-time 600 --retry 2 --progress-bar -o "$GH_TMP/gh.zip" "$GH_URL" </dev/null; then
+      echo "    download failed."
+      gh_manual; return 1
+    fi
+    echo "  - unpacking ..."
+    ditto -x -k "$GH_TMP/gh.zip" "$GH_TMP" || { gh_manual; return 1; }
     GH="$(find "$GH_TMP" -path '*/bin/gh' -type f | head -1)"
-    [ -x "$GH" ] || return 1
+    [ -x "$GH" ] || { gh_manual; return 1; }
+    echo "  - GitHub CLI ready."
   fi
   if ! "$GH" auth status >/dev/null 2>&1; then
     say "Sign in to GitHub"
