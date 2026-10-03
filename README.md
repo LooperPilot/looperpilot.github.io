@@ -31,17 +31,16 @@ curl -fsSL https://looperpilot.github.io/install.sh | sh
 ```
 
 Beim ersten Mal einmal bei GitHub anmelden (Code im Terminal, Bestätigung im Browser); fehlt die
-GitHub CLI, holt das Script sie selbst. Mit MorningstarClips ohne Frage:
-`curl -fsSL https://looperpilot.github.io/install.sh | sh -s -- --with-clips`
+GitHub CLI, holt das Script sie selbst. MorningstarClips kommt automatisch mit.
 
 Kopiert App, Remote Scripts und Vorlage an die richtigen Stellen und startet die App —
 ohne Sicherheitsabfrage von macOS. Danach Live neu starten und unter
 *Einstellungen → Link, Tempo & MIDI* `LooperDisplay` als Bedienoberfläche wählen.
 `sh install.sh --scripts` aktualisiert nur die Remote Scripts.
 
-Mit dem Morningstar MC6 Pro: `sh install.sh --with-clips` installiert das Script
-[MorningstarClips](https://looperpilot.github.io/morningstar-live-clips/) gleich mit
-(ohne Angabe fragt `install.sh` danach). Die MC6-Pro-Bank liegt dem Download bei.
+Für das Morningstar MC6 Pro installiert `install.sh` das Script
+[MorningstarClips](https://looperpilot.github.io/morningstar-live-clips/) automatisch mit
+(`--no-clips` lässt es weg). Die MC6-Pro-Bank liegt dem Download bei.
 
 Ab 2.0 zeigt die App die Anzeige in ihrem **eigenen Fenster** (Menü *Ansicht*: Clips ⌘1, Looper ⌘2, Songs ⌘3, Tablet-Adresse mit QR-Code ⌘T); Fenster schließen lässt den Server für Tablets weiterlaufen, *Server beenden* (⌥⌘Q) stoppt ihn.
 
@@ -55,5 +54,5 @@ Die Seite **🎛 Clips** ist die Startseite (`http://localhost:8080`, auf dem Ta
 Adresse unter „📱 Tablet“; die Looper-Anzeige liegt unter `/looper`): das Morningstar MC6 Pro
 im Browser und darunter eine Übersicht aller Spuren und Szenen mit Clip-Namen. Dafür
 das Remote Script [Morningstar Live Clips](https://looperpilot.github.io/morningstar-live-clips/)
-(ab 1.1) installieren – am einfachsten mit `./install.sh --with-clips` – und in Live als
+(ab 1.1) installieren – `./install.sh` macht das automatisch – und in Live als
 Bedienoberfläche wählen; LooperPilot findet es von selbst.

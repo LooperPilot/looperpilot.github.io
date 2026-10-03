@@ -277,14 +277,13 @@
      im privaten Repo <b>LooperPilot/looper-pilot</b> — Zugang auf Anfrage. Mit Zugang:
      <a href="https://github.com/LooperPilot/looper-pilot/releases/latest">Releases</a> öffnen,
      <code>LooperPilot-….zip</code> laden (nicht „Source code"), entpacken und im Ordner
-     <code>sh install.sh</code> ausführen (<code>--with-clips</code> installiert <b>MorningstarClips</b> für das
-     Morningstar MC6 Pro gleich mit, <code>--no-clips</code> ohne Frage). Danach geht es mit Schritt 3 in Ableton Live weiter.</p>
+     <code>sh install.sh</code> ausführen (<b>MorningstarClips</b> für das Morningstar MC6 Pro kommt automatisch
+     mit, <code>--no-clips</code> lässt es weg). Danach geht es mit Schritt 3 in Ableton Live weiter.</p>
   <p><b>Per Terminal</b> — eine Zeile, auch für Updates:</p>
   <pre>curl -fsSL https://looperpilot.github.io/install.sh | sh</pre>
   <p>Beim ersten Mal meldest du dich dabei einmal bei GitHub an (mit dem Account, für den die Einladung gilt):
      das Terminal zeigt einen Code und öffnet github.com im Browser. Fehlt die GitHub CLI, holt das Script
-     sie dafür selbst. Unterwegs fragt es nach <b>MorningstarClips</b>; ohne Frage gleich mit:
-     <code>curl -fsSL https://looperpilot.github.io/install.sh | sh -s -- --with-clips</code>.</p>
+     sie dafür selbst (mit Fortschrittsanzeige). <b>MorningstarClips</b> installiert es automatisch mit.</p>
   <p>Im entpackten Download-Ordner reicht <code>sh install.sh</code> im Terminal. Später wieder starten: einfach die
      App <b>LooperPilot</b> öffnen — aus „Programme", dem Launchpad oder per Spotlight; <code>install.sh</code>
      brauchst du nur für die Installation und für Updates. Lieber von Hand? Dann einfach weiterlesen.</p>
@@ -489,7 +488,7 @@
         <li><b>Höchstens 8 Looper</b><span>angezeigt werden die ersten 8 Looper des Sets, nummeriert wie die 8 Kanalzüge am nanoKONTROL2 („1 Bass“, „2 Keys“ …)</span></li>
         <li><b>Einstellungen auf Deutsch oder Englisch</b><span>oben im ⚙-Settings-Dialog umschaltbar, pro Gerät gemerkt</span></li>
         <li><b>Looper unten</b><span>bis zu vier Looper wie auf der Looper-Seite, mit Ringen, Tasten und Fadern zum Bedienen; hat das Set mehr, blättern die Knöpfe ◀ ▶ links und rechts um je einen Looper weiter — und wechselt die Auswahl am nanoKONTROL, SPD-SX oder per Maus auf einen Looper außerhalb, rückt die Anzeige von selbst um einen nach. Ausblenden unter ⚙ Settings → „Show loopers“</span></li>
-        <li><b>Einrichtung</b><span><code>./install.sh --with-clips</code> installiert das Script <code>MorningstarClips</code> gleich mit (liegt dem Download bei, die MC6-Pro-Bank ebenso); dann in Live als Bedienoberfläche wählen — LooperPilot findet es von selbst</span></li>
+        <li><b>Einrichtung</b><span><code>install.sh</code> installiert das Script <code>MorningstarClips</code> automatisch mit (liegt dem Download bei, die MC6-Pro-Bank ebenso); dann in Live als Bedienoberfläche wählen — LooperPilot findet es von selbst</span></li>
       </ul>
       <p>Auf dem Tablet: die Adresse unter <b>📱 Tablet</b> öffnet direkt die Clips-Seite.</p>
       <p>Hat das Set keine Looper, zeigt die Looper-Anzeige einen Knopf <b>„🎛 Open Clips“</b>; ist
@@ -974,14 +973,13 @@ Takt 21   DELETE ALL   alles leer für den nächsten Song</pre>
      private repo <b>LooperPilot/looper-pilot</b> — access on request. With access: open
      <a href="https://github.com/LooperPilot/looper-pilot/releases/latest">Releases</a>, download
      <code>LooperPilot-….zip</code> (not "Source code"), unzip it and run <code>sh install.sh</code> in that folder
-     (<code>--with-clips</code> also installs <b>MorningstarClips</b> for the Morningstar MC6 Pro, <code>--no-clips</code>
-     without asking). Then continue with step 3 in Ableton Live.</p>
+     (<b>MorningstarClips</b> for the Morningstar MC6 Pro comes along automatically, <code>--no-clips</code>
+     leaves it out). Then continue with step 3 in Ableton Live.</p>
   <p><b>Via Terminal</b> — one line, also for updates:</p>
   <pre>curl -fsSL https://looperpilot.github.io/install.sh | sh</pre>
   <p>The first time, you sign in to GitHub once (with the account you were invited with): Terminal shows a
      code and opens github.com in your browser. If the GitHub CLI is missing, the script fetches it itself.
-     Along the way it asks about <b>MorningstarClips</b>; to include it without asking:
-     <code>curl -fsSL https://looperpilot.github.io/install.sh | sh -s -- --with-clips</code>.</p>
+     It shows its progress and installs <b>MorningstarClips</b> automatically.</p>
   <p>In the unzipped download folder, <code>sh install.sh</code> in Terminal is enough. To start it again later, just
      open the <b>LooperPilot</b> app — from Applications, Launchpad or Spotlight; you only need
      <code>install.sh</code> for installing and updating. Prefer doing it by hand? Just read on.</p>
@@ -1182,7 +1180,7 @@ Takt 21   DELETE ALL   alles leer für den nächsten Song</pre>
         <li><b>At most 8 loopers</b><span>the first 8 loopers of the set are shown, numbered like the 8 channel strips on the nanoKONTROL2 ("1 Bass", "2 Keys" …)</span></li>
         <li><b>Settings in English or German</b><span>switch at the top of the ⚙ settings dialog, remembered per device</span></li>
         <li><b>Loopers below</b><span>up to four loopers just like on the looper page, with rings, buttons and faders to play them; if the set has more, the ◀ ▶ buttons on the left and right scroll by one looper — and when the selection on the nanoKONTROL, SPD-SX or by mouse moves to a looper outside, the view follows by one. Hide them under ⚙ Settings → "Show loopers"</span></li>
-        <li><b>Setup</b><span><code>./install.sh --with-clips</code> installs the <code>MorningstarClips</code> script along (it comes with the download, as does the MC6 Pro bank); then pick it as a control surface in Live — LooperPilot finds it by itself</span></li>
+        <li><b>Setup</b><span><code>install.sh</code> installs the <code>MorningstarClips</code> script automatically (it comes with the download, as does the MC6 Pro bank); then pick it as a control surface in Live — LooperPilot finds it by itself</span></li>
       </ul>
       <p>On a tablet: the address under <b>📱 Tablet</b> opens the Clips page directly.</p>
       <p>If the set has no loopers, the looper display shows an <b>"🎛 Open Clips"</b> button; when

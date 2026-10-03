@@ -11,20 +11,18 @@
 #
 # Per Terminal ohne Download (Testleute; beim ersten Mal Anmeldung bei GitHub im Browser):
 #          curl -fsSL https://looperpilot.github.io/install.sh | sh
-#          curl -fsSL https://looperpilot.github.io/install.sh | sh -s -- --with-clips
 #
-# Usage:   ./install.sh               everything (asks about MorningstarClips)
+# Usage:   ./install.sh               everything, including MorningstarClips (Morningstar MC6 Pro)
 #          ./install.sh --scripts     Remote Scripts only
-#          ./install.sh --with-clips  also MorningstarClips for the Morningstar MC6 Pro
-#          ./install.sh --no-clips    without MorningstarClips, without asking
+#          ./install.sh --no-clips    without MorningstarClips
 set -e
 
 SCRIPTS_ONLY=""
-CLIPS="ask"
+CLIPS="yes"                     # MorningstarClips immer mit (ohne Rueckfrage); --no-clips laesst es weg
 for arg in "$@"; do
   case "$arg" in
     --scripts) SCRIPTS_ONLY=1 ;;
-    --with-clips) CLIPS=yes ;;
+    --with-clips) CLIPS=yes ;;   # alte Option, weiter erlaubt (ist jetzt Standard)
     --no-clips) CLIPS=no ;;
     *) echo "Unknown option: $arg"; exit 1 ;;
   esac
@@ -182,19 +180,10 @@ for s in LooperDisplay SPD_SX_Pro_Looper; do
   echo "  $s -> $SCRIPTS_DEST/$s"
 done
 
-# --- 1b. MorningstarClips (optional) --------------------------------------
+# --- 1b. MorningstarClips (immer dabei, ausser --no-clips) ------------------
 # Eigenes Projekt: steuert die Session View mit einem Morningstar MC6 Pro und
 # fuettert die Clips-Seite der Anzeige. Liegt dem Release bei (ab 1.9.1); sonst
 # aus dem neuesten Release von $CLIPS_REPO.
-if [ "$CLIPS" = ask ]; then
-  CLIPS=no
-  # Auch bei "curl ... | sh" fragen: dann kommt die Antwort vom Terminal, nicht aus der Pipe
-  if has_tty; then
-    printf '\nAlso install MorningstarClips (Session View with a Morningstar MC6 Pro)? [y/N] '
-    if [ -t 0 ]; then read -r answer || answer=""; else read -r answer </dev/tty || answer=""; fi
-    case "$answer" in [yYjJ]*) CLIPS=yes ;; esac
-  fi
-fi
 if [ "$CLIPS" = yes ]; then
   say "MorningstarClips"
   CLIPS_SRC="$SCRIPTS_SRC/MorningstarClips"
