@@ -1,6 +1,6 @@
 {
-  "version": "3.3.5",
-  "notes": "Lyrics, Guide-Spuren, OVERDUB mit Länge, SKIP-Fix",
+  "version": "3.3.6",
+  "notes": "Track-Mapping (Routing-Presets je Soundkarte, Routing-Map), Leertaste, Recordings-Spuren",
   "date": "2026-10-03",
-  "url": "https://github.com/LooperPilot/looper-pilot/releases/tag/v3.3.5"
+  "url": "https://github.com/LooperPilot/looper-pilot/releases/tag/v3.3.6"
 }
