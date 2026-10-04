@@ -841,19 +841,19 @@ Takt 21   DELETE ALL   alles leer für den nächsten Song</pre>
         dann setzt LooperPilot es beim Wechsel auf diese Karte selbst.</li>
   </ol>
   <ul class="keys">
-    <li><b>Erkennung</b><span>LooperPilot liest die Soundkarte aus Lives Log. Presets für die aktuelle Karte sind grün markiert.
+    <li><b>Erkennung</b><span>LooperPilot liest die Soundkarte aus Lives Log. Der Kasten „Soundkarte &amp; Preset“ wählt das Preset dieser Karte vor und sagt in einem Satz, ob das Routing dazu passt (grün) oder wie viele Spuren abweichen (gelb).
         Weicht das Routing davon ab, erscheint oben auf allen Seiten ein gelber Hinweis („🎚 UR242: „Bühne“ anwenden?“).</span></li>
     <li><b>Was gespeichert wird</b><span>Eingang (Typ und Kanal) und Ausgang jeder Spur und Gruppe, der Ausgang jeder Return-Spur
         und der Main-Ausgang. Spuren werden über ihren Namen gefunden, gleichnamige der Reihe nach – so passt ein Preset auch zu
         anderen Sets. Beim Anwenden wählst du, ob Ausgänge, Eingänge oder beides gesetzt werden.</span></li>
-    <li><b>Liste</b><span>Der Kasten „Presets“ zeigt eingeklappt nur das aktuelle Preset (das zur Soundkarte in Live passt); ein Klick auf „Presets (n)“ klappt alle auf.</span></li>
+    <li><b>Auswahl</b><span>Im Menü „Preset“ stehen oben die Presets der aktuellen Karte, darunter die anderer Karten. „Preset auf Ableton Live anwenden“ setzt das gewählte; darunter wählst du, ob Ausgänge, Eingänge oder beides, und ob es beim Kartenwechsel automatisch angewendet wird (⚡). Neue Presets: „✎ Bearbeiten“ → „Als neues Preset speichern“ (danach gleich umbenennen).</span></li>
     <li><b>Gespeichert</b><span>auf dem Mac (für alle Sets) und zusätzlich im Live-Set, sobald du das Set in Live speicherst.
         Öffnest du das Set auf einem anderen Rechner, kommen seine Presets dort automatisch in die Liste (neuere Fassungen gewinnen,
         gelöschte kommen nicht wieder). Nach einer Preset-Änderung zeigt Live das Set daher als geändert an.</span></li>
-    <li><b>Vergleichen</b><span>zeigt vor dem Anwenden gelb, welche Spuren sich ändern würden. Nach dem Anwenden listet die Seite
+    <li><b>Unterschiede zeigen</b><span>zeigt vor dem Anwenden gelb, welche Spuren sich ändern würden. Nach dem Anwenden listet die Seite
         Kanäle, die es an dieser Karte nicht gibt (z. B. „5/6“ an einer Karte mit zwei Ausgängen).</span></li>
-    <li><b>Aktuelles übernehmen</b><span>überschreibt ein Preset mit dem jetzigen Routing (zweimal klicken).
-        <b>Für diese Karte</b> ordnet ein Preset der Karte zu, die Live gerade benutzt.</span></li>
+    <li><b>✎ Bearbeiten</b><span>Umbenennen, als neues Preset speichern, <b>Aktuelles Routing in Preset übernehmen</b> (überschreibt das Preset mit dem jetzigen Routing, zweimal klicken), Preset löschen.
+        <b>Für … verwenden</b> ordnet ein Preset der Karte zu, die Live gerade benutzt.</span></li>
   </ul>
   <p><b>Ansichten.</b> <b>Spuren</b> zeigt Kanalzüge wie der In/Out-Bereich in Lives Session-Ansicht (Spurfarbe, Audio von,
      Monitor, Audio zu; Ext.-Kanäle blau, MIDI gelb). <b>Map</b> zeigt den Signalfluss, <b>Liste</b> alles als Tabelle.
@@ -1531,18 +1531,18 @@ Bar 21   DELETE ALL   all empty for the next song</pre>
         and LooperPilot applies it itself when Live switches to that interface.</li>
   </ol>
   <ul class="keys">
-    <li><b>Detection</b><span>LooperPilot reads the interface from Live's log. Presets for the current interface are marked green.
+    <li><b>Detection</b><span>LooperPilot reads the interface from Live's log. The "Audio interface &amp; preset" box preselects the preset of this interface and says in one sentence whether the routing matches (green) or how many tracks differ (yellow).
         If the routing differs, a yellow hint appears at the top of every page ("🎚 UR242: apply “Stage”?").</span></li>
     <li><b>What is stored</b><span>input (type and channel) and output of every track and group, the output of every return track
         and the main output. Tracks are found by name, tracks with the same name in order – so a preset also fits other sets.
         When applying you choose outputs, inputs or both.</span></li>
-    <li><b>List</b><span>Collapsed, the "Presets" box shows only the current preset (the one matching the interface in Live); click "Presets (n)" to show all.</span></li>
+    <li><b>Choosing</b><span>The "Preset" menu lists the presets of the current interface first, then those of other interfaces. "Apply preset to Ableton Live" sets the chosen one; below you pick outputs, inputs or both, and whether it is applied automatically when the interface changes (⚡). New presets: "✎ Edit" → "Save as new preset" (then rename it right away).</span></li>
     <li><b>Where they are stored</b><span>on the Mac (for all sets) and also in the Live set once you save it in Live. Open the set
         on another computer and its presets are added to the list there automatically (newer versions win, deleted ones don't come
         back). After changing a preset, Live therefore shows the set as modified.</span></li>
-    <li><b>Compare</b><span>shows in yellow which tracks would change. After applying, the page lists channels that don't exist on
+    <li><b>Show differences</b><span>shows in yellow which tracks would change. After applying, the page lists channels that don't exist on
         this interface (e.g. "5/6" on an interface with two outputs).</span></li>
-    <li><b>Update from current</b><span>overwrites a preset with the routing now (click twice). <b>Use for this interface</b>
+    <li><b>✎ Edit</b><span>rename, save as new preset, <b>Copy current routing into preset</b> (overwrites the preset with the routing now, click twice), delete preset. <b>Use for …</b>
         assigns a preset to the interface Live is using now.</span></li>
   </ul>
   <p><b>Views.</b> <b>Tracks</b> shows channel strips like the In/Out section of Live's Session View (track colour, Audio From,
