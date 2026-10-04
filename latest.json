@@ -1,6 +1,6 @@
 {
-  "version": "3.4.2",
-  "notes": "Server beenden schließt die App von jeder Seite",
+  "version": "3.4.3",
+  "notes": "Track-Mapping: Reiter Preset, Umbenennen, alle 32 Kanäle",
   "date": "2026-10-04",
-  "url": "https://github.com/LooperPilot/looper-pilot/releases/tag/v3.4.2"
+  "url": "https://github.com/LooperPilot/looper-pilot/releases/tag/v3.4.3"
 }
