@@ -1,6 +1,6 @@
 {
-  "version": "3.4.0",
-  "notes": "iPhone-Ansicht, einheitliches Menü, Presets mit Sends und Stumm",
+  "version": "3.4.1",
+  "notes": "Mapping-Filter Audio/MIDI, Preset-Kasten einklappbar",
   "date": "2026-10-04",
-  "url": "https://github.com/LooperPilot/looper-pilot/releases/tag/v3.4.0"
+  "url": "https://github.com/LooperPilot/looper-pilot/releases/tag/v3.4.1"
 }
