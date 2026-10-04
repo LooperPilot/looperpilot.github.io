@@ -844,9 +844,10 @@ Takt 21   DELETE ALL   alles leer für den nächsten Song</pre>
     <li><b>Erkennung</b><span>LooperPilot liest die Soundkarte aus Lives Log. Der Kasten „Soundkarte &amp; Preset“ wählt das Preset dieser Karte vor und sagt in einem Satz, ob das Routing dazu passt (grün) oder wie viele Spuren abweichen (gelb).
         Weicht das Routing davon ab, erscheint oben auf allen Seiten ein gelber Hinweis („🎚 UR242: „Bühne“ anwenden?“).</span></li>
     <li><b>Was gespeichert wird</b><span>Eingang (Typ und Kanal) und Ausgang jeder Spur und Gruppe, der Ausgang jeder Return-Spur
-        und der Main-Ausgang. Spuren werden über ihren Namen gefunden, gleichnamige der Reihe nach – so passt ein Preset auch zu
-        anderen Sets. Beim Anwenden wählst du, ob Ausgänge, Eingänge oder beides gesetzt werden.</span></li>
-    <li><b>Auswahl</b><span>Im Menü „Preset“ stehen oben die Presets der aktuellen Karte, darunter die anderer Karten. „Preset auf Ableton Live anwenden“ setzt das gewählte; darunter wählst du, ob Ausgänge, Eingänge oder beides, und ob es beim Kartenwechsel automatisch angewendet wird (⚡). Neue Presets: „✎ Bearbeiten“ → „Als neues Preset speichern“ (danach gleich umbenennen).</span></li>
+        und der Main-Ausgang, dazu die Send-Regler und ob eine Spur stumm ist. Spuren werden über ihren Namen gefunden, gleichnamige der Reihe nach – so passt ein Preset auch zu
+        anderen Sets. Beim Anwenden wählst du per Haken, was gesetzt wird: Ausgänge, Eingänge, Sends, Stumm. Ältere Presets (vor 3.4) haben noch keine Sends/Stumm –
+        „Aktuelles Routing in Preset übernehmen“ ergänzt sie.</span></li>
+    <li><b>Auswahl</b><span>Im Menü „Preset“ stehen oben die Presets der aktuellen Karte, darunter die anderer Karten. „Preset auf Ableton Live anwenden“ setzt das gewählte; darunter wählst du, was gesetzt wird (Ausgänge, Eingänge, Sends, Stumm), und ob es beim Kartenwechsel automatisch angewendet wird (⚡). Neue Presets: „✎ Bearbeiten“ → „Als neues Preset speichern“ (danach gleich umbenennen).</span></li>
     <li><b>Gespeichert</b><span>auf dem Mac (für alle Sets) und zusätzlich im Live-Set, sobald du das Set in Live speicherst.
         Öffnest du das Set auf einem anderen Rechner, kommen seine Presets dort automatisch in die Liste (neuere Fassungen gewinnen,
         gelöschte kommen nicht wieder). Nach einer Preset-Änderung zeigt Live das Set daher als geändert an.</span></li>
@@ -1534,9 +1535,10 @@ Bar 21   DELETE ALL   all empty for the next song</pre>
     <li><b>Detection</b><span>LooperPilot reads the interface from Live's log. The "Audio interface &amp; preset" box preselects the preset of this interface and says in one sentence whether the routing matches (green) or how many tracks differ (yellow).
         If the routing differs, a yellow hint appears at the top of every page ("🎚 UR242: apply “Stage”?").</span></li>
     <li><b>What is stored</b><span>input (type and channel) and output of every track and group, the output of every return track
-        and the main output. Tracks are found by name, tracks with the same name in order – so a preset also fits other sets.
-        When applying you choose outputs, inputs or both.</span></li>
-    <li><b>Choosing</b><span>The "Preset" menu lists the presets of the current interface first, then those of other interfaces. "Apply preset to Ableton Live" sets the chosen one; below you pick outputs, inputs or both, and whether it is applied automatically when the interface changes (⚡). New presets: "✎ Edit" → "Save as new preset" (then rename it right away).</span></li>
+        and the main output, plus the send levels and whether a track is muted. Tracks are found by name, tracks with the same name in order – so a preset also fits other sets.
+        When applying you tick what to set: outputs, inputs, sends, mute. Older presets (before 3.4) have no sends/mute yet –
+        "Copy current routing into preset" adds them.</span></li>
+    <li><b>Choosing</b><span>The "Preset" menu lists the presets of the current interface first, then those of other interfaces. "Apply preset to Ableton Live" sets the chosen one; below you pick what to set (outputs, inputs, sends, mute), and whether it is applied automatically when the interface changes (⚡). New presets: "✎ Edit" → "Save as new preset" (then rename it right away).</span></li>
     <li><b>Where they are stored</b><span>on the Mac (for all sets) and also in the Live set once you save it in Live. Open the set
         on another computer and its presets are added to the list there automatically (newer versions win, deleted ones don't come
         back). After changing a preset, Live therefore shows the set as modified.</span></li>
