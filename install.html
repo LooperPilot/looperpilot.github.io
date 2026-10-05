@@ -847,19 +847,25 @@ Takt 21   DELETE ALL   alles leer für den nächsten Song</pre>
         und der Main-Ausgang, dazu die Send-Regler und ob eine Spur stumm ist. Spuren werden über ihren Namen gefunden, gleichnamige der Reihe nach – so passt ein Preset auch zu
         anderen Sets. Beim Anwenden wählst du per Haken, was gesetzt wird: Ausgänge, Eingänge, Sends, Stumm. Ältere Presets (vor 3.4) haben noch keine Sends/Stumm –
         „Aktuelles Routing in Preset übernehmen“ ergänzt sie.</span></li>
-    <li><b>Auswahl</b><span>Im Menü „Preset“ stehen oben die Presets der aktuellen Karte, darunter die anderer Karten. „Preset auf Ableton Live anwenden“ setzt das gewählte; darunter wählst du, was gesetzt wird (Ausgänge, Eingänge, Sends, Stumm), und ob es beim Kartenwechsel automatisch angewendet wird (⚡). Neue Presets: „✎ Bearbeiten“ → „Als neues Preset speichern“ (danach gleich umbenennen).</span></li>
+    <li><b>Auswahl</b><span>Im Menü „Preset“ stehen oben die Presets der aktuellen Karte, darunter die anderer Karten. „Preset auf Ableton Live anwenden“ setzt das gewählte; darunter wählst du, was gesetzt wird (Ausgänge, Eingänge, Sends, Stumm), und ob es beim Kartenwechsel automatisch angewendet wird (⚡). Neue Presets: ＋ im Reiter „Live“ oder „Als neues Preset speichern“ (Kopie).</span></li>
     <li><b>Gespeichert</b><span><b>nur im Live-Set</b> – Presets gehören zum Projekt und gelten nur dort; ein anderes Set hat seine eigenen.
         Gesichert sind sie, sobald du das Set in Live speicherst (⌘S); nach einer Preset-Änderung zeigt Live das Set deshalb als geändert an.
         Öffnest du das Set auf einem anderen Rechner, sind seine Presets dort dabei.</span></li>
+    <li><b>Mixer</b><span>eigener Kasten auf der Seite Soundkarte: je Spur mit <code>+G:</code> im Namen (wie bei AbleSet, z. B. „Backing +G:BACKTR“)
+        ein Fader und ein Stumm-Knopf <b>M</b> – wirkt sofort, auch während Live spielt. Beschriftet mit dem Text nach „+G:“, darunter der Pegel wie in Live (dB).
+        Bewegst du den Fader in Live, zieht der Mixer nach.</span></li>
+    <li><b>🏷 Kanalnamen</b><span>eigene Namen für die Ein- und Ausgänge einer Karte (z. B. 9 = TD27), unabhängig vom USB-Anschluss – gespeichert im Live-Set.
+        Map, Hover-Info, Spuren und Liste zeigen sie; an Live geht weiter der echte Kanal. <b>Aus Live-Einstellungen übernehmen</b> liest die Namen, die du der Karte
+        in Live unter Einstellungen → Audio → Input/Output Config gegeben hast – für jeden USB-Anschluss, an dem sie schon steckte (Live merkt sich Namen je Anschluss,
+        deshalb sind sie dort „mal da, mal nicht“). Füllt nur leere Felder. Im Reiter eines Presets gilt die Liste der Karte dieses Presets.</span></li>
     <li><b>Sicherung</b><span>wie das Set selbst: Live legt beim Speichern ältere Fassungen im Projektordner unter <code>Backup</code> ab –
         mit dem damaligen Routing und den damaligen Presets. „Speichern unter …“ in Live nimmt die Presets mit ins neue Set.</span></li>
-    <li><b>Ältere Versionen</b><span>bis 3.4.3 lagen die Presets zusätzlich auf dem Mac
-        (<code>~/Library/Application Support/LooperDisplay/routing-presets.json</code>, für alle Sets). Unter ✎ Bearbeiten bzw. in einem Set ohne Presets
-        übernimmt <b>„Presets aus älterer Version übernehmen“</b> sie einmalig in das geöffnete Set.</span></li>
     <li><b>Unterschiede zeigen</b><span>zeigt vor dem Anwenden gelb, welche Spuren sich ändern würden. Nach dem Anwenden listet die Seite
         Kanäle, die es an dieser Karte nicht gibt (z. B. „5/6“ an einer Karte mit zwei Ausgängen).</span></li>
-    <li><b>✎ Bearbeiten</b><span>Umbenennen, als neues Preset speichern, <b>Aktuelles Routing in Preset übernehmen</b> (überschreibt das Preset mit dem jetzigen Routing, zweimal klicken), Preset löschen.
-        <b>Für … verwenden</b> ordnet ein Preset der Karte zu, die Live gerade benutzt.</span></li>
+    <li><b>Reiter „Preset“</b><span>Ein Preset im Menü wählen zeigt es gleich im Reiter „Preset“. Dort im lila Balken an einem Ort: Namensfeld (umbenennen, Enter),
+        <b>In Ableton laden</b>, <b>Als neues Preset speichern</b> (Kopie samt ungespeicherter Änderungen), <b>Aktuelles Routing in Preset übernehmen</b>
+        (überschreibt das Preset mit dem Stand in Live, zweimal klicken), <b>Für … verwenden</b> (ordnet es der Karte zu, die Live gerade benutzt),
+        <b>Preset löschen</b>. Ein neues Preset aus dem Routing in Live legt das <b>＋</b> im Reiter „Live“ an (zweimal klicken).</span></li>
   </ul>
   <p><b>Ansichten.</b> <b>Spuren</b> zeigt Kanalzüge wie der In/Out-Bereich in Lives Session-Ansicht (Spurfarbe, Audio von,
      Monitor, Audio zu; Ext.-Kanäle blau, MIDI gelb). <b>Map</b> zeigt den Signalfluss, <b>Liste</b> alles als Tabelle.
@@ -1553,19 +1559,25 @@ Bar 21   DELETE ALL   all empty for the next song</pre>
         and the main output, plus the send levels and whether a track is muted. Tracks are found by name, tracks with the same name in order – so a preset also fits other sets.
         When applying you tick what to set: outputs, inputs, sends, mute. Older presets (before 3.4) have no sends/mute yet –
         "Copy current routing into preset" adds them.</span></li>
-    <li><b>Choosing</b><span>The "Preset" menu lists the presets of the current interface first, then those of other interfaces. "Apply preset to Ableton Live" sets the chosen one; below you pick what to set (outputs, inputs, sends, mute), and whether it is applied automatically when the interface changes (⚡). New presets: "✎ Edit" → "Save as new preset" (then rename it right away).</span></li>
+    <li><b>Choosing</b><span>The "Preset" menu lists the presets of the current interface first, then those of other interfaces. "Apply preset to Ableton Live" sets the chosen one; below you pick what to set (outputs, inputs, sends, mute), and whether it is applied automatically when the interface changes (⚡). New presets: ＋ in the "Live" tab or "Save as new preset" (copy).</span></li>
     <li><b>Where they are stored</b><span><b>only in the Live set</b> – presets belong to the project and only apply there; another set has its own.
         They are kept once you save the set in Live (⌘S); after a preset change Live therefore shows the set as modified.
         Open the set on another computer and its presets are there.</span></li>
+    <li><b>Mixer</b><span>its own box on the Interface page: for every track with <code>+G:</code> in its name (like AbleSet, e.g. "Backing +G:BACKTR")
+        a fader and a mute button <b>M</b> – takes effect right away, also while Live is playing. Labelled with the text after "+G:", below it the level as in Live (dB).
+        Moving the fader in Live moves it here too.</span></li>
+    <li><b>🏷 Channel names</b><span>your own names for an interface's inputs and outputs (e.g. 9 = TD27), independent of the USB port – stored in the Live set.
+        Map, hover info, tracks and list show them; Live still gets the real channel. <b>Import from Live's settings</b> reads the names you gave the interface
+        in Live under Settings → Audio → Input/Output Config – for every USB port it was ever plugged into (Live remembers names per port, which is why they
+        are "sometimes there, sometimes not"). Fills only empty fields. In a preset's tab the list of that preset's interface applies.</span></li>
     <li><b>Backup</b><span>like the set itself: when saving, Live keeps older versions in the project folder under <code>Backup</code> –
         with the routing and presets of that time. "Save As …" in Live takes the presets into the new set.</span></li>
-    <li><b>Older versions</b><span>up to 3.4.3 the presets were also stored on the Mac
-        (<code>~/Library/Application Support/LooperDisplay/routing-presets.json</code>, for all sets). Under ✎ Edit, or in a set without presets,
-        <b>"Import presets from an older version"</b> copies them into the open set once.</span></li>
     <li><b>Show differences</b><span>shows in yellow which tracks would change. After applying, the page lists channels that don't exist on
         this interface (e.g. "5/6" on an interface with two outputs).</span></li>
-    <li><b>✎ Edit</b><span>rename, save as new preset, <b>Copy current routing into preset</b> (overwrites the preset with the routing now, click twice), delete preset. <b>Use for …</b>
-        assigns a preset to the interface Live is using now.</span></li>
+    <li><b>"Preset" tab</b><span>Choosing a preset in the menu shows it in the "Preset" tab right away. There, in the purple bar, everything in one place: name field (rename, Enter),
+        <b>Load into Ableton</b>, <b>Save as new preset</b> (copy including unsaved changes), <b>Copy current routing into preset</b>
+        (overwrites the preset with what Live is set to, click twice), <b>Use for …</b> (assigns it to the interface Live is using),
+        <b>Delete preset</b>. A new preset from the routing in Live is made with the <b>＋</b> in the "Live" tab (click twice).</span></li>
   </ul>
   <p><b>Views.</b> <b>Tracks</b> shows channel strips like the In/Out section of Live's Session View (track colour, Audio From,
      Monitor, Audio To; Ext. channels blue, MIDI yellow). <b>Map</b> shows the signal flow, <b>List</b> everything as a table.
