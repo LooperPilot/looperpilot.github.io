@@ -1,6 +1,6 @@
 {
-  "version": "3.4.4",
-  "notes": "Presets nur im Live-Set, Reiter Preset mit Umbenennen",
+  "version": "3.4.5",
+  "notes": "Soundkarte: Mixer, Kanalnamen, Reiter je Preset; Songs mit Abspann",
   "date": "2026-10-05",
-  "url": "https://github.com/LooperPilot/looper-pilot/releases/tag/v3.4.4"
+  "url": "https://github.com/LooperPilot/looper-pilot/releases/tag/v3.4.5"
 }
