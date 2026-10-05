@@ -848,9 +848,14 @@ Takt 21   DELETE ALL   alles leer für den nächsten Song</pre>
         anderen Sets. Beim Anwenden wählst du per Haken, was gesetzt wird: Ausgänge, Eingänge, Sends, Stumm. Ältere Presets (vor 3.4) haben noch keine Sends/Stumm –
         „Aktuelles Routing in Preset übernehmen“ ergänzt sie.</span></li>
     <li><b>Auswahl</b><span>Im Menü „Preset“ stehen oben die Presets der aktuellen Karte, darunter die anderer Karten. „Preset auf Ableton Live anwenden“ setzt das gewählte; darunter wählst du, was gesetzt wird (Ausgänge, Eingänge, Sends, Stumm), und ob es beim Kartenwechsel automatisch angewendet wird (⚡). Neue Presets: „✎ Bearbeiten“ → „Als neues Preset speichern“ (danach gleich umbenennen).</span></li>
-    <li><b>Gespeichert</b><span>auf dem Mac (für alle Sets) und zusätzlich im Live-Set, sobald du das Set in Live speicherst.
-        Öffnest du das Set auf einem anderen Rechner, kommen seine Presets dort automatisch in die Liste (neuere Fassungen gewinnen,
-        gelöschte kommen nicht wieder). Nach einer Preset-Änderung zeigt Live das Set daher als geändert an.</span></li>
+    <li><b>Gespeichert</b><span><b>nur im Live-Set</b> – Presets gehören zum Projekt und gelten nur dort; ein anderes Set hat seine eigenen.
+        Gesichert sind sie, sobald du das Set in Live speicherst (⌘S); nach einer Preset-Änderung zeigt Live das Set deshalb als geändert an.
+        Öffnest du das Set auf einem anderen Rechner, sind seine Presets dort dabei.</span></li>
+    <li><b>Sicherung</b><span>wie das Set selbst: Live legt beim Speichern ältere Fassungen im Projektordner unter <code>Backup</code> ab –
+        mit dem damaligen Routing und den damaligen Presets. „Speichern unter …“ in Live nimmt die Presets mit ins neue Set.</span></li>
+    <li><b>Ältere Versionen</b><span>bis 3.4.3 lagen die Presets zusätzlich auf dem Mac
+        (<code>~/Library/Application Support/LooperDisplay/routing-presets.json</code>, für alle Sets). Unter ✎ Bearbeiten bzw. in einem Set ohne Presets
+        übernimmt <b>„Presets aus älterer Version übernehmen“</b> sie einmalig in das geöffnete Set.</span></li>
     <li><b>Unterschiede zeigen</b><span>zeigt vor dem Anwenden gelb, welche Spuren sich ändern würden. Nach dem Anwenden listet die Seite
         Kanäle, die es an dieser Karte nicht gibt (z. B. „5/6“ an einer Karte mit zwei Ausgängen).</span></li>
     <li><b>✎ Bearbeiten</b><span>Umbenennen, als neues Preset speichern, <b>Aktuelles Routing in Preset übernehmen</b> (überschreibt das Preset mit dem jetzigen Routing, zweimal klicken), Preset löschen.
@@ -1549,9 +1554,14 @@ Bar 21   DELETE ALL   all empty for the next song</pre>
         When applying you tick what to set: outputs, inputs, sends, mute. Older presets (before 3.4) have no sends/mute yet –
         "Copy current routing into preset" adds them.</span></li>
     <li><b>Choosing</b><span>The "Preset" menu lists the presets of the current interface first, then those of other interfaces. "Apply preset to Ableton Live" sets the chosen one; below you pick what to set (outputs, inputs, sends, mute), and whether it is applied automatically when the interface changes (⚡). New presets: "✎ Edit" → "Save as new preset" (then rename it right away).</span></li>
-    <li><b>Where they are stored</b><span>on the Mac (for all sets) and also in the Live set once you save it in Live. Open the set
-        on another computer and its presets are added to the list there automatically (newer versions win, deleted ones don't come
-        back). After changing a preset, Live therefore shows the set as modified.</span></li>
+    <li><b>Where they are stored</b><span><b>only in the Live set</b> – presets belong to the project and only apply there; another set has its own.
+        They are kept once you save the set in Live (⌘S); after a preset change Live therefore shows the set as modified.
+        Open the set on another computer and its presets are there.</span></li>
+    <li><b>Backup</b><span>like the set itself: when saving, Live keeps older versions in the project folder under <code>Backup</code> –
+        with the routing and presets of that time. "Save As …" in Live takes the presets into the new set.</span></li>
+    <li><b>Older versions</b><span>up to 3.4.3 the presets were also stored on the Mac
+        (<code>~/Library/Application Support/LooperDisplay/routing-presets.json</code>, for all sets). Under ✎ Edit, or in a set without presets,
+        <b>"Import presets from an older version"</b> copies them into the open set once.</span></li>
     <li><b>Show differences</b><span>shows in yellow which tracks would change. After applying, the page lists channels that don't exist on
         this interface (e.g. "5/6" on an interface with two outputs).</span></li>
     <li><b>✎ Edit</b><span>rename, save as new preset, <b>Copy current routing into preset</b> (overwrites the preset with the routing now, click twice), delete preset. <b>Use for …</b>
