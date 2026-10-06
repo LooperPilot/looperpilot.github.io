@@ -1,6 +1,6 @@
 {
-  "version": "3.7.2",
-  "notes": "Gleichzeitiger Start über Link",
+  "version": "3.7.3",
+  "notes": "Synchroner Start, keine Schreibtisch-Abfrage",
   "date": "2026-10-06",
-  "url": "https://github.com/LooperPilot/looper-pilot/releases/tag/v3.7.2"
+  "url": "https://github.com/LooperPilot/looper-pilot/releases/tag/v3.7.3"
 }
