@@ -1,6 +1,6 @@
 {
-  "version": "3.8.0",
-  "notes": "Alle Songs auf einmal übernehmen",
+  "version": "3.8.1",
+  "notes": "Übernommene Clips ohne Loop",
   "date": "2026-10-07",
-  "url": "https://github.com/LooperPilot/looper-pilot/releases/tag/v3.8.0"
+  "url": "https://github.com/LooperPilot/looper-pilot/releases/tag/v3.8.1"
 }
