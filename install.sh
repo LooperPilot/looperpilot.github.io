@@ -36,8 +36,7 @@ SCRIPTS_DEST="$LIB/Remote Scripts"
 TEMPLATES_DEST="$LIB/Templates"
 APP_DEST="${LOOPER_APP_DEST:-/Applications/LooperPilot.app}"
 OLD_APP="${APP_DEST%/*}/LooperDisplay.app"                    # Name bis 3.0
-TEMPLATE="LooperTemplateV1.6.als"
-CLIPS_TEMPLATE="MorningStarTemplate.als"
+TEMPLATE="LooperPilotTemplate.als"
 
 say() { printf '\n\033[1m%s\033[0m\n' "$1"; }
 
@@ -266,8 +265,6 @@ install_template() {      # $1 = Dateiname, $2 = Quelle
   fi
 }
 install_template "$TEMPLATE" "$TEMPLATES_SRC/$TEMPLATE"
-# Mit MorningstarClips: Vorlage mit Aufnahme-Bereich (> ... <) und Looper-Gruppe
-[ "$CLIPS" = yes ] && install_template "$CLIPS_TEMPLATE" "$TEMPLATES_SRC/$CLIPS_TEMPLATE"
 
 # --- 4. Starten -----------------------------------------------------------
 say "Start"
