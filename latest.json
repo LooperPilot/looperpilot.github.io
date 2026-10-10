@@ -1,6 +1,6 @@
 {
-  "version": "3.9.0",
-  "notes": "Neue Clips-Seite, Mini-Looper, Stumm-Tasten, MIDI-Zuordnung",
-  "date": "2026-10-09",
-  "url": "https://github.com/LooperPilot/looper-pilot/releases/tag/v3.9.0"
+  "version": "3.9.1",
+  "notes": "ALLE START/STOP, aufgeräumte Overview, Mini-Looper auf Songs, Demo-Set",
+  "date": "2026-10-10",
+  "url": "https://github.com/LooperPilot/looper-pilot/releases/tag/v3.9.1"
 }
