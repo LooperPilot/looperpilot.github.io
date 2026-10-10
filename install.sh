@@ -265,6 +265,7 @@ install_template() {      # $1 = Dateiname, $2 = Quelle
   fi
 }
 install_template "$TEMPLATE" "$TEMPLATES_SRC/$TEMPLATE"
+install_template "HelpTemplate.als" "$TEMPLATES_SRC/HelpTemplate.als"   # Demo-Set: Songs, Abschnitte, Lyrics, Looper-Befehle
 
 # --- 4. Starten -----------------------------------------------------------
 say "Start"
