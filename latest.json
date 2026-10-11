@@ -1,6 +1,6 @@
 {
-  "version": "3.9.6",
-  "notes": "Steckfeld, Presets vergleichen, neue Fader, Map-Werkzeuge im Bearbeiten",
+  "version": "3.9.7",
+  "notes": "Soundkarte als Rack, Kanalnamen je Preset, aufgeräumte Map",
   "date": "2026-10-11",
-  "url": "https://github.com/LooperPilot/looper-pilot/releases/tag/v3.9.6"
+  "url": "https://github.com/LooperPilot/looper-pilot/releases/tag/v3.9.7"
 }
