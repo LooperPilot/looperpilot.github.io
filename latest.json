@@ -1,6 +1,6 @@
 {
-  "version": "3.9.3",
-  "notes": "Neue Optik, FREESTYLE, Fades, Keyboard-Umschalter, Map frei anordnen",
-  "date": "2026-10-10",
-  "url": "https://github.com/LooperPilot/looper-pilot/releases/tag/v3.9.3"
+  "version": "3.9.4",
+  "notes": "MIDI-Map wie AbleSet, Änderungshistorie, Aufnahmespuren „Spurname_Recording“",
+  "date": "2026-10-11",
+  "url": "https://github.com/LooperPilot/looper-pilot/releases/tag/v3.9.4"
 }
