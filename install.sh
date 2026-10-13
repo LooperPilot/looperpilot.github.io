@@ -1,7 +1,7 @@
 #!/bin/sh
-# Installiert LooperPilot (bis 3.0: LooperDisplay) auf dem Mac:
+# Installiert Stagecase (bis 3.9: LooperPilot, bis 3.0: LooperDisplay) auf dem Mac:
 #   1. Remote Scripts in die Ableton User Library
-#   2. LooperPilot.app nach /Applications (eine alte LooperDisplay.app wird ersetzt)
+#   2. Stagecase.app nach /Applications (eine alte LooperPilot.app / LooperDisplay.app wird ersetzt)
 #   3. Vorlagen nach User Library/Templates (nur wenn noch keine gleichnamige da ist)
 #   4. App starten
 # Alles kommt aus dem Release-Zip: liegt install.sh im entpackten Zip, aus diesem
@@ -34,8 +34,8 @@ CLIPS_REPO="LooperPilot/morningstar-live-clips"
 LIB="${LOOPER_LIB:-$HOME/Music/Ableton/User Library}"          # zum Testen umlenkbar
 SCRIPTS_DEST="$LIB/Remote Scripts"
 TEMPLATES_DEST="$LIB/Templates"
-APP_DEST="${LOOPER_APP_DEST:-/Applications/LooperPilot.app}"
-OLD_APP="${APP_DEST%/*}/LooperDisplay.app"                    # Name bis 3.0
+APP_DIR="${LOOPER_APP_DEST:-/Applications/Stagecase.app}"; APP_DIR="${APP_DIR%/*}"   # Ziel-Ordner (Tests: umlenkbar)
+APP_NAME="Stagecase"                                            # wird unten aus dem Release bestimmt (aeltere: LooperPilot)
 TEMPLATE="LooperPilotTemplate.als"
 
 say() { printf '\n\033[1m%s\033[0m\n' "$1"; }
@@ -48,7 +48,7 @@ live_hint() {
 }
 
 if [ "$(uname -s)" != "Darwin" ]; then
-  echo "LooperPilot only runs on macOS."; exit 1
+  echo "Stagecase only runs on macOS."; exit 1
 fi
 if [ "$(uname -m)" != "arm64" ]; then
   echo "Note: the app is built for Macs with Apple silicon (M1 or newer)."
@@ -141,20 +141,20 @@ else
   say "Download"
   TMP="$(mktemp -d)"
   # Die Releases sind privat: laden nur mit Zugang zum Repo, ueber die GitHub CLI
-  if need_gh && "$GH" release download -R "$REPO" -p 'LooperPilot-*.zip' -D "$TMP" 2>/dev/null; then
-    ZIP="$(ls "$TMP"/LooperPilot-*.zip | head -1)"
+  if need_gh && "$GH" release download -R "$REPO" -p 'Stagecase-*.zip' -p 'LooperPilot-*.zip' -D "$TMP" 2>/dev/null; then
+    ZIP="$(ls "$TMP"/Stagecase-*.zip "$TMP"/LooperPilot-*.zip 2>/dev/null | head -1)"
     echo "  downloaded $(basename "$ZIP")"
   else
     echo "No access to the private releases (invited testers only)."
     echo "Accept the invitation to the GitHub organization LooperPilot, then run this again --"
-    echo "or download LooperPilot-....zip in your browser from"
+    echo "or download Stagecase-....zip in your browser from"
     echo "  https://github.com/$REPO/releases/latest"
     echo "unzip it and run  sh install.sh  in that folder."
     exit 1
   fi
   ditto -x -k "$ZIP" "$TMP"
-  PKG="$(dirname "$(find "$TMP" -maxdepth 2 -name LooperPilot.app -type d | head -1)")"
-  [ -d "$PKG/LooperPilot.app" ] || { echo "Unexpected release contents."; exit 1; }
+  PKG="$(dirname "$(find "$TMP" -maxdepth 2 \( -name Stagecase.app -o -name LooperPilot.app \) -type d | head -1)")"
+  [ -d "$PKG/Stagecase.app" ] || [ -d "$PKG/LooperPilot.app" ] || { echo "Unexpected release contents."; exit 1; }
 fi
 if [ -d "$PKG/copy_to_RemoteScripts" ]; then
   SCRIPTS_SRC="$PKG/copy_to_RemoteScripts"
@@ -223,8 +223,11 @@ fi
 
 # --- 2. App ---------------------------------------------------------------
 say "App"
-APP_SRC="$PKG/LooperPilot.app"
-[ -d "$APP_SRC" ] || { echo "LooperPilot.app not found."; exit 1; }
+# Seit 4.0 heisst die App Stagecase; aeltere Releases enthalten LooperPilot.app
+if [ -d "$PKG/Stagecase.app" ]; then APP_NAME="Stagecase"; else APP_NAME="LooperPilot"; fi
+APP_SRC="$PKG/$APP_NAME.app"
+APP_DEST="$APP_DIR/$APP_NAME.app"
+[ -d "$APP_SRC" ] || { echo "Stagecase.app not found."; exit 1; }
 [ "$PKG" = "$HERE" ] && echo "  from this folder"
 
 # Wer das Release im Browser geladen hat, hat die Quarantaene-Markierung von macOS
@@ -234,7 +237,7 @@ xattr -dr com.apple.quarantine "$APP_SRC" 2>/dev/null || true
 # Eine laufende (aeltere) App zuerst beenden -- sonst holt "open" unten nur das
 # alte Fenster nach vorne und dessen Server laeuft mit der alten Version weiter.
 if [ -z "$LOOPER_NO_OPEN" ]; then
-  for NAME in LooperPilot LooperDisplay; do      # LooperDisplay = alter Name bis 3.0
+  for NAME in Stagecase LooperPilot LooperDisplay; do      # alte Namen: LooperPilot bis 3.9, LooperDisplay bis 3.0
     pgrep -xq "$NAME" 2>/dev/null || continue
     echo "  quitting the running $NAME ..."
     osascript -e "quit app \"$NAME\"" >/dev/null 2>&1 || true
@@ -245,8 +248,11 @@ if [ -z "$LOOPER_NO_OPEN" ]; then
   done
 fi
 rm -rf "$APP_DEST"
-# Aus LooperDisplay wurde LooperPilot: die alte App entfernen, damit nur eine im Dock landet
-if [ -d "$OLD_APP" ]; then rm -rf "$OLD_APP"; echo "  removed the old $(basename "$OLD_APP") (now LooperPilot)"; fi
+# Alte Namen entfernen (LooperDisplay -> LooperPilot -> Stagecase), damit nur eine App im Dock landet
+for OLD in LooperPilot LooperDisplay; do
+  [ "$OLD" = "$APP_NAME" ] && continue
+  if [ -d "$APP_DIR/$OLD.app" ]; then rm -rf "$APP_DIR/$OLD.app"; echo "  removed the old $OLD.app (now $APP_NAME)"; fi
+done
 ditto "$APP_SRC" "$APP_DEST"
 echo "  -> $APP_DEST ($(/usr/libexec/PlistBuddy -c 'Print :CFBundleShortVersionString' "$APP_DEST/Contents/Info.plist"))"
 
@@ -284,7 +290,7 @@ if [ "$CLIPS" = yes ]; then
   echo "     The Clips page: http://localhost:8080/clips"
 fi
 echo
-echo "To start it again later, just open the 'LooperPilot' app -- from Applications,"
-echo "Launchpad or Spotlight (Cmd+Space, 'LooperPilot')."
+echo "To start it again later, just open the '$APP_NAME' app -- from Applications,"
+echo "Launchpad or Spotlight (Cmd+Space, '$APP_NAME')."
 echo "You only need install.sh for installing and updating."
 live_hint
