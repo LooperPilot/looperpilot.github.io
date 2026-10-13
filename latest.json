@@ -1,6 +1,6 @@
 {
-  "version": "3.9.8",
-  "notes": "PLAY/STOP eine Taste, Looper-Panel, Mini-Looper wählen",
-  "date": "2026-10-12",
-  "url": "https://github.com/LooperPilot/looper-pilot/releases/tag/v3.9.8"
+  "version": "3.9.9",
+  "notes": "Neue Seite Lead Sheet mit Akkordspur, Transponieren und Notenansicht; Hilfe mit Suche",
+  "date": "2026-10-13",
+  "url": "https://github.com/LooperPilot/looper-pilot/releases/tag/v3.9.9"
 }
