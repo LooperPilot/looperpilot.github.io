@@ -48,7 +48,7 @@ live_hint() {
 }
 
 if [ "$(uname -s)" != "Darwin" ]; then
-  echo "Stagecase only runs on macOS."; exit 1
+  echo "StageCase only runs on macOS."; exit 1
 fi
 if [ "$(uname -m)" != "arm64" ]; then
   echo "Note: the app is built for Macs with Apple silicon (M1 or newer)."
@@ -153,8 +153,8 @@ else
     exit 1
   fi
   ditto -x -k "$ZIP" "$TMP"
-  PKG="$(dirname "$(find "$TMP" -maxdepth 2 \( -name Stagecase.app -o -name LooperPilot.app \) -type d | head -1)")"
-  [ -d "$PKG/Stagecase.app" ] || [ -d "$PKG/LooperPilot.app" ] || { echo "Unexpected release contents."; exit 1; }
+  PKG="$(dirname "$(find "$TMP" -maxdepth 2 \( -iname StageCase.app -o -name LooperPilot.app \) -type d | head -1)")"
+  [ -d "$PKG/StageCase.app" ] || [ -d "$PKG/LooperPilot.app" ] || { echo "Unexpected release contents."; exit 1; }
 fi
 if [ -d "$PKG/copy_to_RemoteScripts" ]; then
   SCRIPTS_SRC="$PKG/copy_to_RemoteScripts"
@@ -240,10 +240,12 @@ fi
 # --- 2. App ---------------------------------------------------------------
 say "App"
 # Seit 4.0 heisst die App Stagecase; aeltere Releases enthalten LooperPilot.app
-if [ -d "$PKG/Stagecase.app" ]; then APP_NAME="Stagecase"; else APP_NAME="LooperPilot"; fi
+# genaue Schreibweise aus dem Release (StageCase.app; macOS unterscheidet Gross/klein beim Suchen nicht)
+APP_NAME="$(basename "$(find "$PKG" -maxdepth 1 \( -iname 'stagecase.app' -o -iname 'looperpilot.app' \) -type d | head -1)" .app)"
+[ -n "$APP_NAME" ] || APP_NAME="LooperPilot"
 APP_SRC="$PKG/$APP_NAME.app"
 APP_DEST="$APP_DIR/$APP_NAME.app"
-[ -d "$APP_SRC" ] || { echo "Stagecase.app not found."; exit 1; }
+[ -d "$APP_SRC" ] || { echo "StageCase.app not found."; exit 1; }
 [ "$PKG" = "$HERE" ] && echo "  from this folder"
 
 # Wer das Release im Browser geladen hat, hat die Quarantaene-Markierung von macOS
@@ -253,7 +255,7 @@ xattr -dr com.apple.quarantine "$APP_SRC" 2>/dev/null || true
 # Eine laufende (aeltere) App zuerst beenden -- sonst holt "open" unten nur das
 # alte Fenster nach vorne und dessen Server laeuft mit der alten Version weiter.
 if [ -z "$LOOPER_NO_OPEN" ]; then
-  for NAME in Stagecase LooperPilot LooperDisplay; do      # alte Namen: LooperPilot bis 3.9, LooperDisplay bis 3.0
+  for NAME in StageCase Stagecase LooperPilot LooperDisplay; do      # alte Namen: LooperPilot bis 3.9, LooperDisplay bis 3.0
     pgrep -xq "$NAME" 2>/dev/null || continue
     echo "  quitting the running $NAME ..."
     osascript -e "quit app \"$NAME\"" >/dev/null 2>&1 || true
@@ -263,7 +265,7 @@ if [ -z "$LOOPER_NO_OPEN" ]; then
     sleep 1
   done
 fi
-rm -rf "$APP_DEST"
+rm -rf "$APP_DEST"; [ "$APP_NAME" = LooperPilot ] || rm -rf "$APP_DIR/Stagecase.app"   # alte Schreibweise (Stagecase -> StageCase)
 # Alte Namen entfernen (LooperDisplay -> LooperPilot -> Stagecase), damit nur eine App im Dock landet
 for OLD in LooperPilot LooperDisplay; do
   [ "$OLD" = "$APP_NAME" ] && continue
