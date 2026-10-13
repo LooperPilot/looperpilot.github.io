@@ -170,7 +170,9 @@ fi
 # Nur die eigenen Dateien ersetzen: eigene Sicherungen im Zielordner bleiben erhalten.
 say "Remote Scripts"
 mkdir -p "$SCRIPTS_DEST"
-for s in LooperDisplay SPD_SX_Pro_Looper; do
+# Ab 4.0 ein einziges Script "Stagecase" (vorher LooperDisplay, SPD_SX_Pro_Looper, MorningstarClips)
+if [ -d "$SCRIPTS_SRC/Stagecase" ]; then MERGED=1; SCRIPT_LIST="Stagecase"; else MERGED=""; SCRIPT_LIST="LooperDisplay SPD_SX_Pro_Looper"; fi
+for s in $SCRIPT_LIST; do
   src="$SCRIPTS_SRC/$s"
   [ -d "$src" ] || { echo "Missing: $src"; exit 1; }
   mkdir -p "$SCRIPTS_DEST/$s"
@@ -178,12 +180,26 @@ for s in LooperDisplay SPD_SX_Pro_Looper; do
   rm -rf "$SCRIPTS_DEST/$s/__pycache__"
   echo "  $s -> $SCRIPTS_DEST/$s"
 done
+if [ -n "$MERGED" ]; then
+  # Die alten Scripts sind jetzt Teil von Stagecase -- weg damit, sonst laufen in Live zwei Versionen nebeneinander
+  for old in LooperDisplay SPD_SX_Pro_Looper MorningstarClips; do
+    if [ -d "$SCRIPTS_DEST/$old" ]; then rm -rf "$SCRIPTS_DEST/$old"; echo "  removed the old $old (now part of Stagecase)"; fi
+  done
+fi
 
 # --- 1b. MorningstarClips (immer dabei, ausser --no-clips) ------------------
 # Eigenes Projekt: steuert die Session View mit einem Morningstar MC6 Pro und
 # fuettert die Clips-Seite der Anzeige. Liegt dem Release bei (ab 1.9.1); sonst
 # aus dem neuesten Release von $CLIPS_REPO.
-if [ "$CLIPS" = yes ]; then
+if [ -n "$MERGED" ]; then
+  # Clips und MC6 stecken im Script Stagecase; aus dem Release kommt nur noch die MC6-Pro-Bank
+  BANK_DIR="$BANK_PKG"
+  if [ "$PKG" != "$HERE" ] && [ -d "$BANK_PKG" ]; then
+    BANK_DIR="$HOME/Music/Ableton/LooperPilot/Presets/Morningstar MC6 Pro"
+    mkdir -p "$BANK_DIR"
+    cp "$BANK_PKG"/*.json "$BANK_DIR/" 2>/dev/null || true
+  fi
+elif [ "$CLIPS" = yes ]; then
   say "MorningstarClips"
   CLIPS_SRC="$SCRIPTS_SRC/MorningstarClips"
   BANK_SRC="$BANK_PKG"
@@ -282,6 +298,19 @@ fi
 
 say "Done. Now in Ableton Live:"
 echo "  1. Restart Live (Remote Scripts are only read at startup)."
+if [ -n "$MERGED" ]; then
+  echo "  2. Settings > Link, Tempo & MIDI: Control Surface 'Stagecase', Input 'Stagecase', Output 'Stagecase'."
+  echo "     Clear the old rows LooperDisplay, SPD_SX_Pro_Looper and MorningstarClips if they are still there."
+  echo "  3. nanoKONTROL2, SPD-SX PRO and MC6 Pro need no rows of their own: Stagecase finds them by itself."
+  echo "     In the MIDI ports list, switch Track and Remote off for these devices."
+  echo "  4. MC6 Pro: load the bank from '$BANK_DIR' in the Morningstar Editor."
+  echo
+  echo "To start it again later, just open the '$APP_NAME' app -- from Applications,"
+  echo "Launchpad or Spotlight (Cmd+Space, '$APP_NAME')."
+  echo "You only need install.sh for installing and updating."
+  live_hint
+  exit 0
+fi
 echo "  2. Settings > Link, Tempo & MIDI: choose 'LooperDisplay' as a Control Surface (the script keeps its name)."
 echo "  3. With a Roland SPD-SX PRO, also add 'SPD_SX_Pro_Looper' (input: SPD-SX PRO)."
 if [ "$CLIPS" = yes ]; then
