@@ -1,6 +1,6 @@
 {
-  "version": "4.0.0",
-  "notes": "Aus LooperPilot wird StageCase: ein Script fuer alle Controller, Startseite, Szenentempo. Nach dem Update Live neu einrichten (siehe Hilfe).",
-  "date": "2026-10-13",
-  "url": "https://github.com/LooperPilot/looper-pilot/releases/tag/v4.0.0"
+  "version": "4.0.3",
+  "notes": "Lead Sheet: Griffe an jeder Stelle am Hals, Kommentare im Live-Set",
+  "date": "2026-10-14",
+  "url": "https://github.com/LooperPilot/looper-pilot/releases/tag/v4.0.3"
 }
