@@ -1,6 +1,6 @@
 {
-  "version": "4.1.44",
-  "notes": "Neue obere Leiste: Arrangement · Clips · Looper immer bedienbar, Lights mit Zeitleiste und Dimmern – Live danach neu starten",
+  "version": "4.1.154",
+  "notes": "Song bearbeiten im Arrangement (Looper, Lights, Drums), Projekt-Analyse, Mini-Mixer – Live danach neu starten",
   "date": "2026-10-18",
-  "url": "https://github.com/LooperPilot/looper-pilot/releases/tag/v4.1.44"
+  "url": "https://github.com/LooperPilot/looper-pilot/releases/tag/v4.1.154"
 }
