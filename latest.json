@@ -1,6 +1,6 @@
 {
-  "version": "4.1.203",
-  "notes": "Signalwege mit Routing-Map und Pegeln auf allen Bühnen-Seiten – danach Live neu starten (Script 39)",
+  "version": "4.1.205",
+  "notes": "Soundkarte: Filter Nur Spuren mit Pegel, Pegel für 160 Spuren – danach Live neu starten (Script 40)",
   "date": "2026-10-20",
-  "url": "https://github.com/LooperPilot/looper-pilot/releases/tag/v4.1.203"
+  "url": "https://github.com/LooperPilot/looper-pilot/releases/tag/v4.1.205"
 }
