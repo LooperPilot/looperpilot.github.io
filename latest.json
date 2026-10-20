@@ -1,6 +1,6 @@
 {
-  "version": "4.1.205",
-  "notes": "Soundkarte: Filter Nur Spuren mit Pegel, Pegel für 160 Spuren – danach Live neu starten (Script 40)",
+  "version": "4.1.234",
+  "notes": "Pegel IN/OUT in den Looper-Ringen, Looper 1 frei starten, Laschen an der Box – danach Live neu starten (Script 51)",
   "date": "2026-10-20",
-  "url": "https://github.com/LooperPilot/looper-pilot/releases/tag/v4.1.205"
+  "url": "https://github.com/LooperPilot/looper-pilot/releases/tag/v4.1.234"
 }
