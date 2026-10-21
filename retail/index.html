@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="de"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>StageCase Test-Download</title>
+<style>
+  :root { --bg: #0b0b0d; --card: #141416; --line: #2a2a2f; --fg: #f2f2f2; --dim: #b4b4bc; --acc: #ffd60a; }
+  body { margin: 0; background: var(--bg); color: var(--fg); font: 16px/1.5 -apple-system, Helvetica, Arial, sans-serif; display: flex; justify-content: center; padding: 48px 16px; }
+  main { max-width: 560px; width: 100%; background: var(--card); border: 1px solid var(--line); border-radius: 18px; padding: 28px; }
+  h1 { margin: 0 0 4px; font-size: 26px; } .sub { color: var(--dim); margin: 0 0 22px; }
+  a.btn { display: inline-block; background: var(--acc); color: #16161a; font-weight: 800; text-decoration: none; padding: 12px 20px; border-radius: 12px; }
+  ol { color: var(--dim); padding-left: 20px; } li b { color: var(--fg); } .ver { color: var(--dim); font-size: 14px; margin-top: 10px; }
+</style></head>
+<body><main>
+  <h1>StageCase – Verkaufsversion (Test)</h1>
+  <p class="sub">Testversion mit Einrichtung, 14 Tagen Probezeit und Lizenz (Sandbox). Signiert und notarisiert.</p>
+  <a class="btn" id="dl" href="#">DMG laden</a>
+  <p class="ver" id="ver">Neueste Version wird gesucht …</p>
+  <ol>
+    <li><b>„StageCase Test“</b> beenden, falls sie läuft.</li>
+    <li>DMG öffnen und die App nach <b>Programme</b> ziehen (die alte ersetzen).</li>
+    <li>Starten – Probezeit und Einrichtung bleiben erhalten.</li>
+  </ol>
+</main>
+<script>
+  fetch('latest.json', { cache: 'no-store' }).then((r) => r.json()).then((j) => {
+    document.getElementById('dl').href = j.url;
+    document.getElementById('ver').textContent = 'Version ' + j.version + (j.date ? ' · ' + j.date : '') + (j.notes ? ' – ' + j.notes : '');
+  }).catch(() => { document.getElementById('ver').textContent = 'Version nicht gefunden.'; });
+</script>
+</body></html>
