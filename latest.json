@@ -1,6 +1,6 @@
 {
-  "version": "4.1.234",
-  "notes": "Pegel IN/OUT in den Looper-Ringen, Looper 1 frei starten, Laschen an der Box – danach Live neu starten (Script 51)",
-  "date": "2026-10-20",
-  "url": "https://github.com/LooperPilot/looper-pilot/releases/tag/v4.1.234"
+  "version": "4.1.243",
+  "notes": "Laschen an der Box, Ab/Bis hier in Funktionen, Video-Vorschau abschaltbar, Anleitung Looper ohne Metronom",
+  "date": "2026-10-21",
+  "url": "https://github.com/LooperPilot/looper-pilot/releases/tag/v4.1.243"
 }
