@@ -1,6 +1,6 @@
 {
-  "version": "4.1.318",
-  "notes": "Neu: Monitor mit In-Ear-Mixen (Ui24R, StudioLive), IN-EAR neben MIXER, Test-Pult (Pro)",
-  "date": "2026-10-23",
-  "url": "https://github.com/LooperPilot/looperpilot.github.io/releases/download/retail-test-v4.1.318/StageCase-4.1.318-test.dmg"
+  "version": "5.0.3-beta",
+  "notes": "StageCase 5: Song-Editor mit eigenen Spuren, Click und Ansagen fürs In-Ear, User mit bewegtem Foto, Demo-Set mit Einzähler",
+  "date": "2026-10-25",
+  "url": "https://github.com/LooperPilot/looperpilot.github.io/releases/download/retail-beta-v5.0.3/StageCase-5.0.3-beta.dmg"
 }
