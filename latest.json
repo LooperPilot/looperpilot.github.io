@@ -1,6 +1,6 @@
 {
-  "version": "4.1.318",
-  "notes": "Neu: Monitor mit In-Ear-Mixen (Ui24R, StudioLive), IN-EAR neben MIXER, Test-Pult",
-  "date": "2026-10-23",
-  "url": "https://github.com/LooperPilot/looper-pilot/releases/tag/v4.1.318"
+  "version": "5.0.12",
+  "notes": "StageCase 5: Song bearbeiten, Click & Ansagen, Tempo, Planspiel",
+  "date": "2026-10-26",
+  "url": "https://github.com/LooperPilot/looper-pilot/releases/tag/v5.0.12"
 }
