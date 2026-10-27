@@ -1,6 +1,6 @@
 {
-  "version": "5.0.53",
-  "notes": "Clips: Einzelwahl +CLIP, Mülleimer je Szene, frei starten an jedem Looper; zwei Macs: Kennungen und Master; Ansagen mit Songname im Einzähler",
+  "version": "5.0.55",
+  "notes": "Gerätesteuerung (statt Drums): Kemper-Namen aus dem Rig Manager, je Performance gruppiert",
   "date": "2026-10-27",
-  "url": "https://github.com/LooperPilot/looperpilot.github.io/releases/download/retail-keys-v5.0.53/StageCase-5.0.53.dmg"
+  "url": "https://github.com/LooperPilot/looperpilot.github.io/releases/download/retail-keys-v5.0.55/StageCase-5.0.55.dmg"
 }
