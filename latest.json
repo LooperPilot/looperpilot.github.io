@@ -1,6 +1,6 @@
 {
-  "version": "5.0.13",
-  "notes": "Song bearbeiten auf iPad/kleinen Bildschirmen, Hilfe zur Premium-Stimme",
-  "date": "2026-10-26",
-  "url": "https://github.com/LooperPilot/looper-pilot/releases/tag/v5.0.13"
+  "version": "5.0.53",
+  "notes": "Clips: +CLIP-Einzelwahl, Mülleimer je Szene, frei starten an jedem Looper, Kennungen/Master für zwei Macs, Ansagen",
+  "date": "2026-10-27",
+  "url": "https://github.com/LooperPilot/looper-pilot/releases/tag/v5.0.53"
 }
