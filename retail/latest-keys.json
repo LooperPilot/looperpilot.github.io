@@ -1,6 +1,6 @@
 {
-  "version": "5.0.74",
-  "notes": "Frei starten: Kopie korrigieren (Versatz, 1/8, 1/16), Mac-Abgleich als eigene Seite, Clip-Spuren per Liste",
+  "version": "5.0.103",
+  "notes": "AKAI LPD8, Kemper-Seite überarbeitet, Abschnitte tauschen, Geräte als eigene Panels, Start wartet auf belegte Ports",
   "date": "2026-10-28",
-  "url": "https://github.com/LooperPilot/looperpilot.github.io/releases/download/retail-keys-v5.0.74/StageCase-5.0.74.dmg"
+  "url": "https://github.com/LooperPilot/looperpilot.github.io/releases/download/retail-keys-v5.0.103/StageCase-5.0.103.dmg"
 }
