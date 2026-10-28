@@ -44,6 +44,21 @@ say() { printf '\n\033[1m%s\033[0m\n' "$1"; }
 live_hint() {
   if pgrep -xq Live 2>/dev/null; then
     printf '\n\033[1;33m%s\033[0m\n' "Ableton Live is running -- quit and restart it now, otherwise the OLD scripts stay active."
+    # im Terminal (Ausgabe auf dem Bildschirm): anbieten, Live gleich zu beenden und wieder zu oeffnen
+    if [ -t 1 ] && [ -r /dev/tty ]; then
+      printf '%s' "Quit Live now and open it again? Live asks about saving first. [y/N] "
+      ans=""; read ans </dev/tty 2>/dev/null || ans=""
+      case "$ans" in
+        y|Y|j|J|yes|ja)
+          live_app="$(ps -o comm= -p "$(pgrep -x Live | head -n 1)" 2>/dev/null | sed -n 's#^\(.*\.app\)/.*#\1#p')"
+          osascript -e "tell application \"${live_app:-Live}\" to quit" >/dev/null 2>&1 || true
+          i=0; while pgrep -xq Live 2>/dev/null && [ $i -lt 180 ]; do sleep 1; i=$((i + 1)); done
+          if pgrep -xq Live 2>/dev/null; then echo "Live is still running (quitting cancelled?) -- restart it yourself with Cmd+Q."
+          elif [ -n "$live_app" ]; then sleep 1; open -a "$live_app" && echo "Live is starting again with the new scripts."
+          else echo "Live has quit -- open it again."; fi ;;
+        *) echo "Then restart Live yourself: Cmd+Q in Live, then open it again." ;;
+      esac
+    fi
   fi
 }
 
