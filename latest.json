@@ -1,6 +1,6 @@
 {
-  "version": "5.0.60",
-  "notes": "Geräte je Zeile im Arrangement, Bund je Griff, Kennungen beim Übernehmen",
+  "version": "5.0.74",
+  "notes": "Frei starten: Kopie korrigieren (Versatz, 1/8, 1/16), eigene Seite für Mac-Abgleich, Clip-Spuren per Liste – Live danach neu starten",
   "date": "2026-10-28",
-  "url": "https://github.com/LooperPilot/looper-pilot/releases/tag/v5.0.60"
+  "url": "https://github.com/LooperPilot/looper-pilot/releases/tag/v5.0.74"
 }
