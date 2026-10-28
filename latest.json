@@ -1,6 +1,6 @@
 {
-  "version": "5.0.74",
-  "notes": "Frei starten: Kopie korrigieren (Versatz, 1/8, 1/16), eigene Seite für Mac-Abgleich, Clip-Spuren per Liste – Live danach neu starten",
+  "version": "5.0.103",
+  "notes": "AKAI LPD8, Kemper-Seite überarbeitet, Abschnitte tauschen, Geräte als eigene Panels, Start wartet auf belegte Ports",
   "date": "2026-10-28",
-  "url": "https://github.com/LooperPilot/looper-pilot/releases/tag/v5.0.74"
+  "url": "https://github.com/LooperPilot/looper-pilot/releases/tag/v5.0.103"
 }
