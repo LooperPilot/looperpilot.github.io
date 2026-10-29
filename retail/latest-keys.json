@@ -1,6 +1,6 @@
 {
-  "version": "5.0.103",
-  "notes": "AKAI LPD8, Kemper-Seite überarbeitet, Abschnitte tauschen, Geräte als eigene Panels, Start wartet auf belegte Ports",
-  "date": "2026-10-28",
-  "url": "https://github.com/LooperPilot/looperpilot.github.io/releases/download/retail-keys-v5.0.103/StageCase-5.0.103.dmg"
+  "version": "5.0.116",
+  "notes": "Monitor Mixer: persönliche Reihenfolge und Sichtbarkeit der Kanäle; LPD8 mit LED-Farben und MC6-Modus",
+  "date": "2026-10-29",
+  "url": "https://github.com/LooperPilot/looperpilot.github.io/releases/download/retail-keys-v5.0.116/StageCase-5.0.116.dmg"
 }
