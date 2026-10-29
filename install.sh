@@ -15,15 +15,18 @@
 # Usage:   ./install.sh               everything, including MorningstarClips (Morningstar MC6 Pro)
 #          ./install.sh --scripts     Remote Scripts only
 #          ./install.sh --no-clips    without MorningstarClips
+#          ./install.sh --check       only list running and installed StageCase copies and data folders
 set -e
 
 SCRIPTS_ONLY=""
+CHECK_ONLY=""
 CLIPS="yes"                     # MorningstarClips immer mit (ohne Rueckfrage); --no-clips laesst es weg
 for arg in "$@"; do
   case "$arg" in
     --scripts) SCRIPTS_ONLY=1 ;;
     --with-clips) CLIPS=yes ;;   # alte Option, weiter erlaubt (ist jetzt Standard)
     --no-clips) CLIPS=no ;;
+    --check) CHECK_ONLY=1 ;;
     *) echo "Unknown option: $arg"; exit 1 ;;
   esac
 done
@@ -39,6 +42,56 @@ APP_NAME="Stagecase"                                            # wird unten aus
 TEMPLATE="LooperPilotTemplate.als"
 
 say() { printf '\n\033[1m%s\033[0m\n' "$1"; }
+
+# --- Pruefen: was von StageCase laeuft und was auf dem Mac liegt (vor jeder Installation, oder --check) ---------
+# Laufende Fenster und Server (mit Pfad und Port), installierte Apps (Version, Art: Tester / Verkaufsversion /
+# Lizenztest), Datenordner (Lizenz, Einrichtung). Nur Anzeige -- beendet und loescht nichts.
+sc_kind() {               # $1 = Pfad der App
+  if grep -q 'HTTP_PORT=8090' "$1/Contents/Resources/launch.sh" 2>/dev/null; then echo "license test (port 8090, own data folder)"
+  elif [ -d "$1/Contents/Resources/payload" ]; then echo "sales version (key)"
+  else echo "tester version"; fi
+}
+sc_check() {
+  say "Check: StageCase on this Mac"
+  echo "  Running:"
+  found=""
+  for pid in $(for n in StageCase LooperPilot LooperDisplay looper-pilot; do pgrep -x "$n" 2>/dev/null || true; done | sort -un); do
+    cmd="$(ps -o command= -p "$pid" 2>/dev/null)"; [ -n "$cmd" ] || continue
+    case "$cmd" in
+      */looper-pilot*|./looper-pilot*)
+        dir="$(lsof -a -p "$pid" -d cwd -Fn 2>/dev/null | sed -n 's/^n//p' | head -1)"
+        ports="$(lsof -nP -a -p "$pid" -iTCP -sTCP:LISTEN -Fn 2>/dev/null | sed -n 's/^n.*://p' | sort -un | tr '\n' ' ')"
+        echo "    server  pid $pid  ${dir:-?}  ports: ${ports:-none}" ;;
+      *) echo "    window  pid $pid  ${cmd%%/Contents/MacOS/*}" ;;
+    esac
+    found=1
+  done
+  [ -n "$found" ] || echo "    nothing"
+  echo "  Installed:"
+  apps="$( { mdfind "kMDItemCFBundleIdentifier == 'app.stagecase.StageCase' || kMDItemCFBundleIdentifier == 'de.hennys.looperdisplay'" 2>/dev/null || true
+            for d in /Applications "$HOME/Applications" "$HOME/Desktop" "$HOME/Downloads"; do
+              find "$d" -maxdepth 2 -type d \( -iname 'stagecase*.app' -o -iname 'looperpilot*.app' -o -iname 'looperdisplay*.app' \) 2>/dev/null || true; done; } \
+          | grep -v -e '^/Volumes/' -e '/\.Trash/' -e '/Contents/' | sort -u)"
+  if [ -n "$apps" ]; then
+    echo "$apps" | while IFS= read -r a; do
+      [ -d "$a" ] || continue
+      if [ -n "$PKG" ]; then case "$a" in "$PKG"/*) continue ;; esac; fi     # die App aus diesem Release selbst
+      v="$(/usr/libexec/PlistBuddy -c 'Print :CFBundleShortVersionString' "$a/Contents/Info.plist" 2>/dev/null)"
+      echo "    $a  ${v:-?}  ($(sc_kind "$a"))"
+    done
+  else echo "    nothing"; fi
+  echo "  Data folders:"
+  for d in "$HOME/Library/Application Support/LooperDisplay" "$HOME/Library/Application Support/StageCase Test"; do
+    [ -d "$d" ] || continue
+    lic="no licence file"; [ -f "$d/license.json" ] && lic="licence file from $(date -r "$d/license.json" '+%Y-%m-%d %H:%M')"
+    set_="not set up"; [ -f "$d/setup.json" ] && set_="set up"
+    echo "    $d  ($lic, $set_)"
+  done
+  n="$(echo "$apps" | grep -c . || true)"
+  [ "${n:-0}" -gt 1 ] && echo "  Note: more than one StageCase app on this Mac -- the one in /Applications is replaced, the others stay."
+  return 0
+}
+[ -n "$CHECK_ONLY" ] && { sc_check; exit 0; }
 
 # Live liest Remote Scripts nur beim Start: laeuft es gerade, gelten sonst die alten weiter
 live_hint() {
@@ -251,6 +304,7 @@ elif [ "$CLIPS" = yes ]; then
 fi
 
 [ -n "$SCRIPTS_ONLY" ] && { say "Done (scripts only). Restart Live."; live_hint; exit 0; }
+sc_check
 
 # --- 2. App ---------------------------------------------------------------
 say "App"
@@ -278,6 +332,15 @@ if [ -z "$LOOPER_NO_OPEN" ]; then
     while pgrep -xq "$NAME" 2>/dev/null && [ $i -lt 10 ]; do sleep 1; i=$((i + 1)); done
     pkill -x "$NAME" 2>/dev/null || true
     sleep 1
+  done
+  # Server, der nach dem Fenster noch auf Port 8080 haengt: kurz warten, dann beenden (sonst startet der neue nicht)
+  i=0
+  while lsof -tiTCP:8080 -sTCP:LISTEN >/dev/null 2>&1 && [ $i -lt 10 ]; do sleep 1; i=$((i + 1)); done
+  for pid in $(lsof -tiTCP:8080 -sTCP:LISTEN 2>/dev/null); do
+    case "$(ps -o command= -p "$pid" 2>/dev/null)" in
+      *looper-pilot*) echo "  stopping a leftover StageCase server (pid $pid)"; kill "$pid" 2>/dev/null || true; sleep 1 ;;
+      *) echo "  Note: port 8080 is used by another program (pid $pid) -- StageCase may not start." ;;
+    esac
   done
 fi
 rm -rf "$APP_DEST"; [ "$APP_NAME" = LooperPilot ] || rm -rf "$APP_DIR/Stagecase.app"   # alte Schreibweise (Stagecase -> StageCase)
