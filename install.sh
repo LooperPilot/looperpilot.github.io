@@ -206,6 +206,19 @@ need_gh() {
 if [ -d "$HERE/copy_to_RemoteScripts" ] || [ -d "$HERE/Zum Kopieren/Remote Scripts" ]; then
   PKG="$HERE"
 else
+  # Seit 5.0.117 gibt es keine Testversion mehr: wer ohne Zip installiert (Terminal-Befehl, "Update" einer Tester-App),
+  # bekommt den Hinweis und die Download-Seite der Version mit Schluessel -- die aktualisiert sich danach selbst.
+  DL="https://hennys.de/stagecase/downloads/"
+  say "The StageCase test version has ended"
+  echo "  StageCase now comes as one version with a licence key (14 days to try, then a key)."
+  echo "  It updates itself with one click -- no Terminal any more."
+  echo "  Download: $DL"
+  echo ""
+  echo "  Die Testversion von StageCase ist beendet. Bitte die Version mit Schlüssel laden"
+  echo "  (14 Tage zum Ausprobieren); sie aktualisiert sich danach mit einem Klick selbst."
+  echo "  Download: $DL"
+  open "$DL" 2>/dev/null || true
+  exit 0
   say "Download"
   TMP="$(mktemp -d)"
   # Die Releases sind privat: laden nur mit Zugang zum Repo, ueber die GitHub CLI
