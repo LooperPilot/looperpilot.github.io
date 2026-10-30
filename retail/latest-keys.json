@@ -1,6 +1,7 @@
 {
-  "version": "5.0.116",
-  "notes": "Monitor Mixer: persönliche Reihenfolge und Sichtbarkeit der Kanäle; LPD8 mit LED-Farben und MC6-Modus",
-  "date": "2026-10-29",
-  "url": "https://github.com/LooperPilot/looperpilot.github.io/releases/download/retail-keys-v5.0.116/StageCase-5.0.116.dmg"
+  "version": "5.0.117",
+  "notes": "Update mit einem Klick, beide MC6-Bänke dabei",
+  "date": "2026-10-30",
+  "url": "https://github.com/LooperPilot/looperpilot.github.io/releases/download/retail-keys-v5.0.117/StageCase-5.0.117.dmg",
+  "sha256": "1ca0eeb45367ca559813fd3846c4b5241d6693ebbb861dc849f3b6f1e86cc3f8"
 }
