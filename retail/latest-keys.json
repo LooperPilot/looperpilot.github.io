@@ -1,7 +1,7 @@
 {
-  "version": "5.0.118",
-  "notes": "LPD8-Modus CC gehört zur Clips-Funktion",
+  "version": "5.0.119",
+  "notes": "Update klappt jetzt auch, wenn StageCase aus der DMG läuft",
   "date": "2026-10-30",
-  "url": "https://github.com/LooperPilot/looperpilot.github.io/releases/download/retail-keys-v5.0.118/StageCase-5.0.118.dmg",
-  "sha256": "586a48611da1ba1b66bc4b2a0dbbd3f54cc0a27016539d5b3d3ea4b1281da12d"
+  "url": "https://github.com/LooperPilot/looperpilot.github.io/releases/download/retail-keys-v5.0.119/StageCase-5.0.119.dmg",
+  "sha256": "d992c40a5980506d17add8d7cf610101492a972f18f6fe9e6b5b8a0e7995036d"
 }
