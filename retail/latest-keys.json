@@ -1,7 +1,7 @@
 {
-  "version": "5.0.119",
-  "notes": "Update klappt jetzt auch, wenn StageCase aus der DMG läuft",
+  "version": "5.0.137",
+  "notes": "Neuer Song mit Vorlagen und Akkordvorschlägen, Song bearbeiten aufgeräumt, Mixer-Spur, Lead Sheet im 2. Fenster",
   "date": "2026-10-30",
-  "url": "https://github.com/LooperPilot/looperpilot.github.io/releases/download/retail-keys-v5.0.119/StageCase-5.0.119.dmg",
-  "sha256": "d992c40a5980506d17add8d7cf610101492a972f18f6fe9e6b5b8a0e7995036d"
+  "url": "https://github.com/LooperPilot/looperpilot.github.io/releases/download/retail-keys-v5.0.137/StageCase-5.0.137.dmg",
+  "sha256": "5d46e2fe848695badb509aecc32e9d2934274f874d967210431646fed642a4f2"
 }
