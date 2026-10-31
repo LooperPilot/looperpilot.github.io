@@ -1,7 +1,7 @@
 {
-  "version": "5.0.178",
-  "notes": "Bass-Griffbrett (Lead Sheet und Song-Editor), Spuren-Tasten nur bei Bedarf im Inspektor, hellere Abschnittsnamen",
+  "version": "5.0.222",
+  "notes": "Soundkarte im Live-Look, Preset-Import aus anderen Sets, Hinweis bei fehlendem Audio-Eingang, Clips stoppen per Doppeltipp, Auswahl nach Aufnahme bleibt (Live neu starten)",
   "date": "2026-10-31",
-  "url": "https://github.com/LooperPilot/looperpilot.github.io/releases/download/retail-keys-v5.0.178/StageCase-5.0.178.dmg",
-  "sha256": "a9b79ab7958b84d71e699cc60c4fb8c77752e698c1a1020df02d0bdcfca838e0"
+  "url": "https://github.com/LooperPilot/looperpilot.github.io/releases/download/retail-keys-v5.0.222/StageCase-5.0.222.dmg",
+  "sha256": "1e994daaeb0dde0c18b0a68a27e9aec7ddf39c48901e8d29bc267980bf8f3935"
 }
