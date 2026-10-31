@@ -1,7 +1,7 @@
 {
-  "version": "5.0.169",
-  "notes": "Hinweis 'altes Script' prüft die richtige User Library; Version in der Kopfzeile ragt nicht mehr in den Status",
+  "version": "5.0.178",
+  "notes": "Bass-Griffbrett (Lead Sheet und Song-Editor), Spuren-Tasten nur bei Bedarf im Inspektor, hellere Abschnittsnamen",
   "date": "2026-10-31",
-  "url": "https://github.com/LooperPilot/looperpilot.github.io/releases/download/retail-keys-v5.0.169/StageCase-5.0.169.dmg",
-  "sha256": "6b692867947dd66273fcb3393b7d7f01d0be5d1773e094476c8ead44a9402be4"
+  "url": "https://github.com/LooperPilot/looperpilot.github.io/releases/download/retail-keys-v5.0.178/StageCase-5.0.178.dmg",
+  "sha256": "a9b79ab7958b84d71e699cc60c4fb8c77752e698c1a1020df02d0bdcfca838e0"
 }
