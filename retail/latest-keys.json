@@ -1,7 +1,7 @@
 {
-  "version": "5.0.137",
-  "notes": "Neuer Song mit Vorlagen und Akkordvorschlägen, Song bearbeiten aufgeräumt, Mixer-Spur, Lead Sheet im 2. Fenster",
-  "date": "2026-10-30",
-  "url": "https://github.com/LooperPilot/looperpilot.github.io/releases/download/retail-keys-v5.0.137/StageCase-5.0.137.dmg",
-  "sha256": "5d46e2fe848695badb509aecc32e9d2934274f874d967210431646fed642a4f2"
+  "version": "5.0.168",
+  "notes": "Update zeigt vorher alle Änderungen; Version mit Update-Stand oben rechts; Spuren markieren und gemeinsam bearbeiten",
+  "date": "2026-10-31",
+  "url": "https://github.com/LooperPilot/looperpilot.github.io/releases/download/retail-keys-v5.0.168/StageCase-5.0.168.dmg",
+  "sha256": "3889004af375d66ea3e9c9bc134a65924b5cf4c5e2b422b9c4aee18ab2d4be7c"
 }
