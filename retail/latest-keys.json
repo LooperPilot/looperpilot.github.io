@@ -1,7 +1,7 @@
 {
-  "version": "5.0.222",
-  "notes": "Soundkarte im Live-Look, Preset-Import aus anderen Sets, Hinweis bei fehlendem Audio-Eingang, Clips stoppen per Doppeltipp, Auswahl nach Aufnahme bleibt (Live neu starten)",
-  "date": "2026-10-31",
-  "url": "https://github.com/LooperPilot/looperpilot.github.io/releases/download/retail-keys-v5.0.222/StageCase-5.0.222.dmg",
-  "sha256": "1e994daaeb0dde0c18b0a68a27e9aec7ddf39c48901e8d29bc267980bf8f3935"
+  "version": "5.0.223",
+  "notes": "5.0.223: Hinweis Live neu starten verschwindet nach Lives Neustart",
+  "date": "2026-11-01",
+  "url": "https://github.com/LooperPilot/looperpilot.github.io/releases/download/retail-keys-v5.0.223/StageCase-5.0.223.dmg",
+  "sha256": "d15b493e66c8f95af083d5459d16515357c878dc814db3659efc1a6e99958950"
 }
