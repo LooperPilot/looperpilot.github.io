@@ -1,7 +1,7 @@
 {
-  "version": "5.0.223",
-  "notes": "5.0.223: Hinweis Live neu starten verschwindet nach Lives Neustart",
-  "date": "2026-11-01",
-  "url": "https://github.com/LooperPilot/looperpilot.github.io/releases/download/retail-keys-v5.0.223/StageCase-5.0.223.dmg",
-  "sha256": "d15b493e66c8f95af083d5459d16515357c878dc814db3659efc1a6e99958950"
+  "version": "5.0.286",
+  "notes": "Setlist: Pausen hinter herausgenommenen Songs wieder sichtbar; Arrangement unten wird wieder kleiner",
+  "date": "2026-11-02",
+  "url": "https://github.com/LooperPilot/looperpilot.github.io/releases/download/retail-keys-v5.0.286/StageCase-5.0.286.dmg",
+  "sha256": "963cd4a6e9d65bde3c4a523e1201d877069f609ed6d1bdf1faccd8e9f934971b"
 }
