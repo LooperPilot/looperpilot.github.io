@@ -1,7 +1,7 @@
 {
-  "version": "5.0.286",
-  "notes": "Setlist: Pausen hinter herausgenommenen Songs wieder sichtbar; Arrangement unten wird wieder kleiner",
-  "date": "2026-11-02",
-  "url": "https://github.com/LooperPilot/looperpilot.github.io/releases/download/retail-keys-v5.0.286/StageCase-5.0.286.dmg",
-  "sha256": "963cd4a6e9d65bde3c4a523e1201d877069f609ed6d1bdf1faccd8e9f934971b"
+  "version": "5.0.287",
+  "notes": "Kaufen im Shop auf stagecase.app, Connect Ableton Instanzen in Pro, anonyme Nutzungszählung",
+  "date": "2026-11-03",
+  "url": "https://github.com/LooperPilot/looperpilot.github.io/releases/download/retail-keys-v5.0.287/StageCase-5.0.287.dmg",
+  "sha256": "e20cb0c7a3b4c146e875c9566fbe3c32d5e29f53c9bf413864f560a9ba03fabe"
 }
