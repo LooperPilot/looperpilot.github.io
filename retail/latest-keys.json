@@ -1,7 +1,7 @@
 {
-  "version": "5.0.314",
-  "notes": "Anpassungen im Projekt-Assistenten",
-  "date": "2026-11-03",
-  "url": "https://github.com/LooperPilot/looperpilot.github.io/releases/download/retail-keys-v5.0.314/StageCase-5.0.314.dmg",
-  "sha256": "88f58f7fd93ad8bd9ac0d130302ec55c0bbed5d191acdae3056d23d379fe696d"
+  "version": "5.0.325",
+  "notes": "Looper-Teil im Projekt-Assistenten überarbeitet, Clip-Aufnahme bei Audiospuren repariert",
+  "date": "2026-11-04",
+  "url": "https://github.com/LooperPilot/looperpilot.github.io/releases/download/retail-keys-v5.0.325/StageCase-5.0.325.dmg",
+  "sha256": "9c4e4e7eee5162b4c5afd525a067bb0cbeefe392761904cb624fe1a98cdf545d"
 }
