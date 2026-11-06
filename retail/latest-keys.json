@@ -1,7 +1,7 @@
 {
-  "version": "5.0.333",
-  "notes": "Demo-Set mit Funk und Swing aus Lives Core Library, Setlisten-Fenster frei schwebend, Kommentar-Zeit im Panel",
-  "date": "2026-11-04",
-  "url": "https://github.com/LooperPilot/looperpilot.github.io/releases/download/retail-keys-v5.0.333/StageCase-5.0.333.dmg",
-  "sha256": "0fe82c897f5b3b69d963c8dac8b4b0836fb8fcf3de9df2f4d2a04fc11822c7a9"
+  "version": "5.1.0",
+  "notes": "Verbesserung Soundkarte / Erweiterung und Verbesserung Arrangementbearbeitung",
+  "date": "2026-11-06",
+  "url": "https://github.com/LooperPilot/looperpilot.github.io/releases/download/retail-keys-v5.1.0/StageCase-5.1.0.dmg",
+  "sha256": "eff89cef199c3a8e56b9b6ca340c28f0eca1adc71a5df1fa97696dfdfcdbdb9c"
 }
