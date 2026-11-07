@@ -1,7 +1,7 @@
 {
-  "version": "5.1.0",
-  "notes": "Verbesserung Soundkarte / Erweiterung und Verbesserung Arrangementbearbeitung",
-  "date": "2026-11-06",
-  "url": "https://github.com/LooperPilot/looperpilot.github.io/releases/download/retail-keys-v5.1.0/StageCase-5.1.0.dmg",
-  "sha256": "eff89cef199c3a8e56b9b6ca340c28f0eca1adc71a5df1fa97696dfdfcdbdb9c"
+  "version": "5.1.44",
+  "notes": "Soundkarte am Rack bearbeiten, Projektanalyse (Songs aus Audiospuren), Text an Vocals ausrichten, Click-Klang anhören",
+  "date": "2026-11-07",
+  "url": "https://github.com/LooperPilot/looperpilot.github.io/releases/download/retail-keys-v5.1.44/StageCase-5.1.44.dmg",
+  "sha256": "cc2b61fa1a6f35c99147af716bc0dcc1754503a9f7abba3ed56d80aa612d93f9"
 }
