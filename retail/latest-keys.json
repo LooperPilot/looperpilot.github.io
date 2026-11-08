@@ -1,7 +1,7 @@
 {
-  "version": "5.1.44",
-  "notes": "Soundkarte am Rack bearbeiten, Projektanalyse (Songs aus Audiospuren), Text an Vocals ausrichten, Click-Klang anhören",
-  "date": "2026-11-07",
-  "url": "https://github.com/LooperPilot/looperpilot.github.io/releases/download/retail-keys-v5.1.44/StageCase-5.1.44.dmg",
-  "sha256": "cc2b61fa1a6f35c99147af716bc0dcc1754503a9f7abba3ed56d80aa612d93f9"
+  "version": "5.1.69",
+  "notes": "Akkorde aus Audio, Lead Sheet mit Tonart, Setlist mit Tonart/Tempo/Länge und neues Demo-Set mit drei Songs",
+  "date": "2026-11-08",
+  "url": "https://github.com/LooperPilot/looperpilot.github.io/releases/download/retail-keys-v5.1.69/StageCase-5.1.69.dmg",
+  "sha256": "18c060d49f24a1a69a15f20c299b1ce38faa0bcd2ce40fd9aa56d3538139489d"
 }
