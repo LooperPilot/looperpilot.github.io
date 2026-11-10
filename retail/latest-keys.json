@@ -1,7 +1,7 @@
 {
-  "version": "5.1.91",
-  "notes": "5.1.91: Leadsheet-Raster, Transport nur für Admin/MD, Monitor-Zuweisung durch den Admin, neues Demo-Set (FLAC)",
-  "date": "2026-11-09",
-  "url": "https://github.com/LooperPilot/looperpilot.github.io/releases/download/retail-keys-v5.1.91/StageCase-5.1.91.dmg",
-  "sha256": "db233bbcba8438d71860fa984b21d0e56513e7149617d3350070d003014efa53"
+  "version": "5.1.92",
+  "notes": "Monitor: Netzwerk-Scan und lesbare Pult-Fehler",
+  "date": "2026-11-10",
+  "url": "https://github.com/LooperPilot/looperpilot.github.io/releases/download/retail-keys-v5.1.92/StageCase-5.1.92.dmg",
+  "sha256": "fe6cf1fda2637baadc71274838b5a600d5fd2aa76021f1c27e5fc168076fd7cd"
 }
