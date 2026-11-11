@@ -1,7 +1,7 @@
 {
-  "version": "5.1.92",
-  "notes": "Monitor: Netzwerk-Scan und lesbare Pult-Fehler",
-  "date": "2026-11-10",
-  "url": "https://github.com/LooperPilot/looperpilot.github.io/releases/download/retail-keys-v5.1.92/StageCase-5.1.92.dmg",
-  "sha256": "fe6cf1fda2637baadc71274838b5a600d5fd2aa76021f1c27e5fc168076fd7cd"
+  "version": "5.1.96",
+  "notes": "5.1.96: Bühnen-Display mit Spuren je User und Lyrics, Port einstellbar, VJ-Link, Ableton-Mixer ohne Recht nur ansehen, ein Monitor-Mix je User",
+  "date": "2026-11-11",
+  "url": "https://github.com/LooperPilot/looperpilot.github.io/releases/download/retail-keys-v5.1.96/StageCase-5.1.96.dmg",
+  "sha256": "692224739afe93d34d14eb7c7b1f017337543462e80cf7021516d3ac06614143"
 }
