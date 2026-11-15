@@ -1,7 +1,7 @@
 {
-  "version": "5.1.96",
-  "notes": "5.1.96: Bühnen-Display mit Spuren je User und Lyrics, Port einstellbar, VJ-Link, Ableton-Mixer ohne Recht nur ansehen, ein Monitor-Mix je User",
-  "date": "2026-11-11",
-  "url": "https://github.com/LooperPilot/looperpilot.github.io/releases/download/retail-keys-v5.1.96/StageCase-5.1.96.dmg",
-  "sha256": "692224739afe93d34d14eb7c7b1f017337543462e80cf7021516d3ac06614143"
+  "version": "5.1.102",
+  "notes": "Nord-Keyboards in der Gerätesteuerung (Stage, Electro, Piano, Grand), Hilfe mit Anbindungsbaum",
+  "date": "2026-11-15",
+  "url": "https://github.com/LooperPilot/looperpilot.github.io/releases/download/retail-keys-v5.1.102/StageCase-5.1.102.dmg",
+  "sha256": "abc48844f8b575f594a6eab1f247cda89a5b2f1e0607128773c8aba50654ac96"
 }
