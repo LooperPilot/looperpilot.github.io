@@ -1,7 +1,7 @@
 {
-  "version": "5.1.102",
-  "notes": "Nord-Keyboards in der Gerätesteuerung (Stage, Electro, Piano, Grand), Hilfe mit Anbindungsbaum",
-  "date": "2026-11-15",
-  "url": "https://github.com/LooperPilot/looperpilot.github.io/releases/download/retail-keys-v5.1.102/StageCase-5.1.102.dmg",
-  "sha256": "abc48844f8b575f594a6eab1f247cda89a5b2f1e0607128773c8aba50654ac96"
+  "version": "5.1.110",
+  "notes": "Akkorde als ein Clip je Song; Lead Sheet mit Raster-Ansicht und Bearbeiten von Akkorden, Text, Looper und Geräten; Mixer bleibt oben",
+  "date": "2026-11-17",
+  "url": "https://github.com/LooperPilot/looperpilot.github.io/releases/download/retail-keys-v5.1.110/StageCase-5.1.110.dmg",
+  "sha256": "50abe652cd1b6db979161882d916d492a1cfac29750dcac1277f8d94b50e0cf4"
 }
