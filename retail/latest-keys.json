@@ -1,7 +1,7 @@
 {
-  "version": "5.1.110",
-  "notes": "Akkorde als ein Clip je Song; Lead Sheet mit Raster-Ansicht und Bearbeiten von Akkorden, Text, Looper und Geräten; Mixer bleibt oben",
+  "version": "5.1.111",
+  "notes": "Neues Demo-Set: Akkorde als ein Clip je Song, vier Looper und ein Beispiel für die Looper-Steuerung in „Press the Looper“",
   "date": "2026-11-17",
-  "url": "https://github.com/LooperPilot/looperpilot.github.io/releases/download/retail-keys-v5.1.110/StageCase-5.1.110.dmg",
-  "sha256": "50abe652cd1b6db979161882d916d492a1cfac29750dcac1277f8d94b50e0cf4"
+  "url": "https://github.com/LooperPilot/looperpilot.github.io/releases/download/retail-keys-v5.1.111/StageCase-5.1.111.dmg",
+  "sha256": "8c5225eefc9878f69b33837bb9e5c38d20eb9ce7b8c4ce025ad36c3109354d51"
 }
