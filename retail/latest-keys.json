@@ -1,7 +1,7 @@
 {
-  "version": "5.1.111",
-  "notes": "Neues Demo-Set: Akkorde als ein Clip je Song, vier Looper und ein Beispiel für die Looper-Steuerung in „Press the Looper“",
-  "date": "2026-11-17",
-  "url": "https://github.com/LooperPilot/looperpilot.github.io/releases/download/retail-keys-v5.1.111/StageCase-5.1.111.dmg",
-  "sha256": "8c5225eefc9878f69b33837bb9e5c38d20eb9ce7b8c4ce025ad36c3109354d51"
+  "version": "5.1.160",
+  "notes": "5.1.160: Ansagen und Click als Drum Rack, Klang je Song, Funktionsauswahl im Song-Editor, schwebende Mixer, Arrangement-Schiene mit Mini-Loopern",
+  "date": "2026-11-19",
+  "url": "https://github.com/LooperPilot/looperpilot.github.io/releases/download/retail-keys-v5.1.160/StageCase-5.1.160.dmg",
+  "sha256": "29be91bcdaad5483fc5abee62ef65a63aaad92ffb7f2439bfb0b7bbae636c217"
 }
