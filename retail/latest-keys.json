@@ -1,7 +1,7 @@
 {
-  "version": "5.1.171",
-  "notes": "5.1.171: Absturz beim Aufnahmestart behoben, Songtempo auch ohne App, Funktionen auf der Startseite, Szenen-Protokoll, IMPRO-Aufnahmen als Song, neue Spurnamen SC Tempo Changes und SC Looper Control",
+  "version": "5.1.174",
+  "notes": "5.1.174: neues Demo-Set (Ansagen und Click als Drum Racks), Ansagen gleich laut, Set-Wechsel-Fix",
   "date": "2026-11-21",
-  "url": "https://github.com/LooperPilot/looperpilot.github.io/releases/download/retail-keys-v5.1.171/StageCase-5.1.171.dmg",
-  "sha256": "eda45c6416f2293b6c38b27308733e1d8f86a509717e059ba91b66b6bb920ecb"
+  "url": "https://github.com/LooperPilot/looperpilot.github.io/releases/download/retail-keys-v5.1.174/StageCase-5.1.174.dmg",
+  "sha256": "77871c268c6f5e0798bc968966e55455b3209b960436056050a13028c79643a6"
 }
