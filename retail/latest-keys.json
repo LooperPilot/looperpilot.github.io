@@ -1,7 +1,7 @@
 {
-  "version": "5.1.160",
-  "notes": "5.1.160: Ansagen und Click als Drum Rack, Klang je Song, Funktionsauswahl im Song-Editor, schwebende Mixer, Arrangement-Schiene mit Mini-Loopern",
-  "date": "2026-11-19",
-  "url": "https://github.com/LooperPilot/looperpilot.github.io/releases/download/retail-keys-v5.1.160/StageCase-5.1.160.dmg",
-  "sha256": "29be91bcdaad5483fc5abee62ef65a63aaad92ffb7f2439bfb0b7bbae636c217"
+  "version": "5.1.171",
+  "notes": "5.1.171: Absturz beim Aufnahmestart behoben, Songtempo auch ohne App, Funktionen auf der Startseite, Szenen-Protokoll, IMPRO-Aufnahmen als Song, neue Spurnamen SC Tempo Changes und SC Looper Control",
+  "date": "2026-11-21",
+  "url": "https://github.com/LooperPilot/looperpilot.github.io/releases/download/retail-keys-v5.1.171/StageCase-5.1.171.dmg",
+  "sha256": "eda45c6416f2293b6c38b27308733e1d8f86a509717e059ba91b66b6bb920ecb"
 }
