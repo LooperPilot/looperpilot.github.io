@@ -1,7 +1,7 @@
 {
-  "version": "5.1.231",
-  "notes": "5.1.231: Alle Einstellungen ersetzt die Seite Einstellungen (Steuerspuren in Live, Gerätesteuerung, Netzwerk mit Connect, Ableton Live, System), Erklärungen, Demo-Paket 7, Ansagen gleich laut, Akkorde mit Live-Mute gekoppelt",
-  "date": "2026-11-21",
-  "url": "https://github.com/LooperPilot/looperpilot.github.io/releases/download/retail-keys-v5.1.231/StageCase-5.1.231.dmg",
-  "sha256": "67998b635c1e1b55be9ff3ece95fe477eda9f8ea93f590fd7dbfab87c404430a"
+  "version": "5.1.341",
+  "notes": "5.1.341: Gerätesteuerung als Karte – Geräte über ihre Buchsen verkabeln, auch hintereinander, mit MIDI-Verteiler oder USB-Hub; Soundkarte, Netzwerk, Lightkey und Ableton Link mit auf der Karte, MIDI-Kanal direkt am Gerät. nanoKONTROL2 und AKAI LPD8 mit Bild und Belegung, LPD8 im Modus PROG CHNG für Transport und Arrangement. Bühnen-Display per USB oder WLAN mit Auswahl beim Einschalten und stabilerer USB-Verbindung. Einstellungen als Paket mitnehmen, gekoppelte Macs gleichen User und Setlist ab. Alle Einstellungen mit Kacheln wie die Settings-Fenster und Looper-Verwaltung; Settings über die Logos, schwebende Fenster gold. CLICK und IMPRO nur für Admin und MD; Click-Clips heißen nach ihrer Unterteilung.",
+  "date": "2026-11-22",
+  "url": "https://github.com/LooperPilot/looperpilot.github.io/releases/download/retail-keys-v5.1.341/StageCase-5.1.341.dmg",
+  "sha256": "ade71918c3c367af94cd6250f949a34bc03dc8b5393e00728cfe5e1345114fee"
 }
